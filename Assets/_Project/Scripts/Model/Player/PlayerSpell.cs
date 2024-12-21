@@ -39,12 +39,18 @@ namespace TW
 
         public void Shoot()
         {
-            InstantiateSpell(spells[equippedSpell].prefab);
+            InstantiateSpell(spells[equippedSpell]);
         }
 
-        public void InstantiateSpell(GameObject spell)
+        public void InstantiateSpell(Spell spell)
         {
-            Instantiate(spell, spellcaster.position, spellcaster.rotation);
+            GameObject spellCasted = Instantiate(spell.prefab, spellcaster.position, spellcaster.rotation);
+            Projectile projectile = spellCasted.GetComponent<Projectile>();
+            if (projectile != null)
+            {
+                projectile.Speed = spell.speed;
+                projectile.Gravity = spell.gravity;
+            }
         }
 
         private void Update()

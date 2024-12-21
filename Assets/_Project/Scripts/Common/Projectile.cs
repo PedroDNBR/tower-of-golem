@@ -6,6 +6,9 @@ namespace TW
 {
     public class Projectile : MonoBehaviour
     {
+        public float Speed { get => speed; set => speed = value; }
+        public float Gravity { get => gravity; set => gravity = value; }
+
         [SerializeField]
         float speed = 20f;
 

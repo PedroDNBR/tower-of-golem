@@ -16,4 +16,5 @@ MonoBehaviour:
   damage: 10
   range: 10
   speed: 10
+  gravity: 5
   prefab: {fileID: 5294890440175974610, guid: 84541bdce1226814789c57a20e24e074, type: 3}
