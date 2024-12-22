@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace TW
@@ -21,6 +22,8 @@ namespace TW
 
         private bool isGrounded = false;
 
+        // current / max
+        public event Action<float, float> StaminaChanged;
 
         public void Init()
         {
@@ -69,7 +72,11 @@ namespace TW
 
         private void CalculateDashTimer()
         {
-            if (dashTimerCount < dashTime) dashTimerCount += Time.deltaTime;
+            if (dashTimerCount < dashTime)
+            {
+                dashTimerCount += Time.deltaTime;
+                StaminaChanged.Invoke(dashTimerCount, dashTime);
+            }
         }
     }
 }

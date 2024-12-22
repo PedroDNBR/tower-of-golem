@@ -8,6 +8,7 @@ namespace TW
         private PlayerMovement playerMovement;
         private PlayerCamera playerCamera;
         private PlayerSpell playerSpell;
+        private PlayerUI playerUI;
 
         [Header("References")]
         public PlayerInput playerInput;
@@ -38,11 +39,13 @@ namespace TW
             playerMovement = GetComponent<PlayerMovement>();
             playerCamera = GetComponent<PlayerCamera>();
             playerSpell = GetComponent<PlayerSpell>();
+            playerUI = GetComponentInParent<PlayerUI>();
             playerSpell.PlayerCamera = playerCamera.PlayerCameraObj;
         }
 
         public void Start()
         {
+            playerMovement.StaminaChanged += playerUI.ConvertStaminaTimeToSliderValue;
             playerMovement.Init();
         }
 
