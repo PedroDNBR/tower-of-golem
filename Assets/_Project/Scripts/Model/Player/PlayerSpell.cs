@@ -42,6 +42,11 @@ namespace TW
             InstantiateSpell(spells[equippedSpell]);
         }
 
+        public void ShootSpecial()
+        {
+            InstantiateSpell(specialSpells[equippedSpell]);
+        }
+
         public void InstantiateSpell(Spell spell)
         {
             GameObject spellCasted = Instantiate(spell.prefab, spellcaster.position, spellcaster.rotation);

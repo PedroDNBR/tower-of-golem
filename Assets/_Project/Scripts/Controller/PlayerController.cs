@@ -24,6 +24,7 @@ namespace TW
                 playerInput.Motion.Jump.performed += playerInput => playerMovement.Jump();
                 playerInput.Motion.Dash.performed += playerInput => playerMovement.Dash(movement.x, movement.y);
                 playerInput.Actions.PrimarySpell.performed += playerInput => playerSpell.Shoot();
+                playerInput.Actions.SpecialSpell.performed += playerInput => playerSpell.ShootSpecial();
                 //playerInput.Actions.Aim.performed += playerInput => playerInput.ReadValue<Vector2>());
             }
             playerInput.Enable();
