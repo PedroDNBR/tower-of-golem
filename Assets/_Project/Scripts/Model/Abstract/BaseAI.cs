@@ -1,0 +1,281 @@
+using UnityEngine;
+using UnityEngine.AI;
+
+namespace TW
+{
+    public abstract class BaseAI : MonoBehaviour
+    {
+        [SerializeField]
+        protected float maxHealth = 100f;
+
+        protected float health;
+
+        [SerializeField]
+        protected float stoppingDistance = 1f;
+
+        [SerializeField]
+        protected float walkSpeed = 5f;
+
+        [SerializeField]
+        protected float walkRadius = 10f;
+
+        [SerializeField]
+        protected float rotationSpeed = 10f;
+
+        [SerializeField]
+        protected float minSightRangeRadius = 4f;
+
+        [SerializeField]
+        protected float medSightRangeRadius = 3f;
+
+        [SerializeField]
+        protected float maxSightRangeRadius = 10f;
+
+        [SerializeField]
+        protected LayerMask detectionLayer;
+
+        [SerializeField]
+        protected ActionSnapshot[] actionSnapshots;
+
+        PlayerController currentPlayerInsight;
+        protected ActionSnapshot currentSnapshot;
+
+        [SerializeField]
+        protected string hittedAnimNameString = "Hitted";
+
+        protected Vector3 finalDestination;
+
+        protected NavMeshAgent agent;
+
+        protected AnimatorController animatorController;
+
+        protected bool isInteracting = false;
+
+        protected bool actionFlag = false;
+
+        protected float recoveryTimer;
+
+        private void Start()
+        {
+            animatorController = GetComponentInChildren<AnimatorController>();
+            agent = GetComponent<NavMeshAgent>();
+            agent.speed = walkSpeed;
+            agent.stoppingDistance = stoppingDistance;
+
+            health = maxHealth;
+        }
+
+        private void Update()
+        {
+            Roaming();
+            FollowPlayer();
+            AttackPlayer();
+            UpdateAnimation();
+        }
+
+        private void FixedUpdate()
+        {
+            TrackPlayer();
+        }
+
+        protected virtual void UpdateAnimation()
+        {
+            isInteracting = animatorController.GetIsBusyBool();
+            Vector3 relativeVelocity = transform.InverseTransformDirection(agent.desiredVelocity);
+            animatorController.SetMovementValue(Mathf.Clamp(relativeVelocity.z, 0, 1));
+        }
+
+        protected virtual void TrackPlayer()
+        {
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position, minSightRangeRadius, Vector3.forward, minSightRangeRadius, detectionLayer);
+            if (hits.Length > 0)
+            {
+                for (uint i = 0; i < hits.Length; i++)
+                {
+                    PlayerController player = hits[i].transform.GetComponent<PlayerController>();
+                    if (player == null) continue;
+                    currentPlayerInsight = player;
+                }
+            }
+
+            hits = Physics.SphereCastAll(transform.position, medSightRangeRadius, Vector3.forward, medSightRangeRadius, detectionLayer);
+            if (hits.Length > 0)
+            {
+                for (uint i = 0; i < hits.Length; i++)
+                {
+                    PlayerController player = hits[i].transform.GetComponent<PlayerController>();
+                    if (player == null) continue;
+                    currentPlayerInsight = player;
+                }
+            }
+
+            hits = Physics.SphereCastAll(transform.position, maxSightRangeRadius, Vector3.forward, maxSightRangeRadius, detectionLayer);
+            if (hits.Length > 0)
+            {
+                for (uint i = 0; i < hits.Length; i++)
+                {
+                    PlayerController player = hits[i].transform.GetComponent<PlayerController>();
+                    if (player == null) continue;
+                    currentPlayerInsight = player;
+                }
+            }
+        }
+
+        protected virtual void AttackPlayer()
+        {
+            if (currentPlayerInsight == null) return;
+
+            if (animatorController.GetCanRotate()) HandleRotation();
+
+            Vector3 dir = currentPlayerInsight.transform.position - transform.position;
+            dir.y = 0;
+            dir.Normalize();
+
+            float dis = Vector3.Distance(transform.position, currentPlayerInsight.transform.position);
+            float angle = Vector2.Angle(transform.position, dir);
+            float dot = Vector3.Dot(transform.right, dir);
+            if (dot < 0)
+                angle *= -1;
+
+            if (!isInteracting)
+            {
+                if (actionFlag)
+                {
+                    recoveryTimer -= Time.deltaTime;
+                    if (recoveryTimer <= 0)
+                    {
+                        actionFlag = false;
+                    }
+                }
+
+                if (!isInteracting && actionFlag == false)
+                {
+                    currentSnapshot = GetAction(dis, angle);
+                    Debug.Log(currentSnapshot);
+
+                    if (currentSnapshot != null)
+                    {
+                        animatorController.PlayTargetAnimation(currentSnapshot.anim, true);
+                        actionFlag = true;
+                        recoveryTimer = currentSnapshot.recoveryTime;
+                    }
+                }
+
+            }
+        }
+
+        protected virtual void FollowPlayer()
+        {
+            if (currentPlayerInsight == null) return;
+
+            if (isInteracting)
+            {
+                agent.speed = 0;
+                return;
+            }
+            else
+            {
+                agent.speed = walkSpeed;
+
+                float dis = Vector3.Distance(transform.position, currentPlayerInsight.transform.position);
+                if (dis < 2)
+                {
+                    float rotationLess = rotationSpeed / 4;
+                    HandleRotation();
+
+                }
+            }
+
+            agent.SetDestination(currentPlayerInsight.transform.position);
+        }
+
+        protected virtual void Roaming()
+        {
+            if (currentPlayerInsight != null) return;
+
+            if (finalDestination == null || finalDestination == Vector3.zero) finalDestination = FindRoamingSpot();
+
+            if (Vector3.Distance(transform.position, finalDestination) < .5f)
+                finalDestination = FindRoamingSpot();
+
+            agent.SetDestination(finalDestination);
+        }
+
+        protected virtual Vector3 FindRoamingSpot()
+        {
+            Vector3 randomDirection = Random.insideUnitSphere * walkRadius;
+
+            randomDirection += transform.position;
+            NavMeshHit hit;
+            NavMesh.SamplePosition(randomDirection, out hit, walkRadius, 1);
+            Vector3 finalPosition = hit.position;
+            return finalPosition;
+        }
+
+        public ActionSnapshot GetAction(float distance, float angle)
+        {
+            int maxScore = 0;
+            for (int i = 0; i < actionSnapshots.Length; i++)
+            {
+                ActionSnapshot a = actionSnapshots[i];
+
+                if (distance <= a.maxDist && distance >= a.minDist)
+                    if (angle <= a.maxAngle && angle >= a.minAngle)
+                        maxScore += a.score;
+            }
+
+            int ran = Random.Range(0, maxScore + 1);
+            int temp = 0;
+
+            for (int i = 0; i < actionSnapshots.Length; i++)
+            {
+                ActionSnapshot a = actionSnapshots[i];
+
+                if (a.score == 0)
+                    continue;
+
+                if (distance <= a.maxDist && distance >= a.minDist)
+                    if (angle <= a.maxAngle && angle >= a.minAngle)
+                        temp += a.score;
+                if (temp > ran)
+                    return a;
+            }
+            return null;
+        }
+
+        void HandleRotation()
+        {
+            if (currentPlayerInsight == null) return;
+
+            Vector3 dir = currentPlayerInsight.transform.position - transform.position;
+            dir.y = 0;
+            dir.Normalize();
+
+            if (dir == Vector3.zero)
+            {
+                dir = transform.forward;
+            }
+
+            Quaternion targetRot = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSpeed);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, minSightRangeRadius);
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, medSightRangeRadius);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, maxSightRangeRadius);
+        }
+
+        public void TakeDamage(float damage)
+        {
+            health -= damage;
+            animatorController.PlayTargetAnimation(hittedAnimNameString, true);
+        }
+    }
+}

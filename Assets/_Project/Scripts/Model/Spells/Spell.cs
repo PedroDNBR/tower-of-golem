@@ -5,7 +5,7 @@ namespace TW
     [CreateAssetMenu(menuName = "GameAssets/Spell")]
     public class Spell : ScriptableObject
     {
-        public SpellType type;
+        public Elements type;
         public float damage;
         public float range;
         public float speed;

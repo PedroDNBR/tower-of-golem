@@ -1,21 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerUI : MonoBehaviour
+namespace TW
 {
-    [SerializeField]
-    Slider staminaSlider;
-
-    public void ConvertStaminaTimeToSliderValue(float current, float max)
+    public class PlayerUI : MonoBehaviour
     {
-        float sliderValue = Mathf.InverseLerp(0f, max, current);
-        SetStaminaSliderValue(sliderValue);
-    }
+        [SerializeField]
+        private Slider healthSlider;
 
-    public void SetStaminaSliderValue(float value)
-    {
-        staminaSlider.value = value;
+        [SerializeField]
+        private Slider staminaSlider;
+
+        [SerializeField]
+        private Canvas canvas;
+
+        private void Start()
+        {
+            canvas.gameObject.SetActive(true);
+        }
+
+        public void ConvertHealthValueToSliderValue(float current, float max)
+        {
+            float sliderValue = Mathf.InverseLerp(0f, max, current);
+            SetSliderValue(healthSlider, sliderValue);
+        }
+
+        public void ConvertStaminaTimeToSliderValue(float current, float max)
+        {
+            float sliderValue = Mathf.InverseLerp(0f, max, current);
+            SetSliderValue(staminaSlider, sliderValue);
+        }
+
+        public void SetSliderValue(Slider slider, float value)
+        {
+            slider.value = value;
+        }
     }
 }

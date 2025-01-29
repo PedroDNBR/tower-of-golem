@@ -8,7 +8,9 @@ namespace TW
         private PlayerMovement playerMovement;
         private PlayerCamera playerCamera;
         private PlayerSpell playerSpell;
+        private PlayerHealth playerHealth;
         private PlayerUI playerUI;
+        private PlayerDealDamageOnCollision playerDealDamage;
 
         [Header("References")]
         public PlayerInput playerInput;
@@ -25,7 +27,7 @@ namespace TW
                 playerInput.Motion.Dash.performed += playerInput => playerMovement.Dash(movement.x, movement.y);
                 playerInput.Actions.PrimarySpell.performed += playerInput => playerSpell.Shoot();
                 playerInput.Actions.SpecialSpell.performed += playerInput => playerSpell.ShootSpecial();
-                //playerInput.Actions.Aim.performed += playerInput => playerInput.ReadValue<Vector2>());
+                // playerInput.Actions.Aim.performed += playerInput => playerInput.ReadValue<Vector2>());
             }
             playerInput.Enable();
         }
@@ -40,13 +42,17 @@ namespace TW
             playerMovement = GetComponent<PlayerMovement>();
             playerCamera = GetComponent<PlayerCamera>();
             playerSpell = GetComponent<PlayerSpell>();
+            playerHealth = GetComponent<PlayerHealth>();
             playerUI = GetComponentInParent<PlayerUI>();
+            playerDealDamage = GetComponentInParent<PlayerDealDamageOnCollision>();
             playerSpell.PlayerCamera = playerCamera.PlayerCameraObj;
         }
 
         public void Start()
         {
             playerMovement.StaminaChanged += playerUI.ConvertStaminaTimeToSliderValue;
+            playerHealth.HealthChanged += playerUI.ConvertHealthValueToSliderValue;
+
             playerMovement.Init();
         }
 

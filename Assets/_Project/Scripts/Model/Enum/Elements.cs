@@ -1,7 +1,7 @@
 
 namespace TW
 {
-    public enum SpellType
+    public enum Elements
     {
         Fire,
         Water,

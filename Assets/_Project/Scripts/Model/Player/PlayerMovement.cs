@@ -75,9 +75,11 @@ namespace TW
             if (dashTimerCount < dashTime)
             {
                 dashTimerCount += Time.deltaTime;
-                StaminaChanged.Invoke(dashTimerCount, dashTime);
+                StaminaChanged?.Invoke(dashTimerCount, dashTime);
             }
         }
+
+        public Rigidbody GetRigidbody() => rigid;
     }
 }
 
