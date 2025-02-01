@@ -12,6 +12,9 @@ namespace TW
         private PlayerUI playerUI;
         private PlayerDealDamageOnCollision playerDealDamage;
 
+        public PlayerUI PlayerUI { get => playerUI; }
+
+
         [Header("References")]
         public PlayerInput playerInput;
 
@@ -50,10 +53,12 @@ namespace TW
 
         public void Start()
         {
-            playerMovement.StaminaChanged += playerUI.ConvertStaminaTimeToSliderValue;
-            playerHealth.HealthChanged += playerUI.ConvertHealthValueToSliderValue;
+            playerMovement.StaminaChanged += playerUI.StaminaTimeToSliderValue;
+            playerHealth.HealthChanged += playerUI.HealthValueToSliderValue;
 
             playerMovement.Init();
+
+            playerDealDamage.Type = playerHealth.Type;
         }
 
         private void Update()

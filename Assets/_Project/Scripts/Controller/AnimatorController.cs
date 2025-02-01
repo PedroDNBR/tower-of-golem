@@ -1,33 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class AnimatorController : MonoBehaviour
+namespace TW
 {
-    protected Animator animator;
-
-    protected const string isBusyString = "isBusy";
-    protected const string movementString = "movement";
-    
-    [HideInInspector]
-    public bool canRotate = true;
-
-    void Start()
+    public class AnimatorController : MonoBehaviour
     {
-        animator = GetComponent<Animator>();
+        protected Animator animator;
+
+        protected const string isBusyString = "isBusy";
+        protected const string movementString = "movement";
+
+        protected NavMeshAgent agent;
+
+        [HideInInspector]
+        public bool canRotate = true;
+        [HideInInspector]
+        public bool isBusy;
+
+        public NavMeshAgent Agent { set => agent = value; }
+
+
+        public void Init()
+        {
+            animator = GetComponent<Animator>();
+        }
+
+        private void Update()
+        {
+            isBusy = GetIsBusyBool();
+        }
+
+        public void SetMovementValue(float value) => animator.SetFloat(movementString, value);
+
+        public bool GetIsBusyBool() => animator.GetBool(isBusyString);
+
+        public void PlayTargetAnimation(string animationName, bool isBusy)
+        {
+            animator.SetBool(isBusyString, isBusy);
+            animator.CrossFade(animationName, 0.1f);
+            animator.applyRootMotion = isBusy;
+        }
+
+        public void CanRotate(int canRotate) => this.canRotate = canRotate == 1 ? true : false;
+
+        public bool GetCanRotate() => canRotate;
+
+        public void OnAnimatorMove()
+        {
+            if (isBusy)
+            {
+                agent.velocity = animator.deltaPosition;
+            }
+        }
     }
-
-    public void SetMovementValue(float value) => animator.SetFloat(movementString, value);
-
-    public bool GetIsBusyBool() => animator.GetBool(isBusyString);
-
-    public void PlayTargetAnimation(string animationName, bool isBusy)
-    {
-        animator.SetBool(isBusyString, isBusy);
-        animator.CrossFade(animationName, 0.1f);
-    }
-
-    public void CanRotate(int canRotate) => this.canRotate = canRotate == 1 ? true : false;
-
-    public bool GetCanRotate() => canRotate;
 }

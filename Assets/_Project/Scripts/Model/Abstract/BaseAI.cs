@@ -6,9 +6,7 @@ namespace TW
     public abstract class BaseAI : MonoBehaviour
     {
         [SerializeField]
-        protected float maxHealth = 100f;
-
-        protected float health;
+        protected string enemyName = "Enemy test";
 
         [SerializeField]
         protected float stoppingDistance = 1f;
@@ -40,29 +38,28 @@ namespace TW
         PlayerController currentPlayerInsight;
         protected ActionSnapshot currentSnapshot;
 
-        [SerializeField]
-        protected string hittedAnimNameString = "Hitted";
+        private EnemyController enemyController;
 
         protected Vector3 finalDestination;
 
         protected NavMeshAgent agent;
 
-        protected AnimatorController animatorController;
-
-        protected bool isInteracting = false;
+        protected bool isBusy = false;
 
         protected bool actionFlag = false;
 
         protected float recoveryTimer;
 
-        private void Start()
+        public string EnemyName { get => enemyName; }
+
+        public EnemyController EnemyController { set => enemyController = value; }
+        public NavMeshAgent Agent { get => agent; }
+
+        public void Init()
         {
-            animatorController = GetComponentInChildren<AnimatorController>();
             agent = GetComponent<NavMeshAgent>();
             agent.speed = walkSpeed;
             agent.stoppingDistance = stoppingDistance;
-
-            health = maxHealth;
         }
 
         private void Update()
@@ -80,9 +77,9 @@ namespace TW
 
         protected virtual void UpdateAnimation()
         {
-            isInteracting = animatorController.GetIsBusyBool();
+            isBusy = enemyController.AnimatorController.GetIsBusyBool();
             Vector3 relativeVelocity = transform.InverseTransformDirection(agent.desiredVelocity);
-            animatorController.SetMovementValue(Mathf.Clamp(relativeVelocity.z, 0, 1));
+            enemyController.AnimatorController.SetMovementValue(Mathf.Clamp(relativeVelocity.z, 0, 1));
         }
 
         protected virtual void TrackPlayer()
@@ -125,7 +122,7 @@ namespace TW
         {
             if (currentPlayerInsight == null) return;
 
-            if (animatorController.GetCanRotate()) HandleRotation();
+            if (enemyController.AnimatorController.GetCanRotate()) HandleRotation();
 
             Vector3 dir = currentPlayerInsight.transform.position - transform.position;
             dir.y = 0;
@@ -137,7 +134,7 @@ namespace TW
             if (dot < 0)
                 angle *= -1;
 
-            if (!isInteracting)
+            if (!isBusy)
             {
                 if (actionFlag)
                 {
@@ -148,14 +145,14 @@ namespace TW
                     }
                 }
 
-                if (!isInteracting && actionFlag == false)
+                if (!isBusy && actionFlag == false)
                 {
                     currentSnapshot = GetAction(dis, angle);
                     Debug.Log(currentSnapshot);
 
                     if (currentSnapshot != null)
                     {
-                        animatorController.PlayTargetAnimation(currentSnapshot.anim, true);
+                        enemyController.AnimatorController.PlayTargetAnimation(currentSnapshot.anim, true);
                         actionFlag = true;
                         recoveryTimer = currentSnapshot.recoveryTime;
                     }
@@ -168,7 +165,7 @@ namespace TW
         {
             if (currentPlayerInsight == null) return;
 
-            if (isInteracting)
+            if (isBusy)
             {
                 agent.speed = 0;
                 return;
@@ -270,12 +267,6 @@ namespace TW
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, maxSightRangeRadius);
-        }
-
-        public void TakeDamage(float damage)
-        {
-            health -= damage;
-            animatorController.PlayTargetAnimation(hittedAnimNameString, true);
         }
     }
 }

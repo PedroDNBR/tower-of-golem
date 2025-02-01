@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +6,10 @@ namespace TW
 {
     public class PlayerUI : MonoBehaviour
     {
+
+        [SerializeField]
+        private Canvas canvas;
+
         [SerializeField]
         private Slider healthSlider;
 
@@ -12,28 +17,33 @@ namespace TW
         private Slider staminaSlider;
 
         [SerializeField]
-        private Canvas canvas;
+        private Transform bossHUD;
+
+        [SerializeField]
+        private TextMeshProUGUI bossNameText;
+
+        [SerializeField]
+        private Slider bossHealthSlider;
+
+        public Transform BossHUD { get => bossHUD; }
+
+        public TextMeshProUGUI BossNameText { get => bossNameText; }
+
+        public Slider BossHealthSlider { get => bossHealthSlider; }
 
         private void Start()
         {
             canvas.gameObject.SetActive(true);
         }
 
-        public void ConvertHealthValueToSliderValue(float current, float max)
+        public void HealthValueToSliderValue(float current, float max)
         {
-            float sliderValue = Mathf.InverseLerp(0f, max, current);
-            SetSliderValue(healthSlider, sliderValue);
+            UIUtils.ConvertToSliderValue(healthSlider, current, max);
         }
 
-        public void ConvertStaminaTimeToSliderValue(float current, float max)
+        public void StaminaTimeToSliderValue(float current, float max)
         {
-            float sliderValue = Mathf.InverseLerp(0f, max, current);
-            SetSliderValue(staminaSlider, sliderValue);
-        }
-
-        public void SetSliderValue(Slider slider, float value)
-        {
-            slider.value = value;
+            UIUtils.ConvertToSliderValue(staminaSlider, current, max);
         }
     }
 }

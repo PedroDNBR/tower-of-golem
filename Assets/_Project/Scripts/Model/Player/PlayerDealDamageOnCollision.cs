@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace TW
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class PlayerDealDamageOnCollision : MonoBehaviour
     {
         Rigidbody rigid;
@@ -12,6 +13,9 @@ namespace TW
         [SerializeField]
         protected float damageMultiplier = 1.5f;
 
+        private Elements type;
+
+        public Elements Type { set => type = value; } 
 
         private void Start()
         {
@@ -20,15 +24,12 @@ namespace TW
 
         private void OnTriggerEnter(Collider other)
         {
-            BaseAI enemy = other.gameObject.GetComponentInParent<BaseAI>();
+            EnemyHealth enemy = other.gameObject.GetComponentInParent<EnemyHealth>();
             if (enemy == null) return;
             if (rigid == null) return;
-            if (rigid.velocity.magnitude < .5f) return;
+            if (rigid.velocity.magnitude < minVelocityToDealDamage) return;
 
-            Debug.Log($"Deal Damage {rigid.velocity.magnitude * damageMultiplier}");
-
-
-            enemy.TakeDamage(rigid.velocity.magnitude * damageMultiplier);
+            enemy.TakeDamage(type, rigid.velocity.magnitude * damageMultiplier);
         }
     }
 }

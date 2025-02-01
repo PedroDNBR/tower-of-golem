@@ -16,6 +16,11 @@ namespace TW
         // current / max
         public event Action<float, float> HealthChanged;
 
+        public Elements Type { get => type; }
+
+        public float Health { get => health; }
+        public float MaxHealth { get => maxHealth; }
+
         protected virtual void Start()
         {
             health = maxHealth;
@@ -29,7 +34,6 @@ namespace TW
             float damageMultiplier = DamageMultiplier.table[type][damageType];
             health -= damage * damageMultiplier;
             InvokeHealthChangedEvent();
-            
         }
     }
 }
