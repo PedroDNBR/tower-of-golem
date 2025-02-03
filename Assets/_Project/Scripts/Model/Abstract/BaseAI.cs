@@ -60,6 +60,7 @@ namespace TW
             agent = GetComponent<NavMeshAgent>();
             agent.speed = walkSpeed;
             agent.stoppingDistance = stoppingDistance;
+            agent.updateRotation = false;
         }
 
         private void Update()
@@ -194,6 +195,8 @@ namespace TW
 
             if (Vector3.Distance(transform.position, finalDestination) < .5f)
                 finalDestination = FindRoamingSpot();
+            
+            HandleRotation();
 
             agent.SetDestination(finalDestination);
         }
@@ -242,9 +245,11 @@ namespace TW
 
         void HandleRotation()
         {
-            if (currentPlayerInsight == null) return;
+            Vector3 objectivePosition = finalDestination;
+            if (currentPlayerInsight != null)
+                objectivePosition = currentPlayerInsight.transform.position;
 
-            Vector3 dir = currentPlayerInsight.transform.position - transform.position;
+            Vector3 dir = objectivePosition - transform.position;
             dir.y = 0;
             dir.Normalize();
 

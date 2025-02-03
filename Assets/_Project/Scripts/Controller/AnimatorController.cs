@@ -23,6 +23,7 @@ namespace TW
         public void Init()
         {
             animator = GetComponent<Animator>();
+            animator.applyRootMotion = true;
         }
 
         private void Update()
@@ -38,7 +39,7 @@ namespace TW
         {
             animator.SetBool(isBusyString, isBusy);
             animator.CrossFade(animationName, 0.1f);
-            animator.applyRootMotion = isBusy;
+            animator.applyRootMotion = true;
         }
 
         public void CanRotate(int canRotate) => this.canRotate = canRotate == 1 ? true : false;
@@ -47,10 +48,8 @@ namespace TW
 
         public void OnAnimatorMove()
         {
-            if (isBusy)
-            {
-                agent.velocity = animator.deltaPosition;
-            }
+            if(isBusy)
+                agent.nextPosition += animator.deltaPosition;
         }
     }
 }
