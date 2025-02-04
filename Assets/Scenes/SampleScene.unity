@@ -2047,7 +2047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0034c66eaa30e8b4fb0e192fbcc7043e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVelocityToDealDamage: 8
+  minVelocityToDealDamage: 5
   damageMultiplier: 1.5
 --- !u!1 &1382474250
 GameObject:

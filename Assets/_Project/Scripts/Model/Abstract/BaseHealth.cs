@@ -21,6 +21,8 @@ namespace TW
         public float Health { get => health; }
         public float MaxHealth { get => maxHealth; }
 
+        public event Action Dead;
+
         protected virtual void Start()
         {
             health = maxHealth;
@@ -34,6 +36,10 @@ namespace TW
             float damageMultiplier = DamageMultiplier.table[type][damageType];
             health -= damage * damageMultiplier;
             InvokeHealthChangedEvent();
+
+            if (health < 0) InvokeDead();
         }
+
+        public void InvokeDead() => Dead?.Invoke();  
     }
 }

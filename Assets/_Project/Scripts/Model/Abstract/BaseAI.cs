@@ -269,6 +269,11 @@ namespace TW
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSpeed);
         }
 
+        public void Die()
+        {
+            agent.enabled = false;
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;

@@ -23,9 +23,9 @@ namespace TW
             baseAI.EnemyController = this;
             baseAI.Init();
             
-
             enemyHealth = GetComponent<EnemyHealth>();
             enemyHealth.EnemyController = this;
+            enemyHealth.Dead += Die;
 
             enemyUI = GetComponent<EnemyUI>();
             animatorController = GetComponentInChildren<AnimatorController>();
@@ -44,5 +44,22 @@ namespace TW
 
         public void UnsetHealthListener() =>
             enemyHealth.HealthChanged -= enemyUI.HealthValueToSliderValue;
+
+        private void Die()
+        {
+            baseAI.Die();
+            baseAI.enabled = false;
+            enemyHealth.enabled = false;
+            enemyUI.SetEnemyStatsVisible(false);
+            enemyUI.enabled = false;
+            animatorController.enabled = false;
+            enemyAttackSpawner.enabled = false;
+            Destroy(enemyHealth);
+            Destroy(baseAI);
+            animatorController.PlayTargetAnimation("Dead", true);
+            Destroy(animatorController);
+            Destroy(enemyAttackSpawner);
+
+        }
     }
 }

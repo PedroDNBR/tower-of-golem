@@ -14,7 +14,7 @@ namespace TW
         public override void TakeDamage(Elements damageType, float damage)
         {
             base.TakeDamage(damageType, damage);
-            enemyController.AnimatorController.PlayTargetAnimation(hittedAnimNameString, true);
+            if (health > 0) enemyController.AnimatorController.PlayTargetAnimation(hittedAnimNameString, true);
         }
     }
 }
