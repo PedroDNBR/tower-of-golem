@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TW
@@ -23,6 +24,8 @@ namespace TW
 
         public event Action Dead;
 
+        protected List<GameObject> objectsThatDamaged = new List<GameObject>();
+
         protected virtual void Start()
         {
             health = maxHealth;
@@ -31,13 +34,23 @@ namespace TW
 
         protected void InvokeHealthChangedEvent() => HealthChanged?.Invoke(health, maxHealth);
 
-        public virtual void TakeDamage(Elements damageType, float damage)
+        public virtual void TakeDamage(Elements damageType, float damage, GameObject origin)
         {
+            if (objectsThatDamaged.Contains(origin)) return;
+
+            objectsThatDamaged.Add(origin);
+
             float damageMultiplier = DamageMultiplier.table[type][damageType];
             health -= damage * damageMultiplier;
             InvokeHealthChangedEvent();
+            Debug.Log($"Apply damage : {damage * damageMultiplier}");
 
             if (health < 0) InvokeDead();
+        }
+
+        private void LateUpdate()
+        {
+            if(objectsThatDamaged.Count > 0) objectsThatDamaged.Clear();
         }
 
         public void InvokeDead() => Dead?.Invoke();  

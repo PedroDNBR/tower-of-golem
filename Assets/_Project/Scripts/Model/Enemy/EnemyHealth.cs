@@ -11,9 +11,9 @@ namespace TW
 
         public EnemyController EnemyController { set => enemyController = value; }
 
-        public override void TakeDamage(Elements damageType, float damage)
+        public override void TakeDamage(Elements damageType, float damage, GameObject origin)
         {
-            base.TakeDamage(damageType, damage);
+            base.TakeDamage(damageType, damage, origin);
             if (health > 0) enemyController.AnimatorController.PlayTargetAnimation(hittedAnimNameString, true);
         }
     }

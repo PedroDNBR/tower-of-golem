@@ -29,7 +29,7 @@ namespace TW
             if (rigid == null) return;
             if (rigid.velocity.magnitude < minVelocityToDealDamage) return;
 
-            enemy.TakeDamage(type, rigid.velocity.magnitude * damageMultiplier);
+            enemy.TakeDamage(type, rigid.velocity.magnitude * damageMultiplier, gameObject);
         }
     }
 }

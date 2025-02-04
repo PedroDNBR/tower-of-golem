@@ -38,9 +38,7 @@ public class DealDamageWhenTriggerEnter : MonoBehaviour
 
         if(characterBaseHealth == health) return;
 
-        Debug.Log($"Apply damage : {damage}");
-
-        health.TakeDamage(element, damage);
+        health.TakeDamage(element, damage, gameObject);
 
         if (destroyWhenDamage) Destroy(gameObject);
     }
