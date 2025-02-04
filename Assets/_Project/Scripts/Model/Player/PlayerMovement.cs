@@ -9,7 +9,9 @@ namespace TW
         [SerializeField] private float speed = 10f;
         [SerializeField] private float jump = 2f;
         [SerializeField] private float dash = 5f;
-        [SerializeField] float dashTime = 1.3f;
+        [SerializeField] private float dashTime = 1.3f;
+        [SerializeField] private float dashCost = 0.5f;
+        [SerializeField] private float dashRegen = 0.5f;
         [SerializeField] private Transform groundChecker;
         [SerializeField] private float groundDetectionRayStartPoint;
         [SerializeField] private float minimumDistanceNeededToBeginFall;
@@ -46,10 +48,10 @@ namespace TW
 
         public void Dash(float horizontal, float vertical)
         {
-            if (dashTimerCount < dashTime) return;
+            if (dashTimerCount < dashCost) return;
             Vector3 dashVelocity = new Vector3(horizontal, 0, vertical);
             rigid.AddForce(dashVelocity * dash, ForceMode.Impulse);
-            dashTimerCount = 0;
+            dashTimerCount -= dashCost;
         }
 
         private void Update()
@@ -74,7 +76,7 @@ namespace TW
         {
             if (dashTimerCount < dashTime)
             {
-                dashTimerCount += Time.deltaTime;
+                dashTimerCount += Time.deltaTime * dashRegen;
                 StaminaChanged?.Invoke(dashTimerCount, dashTime);
             }
         }
