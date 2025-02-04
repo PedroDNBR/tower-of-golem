@@ -9,11 +9,13 @@ namespace TW
         private EnemyHealth enemyHealth;
         private EnemyUI enemyUI;
         protected AnimatorController animatorController;
+        private EnemyAttackSpawner enemyAttackSpawner;
 
         public BaseAI BaseAI { get => baseAI; }
         public EnemyHealth EnemyHealth { get => enemyHealth; }
         public EnemyUI EnemyUI { get => enemyUI; }
         public AnimatorController AnimatorController { get => animatorController; }
+
 
         private void Awake()
         {
@@ -21,6 +23,7 @@ namespace TW
             baseAI.EnemyController = this;
             baseAI.Init();
             
+
             enemyHealth = GetComponent<EnemyHealth>();
             enemyHealth.EnemyController = this;
 
@@ -28,6 +31,10 @@ namespace TW
             animatorController = GetComponentInChildren<AnimatorController>();
             animatorController.Agent = baseAI.Agent;
             animatorController.Init();
+
+            enemyAttackSpawner = GetComponentInChildren<EnemyAttackSpawner>();
+            enemyAttackSpawner.OriginHealth = enemyHealth;
+            baseAI.playerFound += enemyAttackSpawner.SetPlayerAsAttackTarget;
         }
 
         public void SetHealthValuesInSlider() => enemyUI.HealthValueToSliderValue(enemyHealth.Health, enemyHealth.MaxHealth);

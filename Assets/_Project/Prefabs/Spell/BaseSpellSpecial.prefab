@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3018159891628078073}
@@ -93,12 +93,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3018159891628078073}
   - component: {fileID: 2841571923832450251}
-  - component: {fileID: 9137056190774369655}
   - component: {fileID: 4565758342344205420}
-  - component: {fileID: 974158560139542438}
-  - component: {fileID: 2700313149897311097}
+  - component: {fileID: 2075711199443117031}
+  - component: {fileID: 7849262459854868519}
   m_Layer: 12
-  m_Name: BaseSpell
+  m_Name: BaseSpellSpecial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,20 +133,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   gravity: 5
---- !u!114 &9137056190774369655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5294890440175974610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26d0459faeb10bc44b4d79d70f5968d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 5
-  element: 0
 --- !u!114 &4565758342344205420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 5
---- !u!114 &974158560139542438
+--- !u!114 &2075711199443117031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,10 +155,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5294890440175974610}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b9d909210d4c5f44aeba6d10fa6c1b6, type: 3}
+  m_Script: {fileID: 11500000, guid: 26d0459faeb10bc44b4d79d70f5968d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &2700313149897311097
+  damage: 10
+  element: 0
+  destroyWhenDamage: 1
+--- !u!135 &7849262459854868519
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,5 +180,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.15
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

@@ -12,6 +12,12 @@ namespace TW
         [SerializeField]
         private Transform attackOrigin;
 
+        private Transform attackTarget;
+
+        private BaseHealth originHealth;
+
+        public BaseHealth OriginHealth { set => originHealth = value; }
+
         private Dictionary<string, GameObject> attacks = new Dictionary<string, GameObject>();
 
         private void Awake()
@@ -22,8 +28,18 @@ namespace TW
 
         public void SpawnAttack(string name)
         {
-            Instantiate(attacks[name], attackOrigin.position, attackOrigin.rotation);
+            Debug.Log(attackTarget);
+            if(attackTarget != null) attackOrigin.LookAt(attackTarget);
+
+            GameObject damageOnEnterObj = Instantiate(attacks[name], attackOrigin.position, attackOrigin.rotation);
+
+            if (damageOnEnterObj.GetComponent<DealDamageWhenTriggerEnter>() != null)
+                damageOnEnterObj.GetComponent<DealDamageWhenTriggerEnter>().CharacterBaseHealth = originHealth;
+
+            Debug.Log(damageOnEnterObj);
         }
+
+        public void SetPlayerAsAttackTarget(PlayerController player) => attackTarget = player.transform;
     }
 
     [Serializable]

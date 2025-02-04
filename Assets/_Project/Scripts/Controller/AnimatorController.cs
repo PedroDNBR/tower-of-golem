@@ -29,6 +29,7 @@ namespace TW
         private void Update()
         {
             isBusy = GetIsBusyBool();
+            animator.applyRootMotion = isBusy;
         }
 
         public void SetMovementValue(float value) => animator.SetFloat(movementString, value);
@@ -39,7 +40,6 @@ namespace TW
         {
             animator.SetBool(isBusyString, isBusy);
             animator.CrossFade(animationName, 0.1f);
-            animator.applyRootMotion = true;
         }
 
         public void CanRotate(int canRotate) => this.canRotate = canRotate == 1 ? true : false;

@@ -8,9 +8,15 @@ public class DealDamageWhenTriggerEnter : MonoBehaviour
 
     BaseHealth characterBaseHealth;
 
+    public BaseHealth CharacterBaseHealth { set => characterBaseHealth = value; get => characterBaseHealth; }
+
+    [SerializeField]
+    bool destroyWhenDamage = false;
+
     private void Start()
     {
-        characterBaseHealth = GetComponentInChildren<BaseHealth>();
+        if (characterBaseHealth == null)
+            characterBaseHealth = GetComponentInChildren<BaseHealth>();
 
         if (characterBaseHealth == null)
             characterBaseHealth = GetComponentInParent<BaseHealth>();
@@ -35,5 +41,7 @@ public class DealDamageWhenTriggerEnter : MonoBehaviour
         Debug.Log($"Apply damage : {damage}");
 
         health.TakeDamage(element, damage);
+
+        if (destroyWhenDamage) Destroy(gameObject);
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 namespace TW
 {
@@ -55,6 +56,8 @@ namespace TW
         public EnemyController EnemyController { set => enemyController = value; }
         public NavMeshAgent Agent { get => agent; }
 
+        public Action<PlayerController> playerFound;
+
         public void Init()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -93,6 +96,8 @@ namespace TW
                     PlayerController player = hits[i].transform.GetComponent<PlayerController>();
                     if (player == null) continue;
                     currentPlayerInsight = player;
+                    playerFound?.Invoke(currentPlayerInsight);
+
                 }
             }
 
@@ -104,6 +109,7 @@ namespace TW
                     PlayerController player = hits[i].transform.GetComponent<PlayerController>();
                     if (player == null) continue;
                     currentPlayerInsight = player;
+                    playerFound?.Invoke(currentPlayerInsight);
                 }
             }
 
@@ -115,6 +121,7 @@ namespace TW
                     PlayerController player = hits[i].transform.GetComponent<PlayerController>();
                     if (player == null) continue;
                     currentPlayerInsight = player;
+                    playerFound?.Invoke(currentPlayerInsight);
                 }
             }
         }
@@ -203,7 +210,7 @@ namespace TW
 
         protected virtual Vector3 FindRoamingSpot()
         {
-            Vector3 randomDirection = Random.insideUnitSphere * walkRadius;
+            Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * walkRadius;
 
             randomDirection += transform.position;
             NavMeshHit hit;
@@ -224,7 +231,7 @@ namespace TW
                         maxScore += a.score;
             }
 
-            int ran = Random.Range(0, maxScore + 1);
+            int ran = UnityEngine.Random.Range(0, maxScore + 1);
             int temp = 0;
 
             for (int i = 0; i < actionSnapshots.Length; i++)
