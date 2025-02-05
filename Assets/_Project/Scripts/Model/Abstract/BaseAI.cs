@@ -156,7 +156,6 @@ namespace TW
                 if (!isBusy && actionFlag == false)
                 {
                     currentSnapshot = GetAction(dis, angle);
-                    Debug.Log(currentSnapshot);
 
                     if (currentSnapshot != null)
                     {

@@ -28,15 +28,12 @@ namespace TW
 
         public void SpawnAttack(string name)
         {
-            Debug.Log(attackTarget);
             if(attackTarget != null) attackOrigin.LookAt(attackTarget);
 
             GameObject damageOnEnterObj = Instantiate(attacks[name], attackOrigin.position, attackOrigin.rotation);
 
             if (damageOnEnterObj.GetComponent<DealDamageWhenTriggerEnter>() != null)
                 damageOnEnterObj.GetComponent<DealDamageWhenTriggerEnter>().CharacterBaseHealth = originHealth;
-
-            Debug.Log(damageOnEnterObj);
         }
 
         public void SetPlayerAsAttackTarget(PlayerController player) => attackTarget = player.transform;

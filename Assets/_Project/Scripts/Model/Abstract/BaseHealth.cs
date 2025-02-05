@@ -43,7 +43,6 @@ namespace TW
             float damageMultiplier = DamageMultiplier.table[type][damageType];
             health -= damage * damageMultiplier;
             InvokeHealthChangedEvent();
-            Debug.Log($"Apply damage : {damage * damageMultiplier}");
 
             if (health < 0) InvokeDead();
         }
