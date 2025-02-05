@@ -1079,6 +1079,8 @@ MonoBehaviour:
   maxHealth: 100
   type: 0
   hittedAnimNameString: Hitted
+  timeUntilStaggerAgain: 2
+  maxDamageUntilStagger: 20
 --- !u!114 &737116913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1928,6 +1930,8 @@ MonoBehaviour:
   jump: 5
   dash: 5
   dashTime: 1.3
+  dashCost: 0.5
+  dashRegen: 0.5
   groundChecker: {fileID: 928279582}
   groundDetectionRayStartPoint: 0.1
   minimumDistanceNeededToBeginFall: 1

@@ -9,11 +9,9 @@ namespace TW
         protected string hittedAnimNameString = "Hitted";
 
         [SerializeField]
-        private float timeUntilStaggerAgain = 2f;
+        private float maxDamageUntilStagger = 20f;
 
-        private float staggerRecoveryTime;
-
-        private bool canStagger = true;
+        private float damageUntilStagger = 0;
 
         private EnemyController enemyController;
 
@@ -22,22 +20,13 @@ namespace TW
         public override void TakeDamage(Elements damageType, float damage, GameObject origin)
         {
             base.TakeDamage(damageType, damage, origin);
+            damageUntilStagger += damage * DamageMultiplier.table[type][damageType];
 
-            Debug.Log(canStagger);
-
-            if (health > 0 && canStagger)
+            if (health > 0 && damageUntilStagger > maxDamageUntilStagger)
             {
                 enemyController.AnimatorController.PlayTargetAnimation(hittedAnimNameString, true);
-                canStagger = false;
-
-                 StartCoroutine(CalculateStagger());
+                damageUntilStagger = 0;
             }
-        }
-
-        private IEnumerator CalculateStagger()
-        {
-            yield return new WaitForSeconds(timeUntilStaggerAgain);
-            canStagger = true;
         }
     }
 }

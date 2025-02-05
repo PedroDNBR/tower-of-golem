@@ -12,7 +12,7 @@ namespace TW
         protected float health;
 
         [SerializeField]
-        Elements type;
+        protected Elements type;
 
         // current / max
         public event Action<float, float> HealthChanged;
@@ -44,7 +44,7 @@ namespace TW
             health -= damage * damageMultiplier;
             InvokeHealthChangedEvent();
 
-            if (health < 0) InvokeDead();
+            if (health <= 0) InvokeDead();
         }
 
         private void LateUpdate()
