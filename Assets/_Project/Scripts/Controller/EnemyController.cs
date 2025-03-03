@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TW
 {
@@ -60,6 +62,13 @@ namespace TW
             Destroy(animatorController);
             Destroy(enemyAttackSpawner);
 
+            StartCoroutine(ResetScene());
+        }
+
+        IEnumerator ResetScene()
+        {
+            yield return new WaitForSeconds(3f);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

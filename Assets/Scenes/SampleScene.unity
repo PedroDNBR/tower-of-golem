@@ -1076,10 +1076,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a0eeec1c7b20b42aca7ca8fe0281ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 200
   type: 0
   hittedAnimNameString: Hitted
-  timeUntilStaggerAgain: 2
   maxDamageUntilStagger: 20
 --- !u!114 &737116913
 MonoBehaviour:
@@ -2004,6 +2003,7 @@ MonoBehaviour:
   specialSpells:
   - {fileID: 11400000, guid: 3259f063c59d9134983d74b297ccf85f, type: 2}
   equippedSpell: 0
+  attackDelay: 1.5
 --- !u!114 &1369896484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2051,8 +2051,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0034c66eaa30e8b4fb0e192fbcc7043e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVelocityToDealDamage: 5
-  damageMultiplier: 1.5
+  minVelocityToDealDamage: 5.4
+  damageMultiplier: 1.7
 --- !u!1 &1382474250
 GameObject:
   m_ObjectHideFlags: 0
@@ -3472,7 +3472,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0

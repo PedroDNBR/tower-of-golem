@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System;
 
 namespace TW
 {
@@ -25,6 +26,21 @@ namespace TW
         [SerializeField]
         int equippedSpell = 0;
 
+        [SerializeField]
+        private float attackDelay = 1.5f;
+
+        private float lastShot = 0;
+
+        Dictionary<Spell, bool> specialSpellsUsageList = new Dictionary<Spell, bool>();
+
+        private void Start()
+        {
+            lastShot = Time.time;
+
+            for (int i = 0; i < specialSpells.Count; i++)
+                specialSpellsUsageList.Add(specialSpells[i], false);
+        }
+
         public void AimToPosition()
         {
             Vector3 pos = playerCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -39,11 +55,19 @@ namespace TW
 
         public void Shoot()
         {
-            InstantiateSpell(spells[equippedSpell]);
+            if (Time.time > attackDelay + lastShot)
+            {
+                lastShot = Time.time;
+                InstantiateSpell(spells[equippedSpell]);
+            }
+
         }
 
         public void ShootSpecial()
         {
+            if (specialSpellsUsageList[specialSpells[equippedSpell]] == true) return;
+
+            specialSpellsUsageList[specialSpells[equippedSpell]] = true;
             InstantiateSpell(specialSpells[equippedSpell]);
         }
 

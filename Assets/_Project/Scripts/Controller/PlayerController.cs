@@ -30,6 +30,7 @@ namespace TW
                 playerInput.Motion.Dash.performed += playerInput => playerMovement.Dash(movement.x, movement.y);
                 playerInput.Actions.PrimarySpell.performed += playerInput => playerSpell.Shoot();
                 playerInput.Actions.SpecialSpell.performed += playerInput => playerSpell.ShootSpecial();
+                playerInput.Settings.Menu.performed += playerInput => CloseGame();
                 // playerInput.Actions.Aim.performed += playerInput => playerInput.ReadValue<Vector2>());
             }
             playerInput.Enable();
@@ -71,5 +72,7 @@ namespace TW
         {
             playerSpell.AimToPosition();
         }
+
+        void CloseGame() => Application.Quit();
     }
 }
