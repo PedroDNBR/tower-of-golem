@@ -24,12 +24,16 @@ namespace TW
 
         private void OnTriggerEnter(Collider other)
         {
-            EnemyHealth enemy = other.gameObject.GetComponentInParent<EnemyHealth>();
+            ShouldReceiveDamage shouldReceiveDamage = other.GetComponent<ShouldReceiveDamage>();
+            if (shouldReceiveDamage == null) return;
+             EnemyHealth enemy = other.gameObject.GetComponentInParent<EnemyHealth>();
             if (enemy == null) return;
             if (rigid == null) return;
-            if (rigid.velocity.magnitude < minVelocityToDealDamage) return;
+            Rigidbody enemyRigid = enemy.GetComponent<Rigidbody>();
+            float totalVelocity = rigid.velocity.magnitude - enemyRigid.velocity.magnitude;
+            if (totalVelocity < minVelocityToDealDamage) return;
 
-            enemy.TakeDamage(type, rigid.velocity.magnitude * damageMultiplier, gameObject);
+            enemy.TakeDamage(type, totalVelocity * damageMultiplier, gameObject);
         }
     }
 }

@@ -27,6 +27,9 @@ public class DealDamageWhenTriggerEnter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        ShouldReceiveDamage shouldReceiveDamage = other.GetComponent<ShouldReceiveDamage>();
+        if (shouldReceiveDamage == null) return;
+
         BaseHealth health = other.GetComponent<BaseHealth>();
         if(health == null)
             health = other.GetComponentInChildren<BaseHealth>();
