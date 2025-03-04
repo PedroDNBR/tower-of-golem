@@ -92,21 +92,76 @@ Escuridão
 ---
 
 
+
+### Final bom
+O golem restaura os antigos guardiões, revive e revigora a sanidade dos seres e traz o equilíbrio para a torre
+
+
+
+### Final ruim
+O golem, tomado pela insanidade após assassinar muitos seres, esquece seu objetivo principal e trás ainda mais caos para a torre, a fazendo desmoronar
+
+
+
 ### Enredo
 
 #### Cutscene Inicial - Introdução
+
+##### Solo
 - Havia uma terra vazia, escassa de vida, sem cores, nela, um golem incompleto vagava sem rumo ou objetivo.
 - Ninguém sabe o porque ele foi criado, nem porque está nessas terras.
 - Após centenas de anos vagando, ele avista uma torre colorida e extravagante.
 - Ao encontrar a torre, algo dentro do golem é despertado, e ele entra na torre.
 
+##### Coop
+- Havia uma terra vazia, escassa de vida, sem cores, nela, um golem incompleto vagava sem rumo ou objetivo.
+- Ninguém sabe o porque ele foi criado, nem porque está nessas terras.
+- Durante sua jornada, ele encontra outros golems como ele, mas todos estão despedaçados
+- Ao se aproximar, ele sente uma leve brisa entrando em seu corpo rochoso, é a essência dos golems caídos se juntando a ele
+- Após centenas de anos vagando, ele avista uma torre colorida e extravagante.
+- Ao encontrar a torre, algo dentro do golem é despertado, e ele entra na torre.
+
 #### Golem entra na torre - Jogável
 
-1. Golem anda pelo primeiro andar da torre, e se encontra com o guardião de pedra
-- O golem avista um ser de gigante de pedra, que se autointitula guardião.
+1. Golem anda pelo primeiro andar da torre, e se depara com vários seres de pedra, alguns hostis, outros não
+
+##### Solo
+
+##### Rota boa
+1. Após derrotar os seres hostis, ele avista um ser de gigante de pedra, que se autointitula guardião.
 - O guardião de Pedra conta que a torre está desmoronando, os outros guardiões que mantinham a torre erguida estão em disputa pelo poder da torre
+- Por causa do conflito, os seres que habitam os andares estão perdendo sua essência e se tornando hostis, trazendo mais caos ainda a torre
 - O golem não quis perder seu primeiro e único contato com a torre e outros seres, então decidiu tentar reestabelecer o equilíbrio da torre
 - Irá este mísero golem conseguir derrotar os tão poderosos guardiões que mantém uma torre de pé?
+- Passa para o próximo andar
 
-#### Golem sobe para o segundo andar
+##### Rota ruim
+1. Após derrotar os absolutamente TODOS os seres, ele avista um ser de gigante de pedra, que se autointitula guardião.
+- Ele se enfurece pelo fato do jogador ter matado todos os seres, vai para cima do jogador, iniciando a bossfight
+- Ao derrotar o boss, o jogador passa para o próximo andar
+
+##### Coop
+
+##### Rota boa
+1. Após derrotar os seres hostis, ele avista um ser de gigante de pedra, que se autointitula guardião.
+- O guardião de Pedra conta que a torre está desmoronando, os outros guardiões que mantinham a torre erguida estão em disputa pelo poder da torre
+- Por causa do conflito, os seres que habitam os andares estão perdendo sua essência e se tornando hostis, trazendo mais caos ainda a torre
+- O golem não quis perder seu primeiro e único contato com a torre e outros seres, então decidiu tentar reestabelecer o equilíbrio da torre
+- O guardião percebe as essencias de outros golems dentro do golem do jogador, e cria um novo corpo para eles, porém, mais frágil do que o originalmente
+- Irá estes míseros golems conseguir derrotar os tão poderosos guardiões que mantém uma torre de pé?
+- Passa para o próximo andar
+
+##### Rota ruim
+1. Após derrotar os absolutamente TODOS os seres, ele avista um ser de gigante de pedra, que se autointitula guardião.
+- Ele se enfurece pelo fato do jogador ter matado todos os seres, vai para cima do jogador, iniciando a bossfight
+- Ao derrotar o boss, o jogador adquire o poder da jóia de pedra, e com isso, percebe que pode restaurar o corpo das essências de golems que habitam dentro dele
+- Como o golem recém adquiriu seus poderes, os golems são mais fracos do que o golem formado pelo guardão da rota boa
+
+#### Golem sobe para o segundo andar  - Jogável
+
+1. 
+
+
+
+
 
