@@ -1,38 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class StartMenu : BaseMenu
+namespace TW
 {
-    [SerializeField] private Button singleplayerButton;
-    [SerializeField] private Button multiplayerButton;
-    [SerializeField] private Button settingsButton;
-    [SerializeField] private Button quitButton;
-
-    private void OnEnable()
+    public class StartMenu : BaseMenu
     {
-        singleplayerButton.onClick.AddListener(PlaySingleplayer);
-        quitButton.onClick.AddListener(QuitGame);
-        settingsButton.onClick.AddListener(OpenSettingsMenu);
-    }
+        [SerializeField] private Button singleplayerButton;
+        [SerializeField] private Button multiplayerButton;
+        [SerializeField] private Button settingsButton;
+        [SerializeField] private Button quitButton;
 
-    private void PlaySingleplayer() => SceneManager.LoadScene(1);
+        private void OnEnable()
+        {
+            singleplayerButton.onClick.AddListener(PlaySingleplayer);
+            quitButton.onClick.AddListener(QuitGame);
+            settingsButton.onClick.AddListener(OpenSettingsMenu);
+        }
 
-    void OpenSettingsMenu()
-    {
-        graphicsMenuTransform.gameObject.SetActive(true);
-        startMenuTransform.gameObject.SetActive(false);
-    }
+        private void PlaySingleplayer() => SceneManager.LoadScene(1);
 
-    private void QuitGame() => Application.Quit();
+        void OpenSettingsMenu()
+        {
+            graphicsMenuTransform.gameObject.SetActive(true);
+            startMenuTransform.gameObject.SetActive(false);
+        }
 
-    private void OnDisable()
-    {
-        singleplayerButton.onClick.RemoveAllListeners();
-        multiplayerButton.onClick.RemoveAllListeners();
-        settingsButton.onClick.RemoveAllListeners();
-        quitButton.onClick.RemoveAllListeners();
+        private void QuitGame() => Application.Quit();
+
+        private void OnDisable()
+        {
+            singleplayerButton.onClick.RemoveAllListeners();
+            multiplayerButton.onClick.RemoveAllListeners();
+            settingsButton.onClick.RemoveAllListeners();
+            quitButton.onClick.RemoveAllListeners();
+        }
     }
 }

@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public class BaseMenu : MonoBehaviour
+namespace TW
 {
-    [SerializeField] protected RectTransform startMenuTransform;
-    [SerializeField] protected RectTransform graphicsMenuTransform;
+    public class BaseMenu : MonoBehaviour
+    {
+        [SerializeField] protected RectTransform startMenuTransform;
+        [SerializeField] protected RectTransform graphicsMenuTransform;
+    }
 }
