@@ -3,8 +3,6 @@ using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using TMPro;
-using System.Reflection;
-using ShadowResolution = UnityEngine.Rendering.Universal.ShadowResolution;
 
 namespace TW
 {
@@ -19,17 +17,49 @@ namespace TW
 
         [Header("Post Processings")]
         [SerializeField] VolumeProfile volumeProfile;
-        [SerializeField] ScriptableRendererFeature ambientOcclusion;
+        [SerializeField] ScriptableRendererFeature[] ambientOcclusions;
 
         [Header("Window Mode")]
         [SerializeField] TMP_Dropdown windowDropdown;
 
         [Header("Quality")]
-        [SerializeField] UniversalRenderPipelineAsset urpAsset;
-        [SerializeField] TMP_Dropdown shadowDropdown;
+        [SerializeField] TMP_Dropdown qualityDropdown;
+        [SerializeField] RenderPipelineAsset[] qualities;
 
 
         private void OnEnable()
+        {
+            SetToggles();
+            SetDrowndownOptions();
+            SetListeners();
+
+        }
+
+        private void SetToggles()
+        {
+            Bloom tempBloom;
+            volumeProfile.TryGet(out tempBloom);
+            SetBloomToggle(tempBloom.active);
+
+            Vignette tempVig;
+            volumeProfile.TryGet(out tempVig);
+            SetVignetteToggle(tempVig.active);
+
+            SetAmbientOcclusionToggle(ambientOcclusions[QualitySettings.GetQualityLevel()]);
+
+            Vignette tempTone;
+            volumeProfile.TryGet(out tempTone);
+            SetTonemappingToggle(tempTone.active);
+        }
+
+        private void SetDrowndownOptions()
+        {
+            SetScreenModeDropdownOption(Screen.fullScreenMode);
+
+            SetQualityDropdownOption(QualitySettings.GetQualityLevel());
+        }
+
+        private void SetListeners()
         {
             backButton.onClick.AddListener(BackToStartMenu);
 
@@ -38,15 +68,8 @@ namespace TW
             ambientOcclusionToggle.onValueChanged.AddListener(SetAmbientOcclusion);
             tonemappingToggle.onValueChanged.AddListener(SetTonemapping);
 
-            SetScreenModeDropdownOption(Screen.fullScreenMode);
-
-            SetShadowDropdownOption(
-                urpAsset.mainLightRenderingMode,
-                (ShadowResolution) urpAsset.mainLightShadowmapResolution
-            );
-
             windowDropdown.onValueChanged.AddListener(SetScreenMode);
-            shadowDropdown.onValueChanged.AddListener(SetShadow);
+            qualityDropdown.onValueChanged.AddListener(SetQuality);
         }
 
         private void BackToStartMenu()
@@ -64,10 +87,18 @@ namespace TW
             }
         }
 
+        private void SetBloomToggle(bool active) => bloomToggle.isOn = active;
+
+
+
         private void SetAmbientOcclusion(bool value)
         {
-            ambientOcclusion.SetActive(value);
+            foreach (var ambientOcclusion in ambientOcclusions)
+                ambientOcclusion.SetActive(value);
         }
+
+        private void SetAmbientOcclusionToggle(bool active) => ambientOcclusionToggle.isOn = active;
+
 
         private void SetVignette(bool value)
         {
@@ -78,6 +109,8 @@ namespace TW
             }
         }
 
+        private void SetVignetteToggle(bool active) => vignetteToggle.isOn = active;
+
         private void SetTonemapping(bool value)
         {
             Tonemapping tempTonemapping;
@@ -86,6 +119,8 @@ namespace TW
                 tempTonemapping.active = value;
             }
         }
+
+        private void SetTonemappingToggle(bool active) => tonemappingToggle.isOn = active;
 
         private void SetScreenMode(int fullscreenMode)
         {
@@ -119,60 +154,13 @@ namespace TW
             }
         }
 
-        private void SetShadow(int shadowQuality)
+        private void SetQuality(int qualityIndex)
         {
-            urpAsset.GetType().GetField("m_MainLightRenderingMode", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(urpAsset, LightRenderingMode.PerPixel);
-            switch (shadowQuality)
-            {
-                case 0:
-                    urpAsset.GetType().GetField("m_MainLightRenderingMode", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(urpAsset, LightRenderingMode.Disabled);
-                    return;
-                case 1:
-                    urpAsset.GetType().GetField("m_MainLightShadowmapResolution", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(urpAsset, ShadowResolution._256);
-                    return;
-                case 2:
-                    urpAsset.GetType().GetField("m_MainLightShadowmapResolution", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(urpAsset, ShadowResolution._512);
-                    return;
-                case 3:
-                    urpAsset.GetType().GetField("m_MainLightShadowmapResolution", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(urpAsset, ShadowResolution._1024);
-                    return;
-                case 4:
-                    urpAsset.GetType().GetField("m_MainLightShadowmapResolution", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(urpAsset, ShadowResolution._2048);
-                    return;
-                case 5:
-                    urpAsset.GetType().GetField("m_MainLightShadowmapResolution", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(urpAsset, ShadowResolution._4096);
-                    return;
-
-            }
+            QualitySettings.SetQualityLevel(qualityIndex);
+            QualitySettings.renderPipeline = qualities[qualityIndex];
+            SetAmbientOcclusionToggle(ambientOcclusions[qualityIndex]);
         }
 
-        private void SetShadowDropdownOption(LightRenderingMode shadowEnabled, ShadowResolution shadowResolution)
-        {
-            switch(shadowEnabled)
-            {
-                case LightRenderingMode.Disabled:
-                    shadowDropdown.SetValueWithoutNotify(0);
-                    return;
-            }
-
-            switch (shadowResolution)
-            {
-                case ShadowResolution._256:
-                    shadowDropdown.SetValueWithoutNotify(1);
-                    return;
-                case ShadowResolution._512:
-                    shadowDropdown.SetValueWithoutNotify(2);
-                    return;
-                case ShadowResolution._1024:
-                    shadowDropdown.SetValueWithoutNotify(3);
-                    return;
-                case ShadowResolution._2048:
-                    shadowDropdown.SetValueWithoutNotify(4);
-                    return;
-                case ShadowResolution._4096:
-                    shadowDropdown.SetValueWithoutNotify(5);
-                    return;
-            }
-        }
+        private void SetQualityDropdownOption(int qualityIndex) => qualityDropdown.SetValueWithoutNotify(qualityIndex);
     }
 }
