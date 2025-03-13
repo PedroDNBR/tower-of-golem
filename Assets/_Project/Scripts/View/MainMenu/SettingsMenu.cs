@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using TMPro;
+using System.Collections.Generic;
 
 namespace TW
 {
@@ -26,13 +27,19 @@ namespace TW
         [SerializeField] TMP_Dropdown qualityDropdown;
         [SerializeField] RenderPipelineAsset[] qualities;
 
+        [Header("Resolution")]
+        [SerializeField] TMP_Dropdown resolutionDropdown;
+        private Resolution[] resolutions;
+        private List<Resolution> filteredResolutions;
+        private RefreshRate currentRefreshRate;
+        private int currentResolutionIndex = 0;
+
 
         private void OnEnable()
         {
             SetToggles();
             SetDrowndownOptions();
             SetListeners();
-
         }
 
         private void SetToggles()
@@ -54,6 +61,8 @@ namespace TW
 
         private void SetDrowndownOptions()
         {
+            SetupResolutionDropdownOptions();
+
             SetScreenModeDropdownOption(Screen.fullScreenMode);
 
             SetQualityDropdownOption(QualitySettings.GetQualityLevel());
@@ -70,7 +79,48 @@ namespace TW
 
             windowDropdown.onValueChanged.AddListener(SetScreenMode);
             qualityDropdown.onValueChanged.AddListener(SetQuality);
+            resolutionDropdown.onValueChanged.AddListener(SetResolution);
         }
+
+        private void SetupResolutionDropdownOptions()
+        {
+            resolutions = Screen.resolutions;
+            filteredResolutions = new List<Resolution>();
+
+            resolutionDropdown.ClearOptions();
+            currentRefreshRate = Screen.currentResolution.refreshRateRatio;
+
+            for (int i = 0; i < resolutions.Length; i++)
+            {
+                if (resolutions[i].refreshRateRatio.Equals(currentRefreshRate))
+                    filteredResolutions.Add(resolutions[i]);
+            }
+
+            List<string> options = new List<string>();
+            for (int i = 0; i < filteredResolutions.Count; i++)
+            {
+                string resolutionOption =
+                    filteredResolutions[i].width +
+                    "x" +
+                    filteredResolutions[i].height +
+                    " " +
+                    filteredResolutions[i].refreshRateRatio.value +
+                    " Hz";
+                options.Add(resolutionOption);
+                if (
+                    filteredResolutions[i].width == Screen.width &&
+                    filteredResolutions[i].height == Screen.height
+                )
+                {
+                    currentResolutionIndex = i;
+                }
+            }
+
+            resolutionDropdown.AddOptions(options);
+            resolutionDropdown.SetValueWithoutNotify(currentResolutionIndex);
+            resolutionDropdown.RefreshShownValue();
+        }
+
 
         private void BackToStartMenu()
         {
@@ -88,8 +138,6 @@ namespace TW
         }
 
         private void SetBloomToggle(bool active) => bloomToggle.isOn = active;
-
-
 
         private void SetAmbientOcclusion(bool value)
         {
@@ -121,6 +169,12 @@ namespace TW
         }
 
         private void SetTonemappingToggle(bool active) => tonemappingToggle.isOn = active;
+
+        private void SetResolution(int resolutionIndex)
+        {
+            Resolution resolution = filteredResolutions[resolutionIndex];
+            Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode);
+        }
 
         private void SetScreenMode(int fullscreenMode)
         {
