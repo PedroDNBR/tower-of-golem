@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace TW
@@ -30,10 +31,15 @@ namespace TW
                 playerInput.Motion.Dash.performed += playerInput => playerMovement.Dash(movement.x, movement.y);
                 playerInput.Actions.PrimarySpell.performed += playerInput => playerSpell.Shoot();
                 playerInput.Actions.SpecialSpell.performed += playerInput => playerSpell.ShootSpecial();
-                playerInput.Settings.Menu.performed += playerInput => CloseGame();
+                playerInput.Settings.Menu.performed += playerInput => TogglePauseMenu();
                 // playerInput.Actions.Aim.performed += playerInput => playerInput.ReadValue<Vector2>());
             }
             playerInput.Enable();
+        }
+
+        private void TogglePauseMenu()
+        {
+            playerUI.TogglePauseMenu();
         }
 
         private void OnDisable()
@@ -72,7 +78,5 @@ namespace TW
         {
             playerSpell.AimToPosition();
         }
-
-        void CloseGame() => Application.Quit();
     }
 }

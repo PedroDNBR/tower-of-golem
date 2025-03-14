@@ -1,12 +1,13 @@
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace TW
 {
     public class PlayerUI : MonoBehaviour
     {
-
         [SerializeField]
         private Canvas canvas;
 
@@ -25,6 +26,21 @@ namespace TW
         [SerializeField]
         private Slider bossHealthSlider;
 
+        [SerializeField]
+        private Transform pauseMenu;
+
+        [SerializeField]
+        private Transform settingsMenu;
+
+        [SerializeField]
+        private Button continueButton;
+
+        [SerializeField]
+        private Button settingsButton;
+
+        [SerializeField]
+        private Button quitButton;
+
         public Transform BossHUD { get => bossHUD; }
 
         public TextMeshProUGUI BossNameText { get => bossNameText; }
@@ -34,6 +50,9 @@ namespace TW
         private void Start()
         {
             canvas.gameObject.SetActive(true);
+            settingsButton.onClick.AddListener(OpenSettings);
+            continueButton.onClick.AddListener(ClosePauseMenu);
+            quitButton.onClick.AddListener(QuitGame);
         }
 
         public void HealthValueToSliderValue(float current, float max)
@@ -45,5 +64,15 @@ namespace TW
         {
             UIUtils.ConvertToSliderValue(staminaSlider, current, max);
         }
+
+        public void TogglePauseMenu() => pauseMenu.gameObject.SetActive(!pauseMenu.gameObject.activeSelf);
+
+        bool GetPauseMenuIsOpen() => pauseMenu.gameObject.activeSelf;
+
+        public void OpenSettings() => settingsMenu.gameObject.SetActive(true);
+        
+        private void ClosePauseMenu() => pauseMenu.gameObject.SetActive(false);
+
+        private void QuitGame() => SceneManager.LoadScene("MainMenu");
     }
 }
