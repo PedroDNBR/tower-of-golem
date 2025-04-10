@@ -12,13 +12,20 @@ namespace TW
         [SerializeField] private Camera playerCamera;
         public Camera PlayerCameraObj { get => playerCamera; set => playerCamera = value; }
 
-        private void Update()
+        private void Start()
+        {
+            if (cameraTransform == null)
+                return;
+
+            cameraTransform.eulerAngles = cameraRotation;
+        }
+
+        private void LateUpdate()
         {
             if (cameraTransform == null)
                 return;
 
             cameraTransform.position = new Vector3(transform.position.x, cameraHeight, transform.position.z + cameraDistance);
-            cameraTransform.eulerAngles = cameraRotation;
         }
     }
 }

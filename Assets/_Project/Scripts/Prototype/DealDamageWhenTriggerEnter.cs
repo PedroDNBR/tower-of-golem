@@ -1,4 +1,5 @@
 using TW;
+using Unity.Netcode;
 using UnityEngine;
 
 public class DealDamageWhenTriggerEnter : MonoBehaviour
@@ -12,6 +13,8 @@ public class DealDamageWhenTriggerEnter : MonoBehaviour
 
     [SerializeField]
     bool destroyWhenDamage = false;
+
+    private void Awake() => this.enabled = NetworkManager.Singleton.IsServer;
 
     private void Start()
     {
@@ -27,6 +30,7 @@ public class DealDamageWhenTriggerEnter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!NetworkManager.Singleton.IsServer) return;
         ShouldReceiveDamage shouldReceiveDamage = other.GetComponent<ShouldReceiveDamage>();
         if (shouldReceiveDamage == null) return;
 

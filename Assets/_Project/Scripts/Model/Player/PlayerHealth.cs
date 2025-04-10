@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace TW
 {
@@ -8,9 +7,10 @@ namespace TW
         public override void TakeDamage(Elements damageType, float damage, GameObject origin)
         {
             base.TakeDamage(damageType, damage, origin);
-            if(health <= 0)
+            if(health.Value <= 0)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                Destroy(this.gameObject);
             }
         }
     }

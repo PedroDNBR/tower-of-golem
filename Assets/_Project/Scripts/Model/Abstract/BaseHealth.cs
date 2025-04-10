@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TW
 {
-    public abstract class BaseHealth : MonoBehaviour
+    public abstract class BaseHealth : NetworkBehaviour
     {
         [SerializeField]
-        protected float maxHealth = 100f;
+        protected NetworkVariable<float> maxHealth = new NetworkVariable<float>(100f);
 
-        protected float health;
+        protected NetworkVariable<float> health = new NetworkVariable<float>(0);
 
         [SerializeField]
         protected Elements type;
@@ -19,8 +20,8 @@ namespace TW
 
         public Elements Type { get => type; }
 
-        public float Health { get => health; }
-        public float MaxHealth { get => maxHealth; }
+        public float Health { get => health.Value; }
+        public float MaxHealth { get => maxHealth.Value; }
 
         public event Action Dead;
 
@@ -28,27 +29,31 @@ namespace TW
 
         protected virtual void Start()
         {
-            health = maxHealth;
-            InvokeHealthChangedEvent();
+            health.OnValueChanged += ((float old, float current) => HealthChanged?.Invoke(health.Value, maxHealth.Value));
+
+            if(IsServer) health.Value = maxHealth.Value;
+            //InvokeHealthChangedEvent();
         }
 
-        protected void InvokeHealthChangedEvent() => HealthChanged?.Invoke(health, maxHealth);
+        //protected void InvokeHealthChangedEvent() => HealthChanged?.Invoke(health, maxHealth);
 
         public virtual void TakeDamage(Elements damageType, float damage, GameObject origin)
         {
+            if(!IsServer) return;
             if (objectsThatDamaged.Contains(origin)) return;
 
             objectsThatDamaged.Add(origin);
 
             float damageMultiplier = DamageMultiplier.table[type][damageType];
-            health -= damage * damageMultiplier;
-            InvokeHealthChangedEvent();
+            health.Value -= damage * damageMultiplier;
+            //InvokeHealthChangedEvent();
 
-            if (health <= 0) InvokeDead();
+            if (health.Value <= 0) InvokeDead();
         }
 
         private void LateUpdate()
         {
+            if(!IsServer) return;
             if(objectsThatDamaged.Count > 0) objectsThatDamaged.Clear();
         }
 

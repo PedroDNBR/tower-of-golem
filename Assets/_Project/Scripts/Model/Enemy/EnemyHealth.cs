@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 namespace TW
 {
@@ -22,7 +21,7 @@ namespace TW
             base.TakeDamage(damageType, damage, origin);
             damageUntilStagger += damage * DamageMultiplier.table[type][damageType];
 
-            if (health > 0 && damageUntilStagger > maxDamageUntilStagger)
+            if (health.Value > 0 && damageUntilStagger > maxDamageUntilStagger)
             {
                 enemyController.AnimatorController.PlayTargetAnimation(hittedAnimNameString, true);
                 damageUntilStagger = 0;

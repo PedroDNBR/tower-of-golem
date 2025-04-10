@@ -1,63 +1,92 @@
 using System;
+using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TW
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : NetworkBehaviour
     {
-        [SerializeField] private float speed = 10f;
-        [SerializeField] private float jump = 2f;
-        [SerializeField] private float dash = 5f;
-        [SerializeField] private float dashTime = 1.3f;
-        [SerializeField] private float dashCost = 0.5f;
-        [SerializeField] private float dashRegen = 0.5f;
+        [SerializeField] NetworkVariable<float> speed = new NetworkVariable<float>(5f);
+        [SerializeField] NetworkVariable<float> jump = new NetworkVariable<float>(5f);
+        [SerializeField] NetworkVariable<float> dash = new NetworkVariable<float>(5f);
+        [SerializeField] NetworkVariable<float> dashTime = new NetworkVariable<float>(1.3f);
+        [SerializeField] NetworkVariable<float> dashCost = new NetworkVariable<float>(0.5f);
+        [SerializeField] NetworkVariable<float> dashRegen = new NetworkVariable<float>(0.5f);
         [SerializeField] private Transform groundChecker;
         [SerializeField] private float groundDetectionRayStartPoint;
         [SerializeField] private float minimumDistanceNeededToBeginFall;
 
         [SerializeField] LayerMask groundLayer;
 
+        public Vector3 movementInput;
+
         private Rigidbody rigid;
 
-        private float dashTimerCount = 0;
+        private NetworkVariable<float> dashTimerCount = new NetworkVariable<float>(0f);
 
-        private bool isGrounded = false;
+        private NetworkVariable<bool> isGrounded = new NetworkVariable<bool>(false);
 
         // current / max
         public event Action<float, float> StaminaChanged;
 
         public void Init()
         {
-            rigid = GetComponent<Rigidbody>();
-            dashTimerCount = dashTime;
+            rigid = GetComponentInChildren<Rigidbody>();
+            if (IsLocalPlayer && IsOwner)
+            {
+                dashTimerCount.OnValueChanged += (float previous, float current) => {
+                    StaminaChanged?.Invoke(dashTimerCount.Value, dashTime.Value);
+                };
+            }
+            SetStaminaServerRpc();
+            
         }
 
-        public void Movement(float horizontal, float vertical, float delta)
+        [ServerRpc]
+        public void SetStaminaServerRpc()
         {
-            if (!isGrounded) return;
-            Vector3 velocity = new Vector3(vertical, 0, -horizontal);
-            rigid.AddTorque(velocity * speed * delta * 10);
-        }
-
-        public void Jump()
-        {
-            if(isGrounded)
-                rigid.AddForce(Vector3.up * jump, ForceMode.Impulse);
-        }
-
-        public void Dash(float horizontal, float vertical)
-        {
-            if (dashTimerCount < dashCost) return;
-            Vector3 dashVelocity = new Vector3(horizontal, 0, vertical);
-            rigid.AddForce(dashVelocity * dash, ForceMode.Impulse);
-            dashTimerCount -= dashCost;
+            dashTimerCount.Value = dashTime.Value;
         }
 
         private void Update()
         {
-            CalculateIsGrounded();
             CalculateDashTimer();
+
+            if (!IsServer) return;
+            CalculateIsGrounded();
+        }
+
+        public void Movement(float horizontal, float vertical, float delta)
+        {
+            if (horizontal == 0 && vertical == 0) return;
+            if (!isGrounded.Value) return;
+            Vector3 velocity = new Vector3(vertical, 0, -horizontal);
+            rigid.AddTorque(velocity * speed.Value * delta * 10);
+        }
+
+        public void Jump()
+        {
+            if (dashTimerCount.Value < dashCost.Value) return;
+            if (!isGrounded.Value) return;
+
+            rigid.AddForce(Vector3.up * jump.Value, ForceMode.Impulse);
+            ConsumeStaminaServerRpc();
+        }
+
+        [ServerRpc]
+        private void ConsumeStaminaServerRpc()
+        {
+            dashTimerCount.Value -= dashCost.Value;
+        }
+
+        public void Dash(float horizontal, float vertical)
+        {
+            if (dashTimerCount.Value < dashCost.Value) return;
+            Vector3 dashVelocity = new Vector3(horizontal, 0, vertical);
+            rigid.AddForce(dashVelocity * dash.Value, ForceMode.Impulse);
+            ConsumeStaminaServerRpc();
         }
 
         private void CalculateIsGrounded()
@@ -67,17 +96,16 @@ namespace TW
             origin.y += groundDetectionRayStartPoint;
 
             if (Physics.Raycast(origin, -Vector3.up, out hit, minimumDistanceNeededToBeginFall, groundLayer))
-                isGrounded = true;
+                isGrounded.Value = true;
             else
-                isGrounded = false;
+                isGrounded.Value = false;
         }
 
         private void CalculateDashTimer()
         {
-            if (dashTimerCount < dashTime)
+            if (dashTimerCount.Value < dashTime.Value)
             {
-                dashTimerCount += Time.deltaTime * dashRegen;
-                StaminaChanged?.Invoke(dashTimerCount, dashTime);
+                if (IsServer) dashTimerCount.Value += Time.deltaTime * dashRegen.Value;
             }
         }
 
