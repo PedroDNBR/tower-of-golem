@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -52,10 +51,9 @@ namespace TW
 
         private void Update()
         {
-            CalculateDashTimer();
-
             if (!IsServer) return;
             CalculateIsGrounded();
+            CalculateDashTimer();
         }
 
         public void Movement(float horizontal, float vertical, float delta)
@@ -105,7 +103,7 @@ namespace TW
         {
             if (dashTimerCount.Value < dashTime.Value)
             {
-                if (IsServer) dashTimerCount.Value += Time.deltaTime * dashRegen.Value;
+                dashTimerCount.Value += Time.deltaTime * dashRegen.Value;
             }
         }
 

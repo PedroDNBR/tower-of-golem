@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
-using System;
+using Unity.Netcode;
 
 namespace TW
 {
-    public class PlayerSpell : MonoBehaviour
+    public class PlayerSpell : NetworkBehaviour
     {
         [SerializeField]
         private Transform spellcasterPivot;
@@ -27,18 +27,31 @@ namespace TW
         int equippedSpell = 0;
 
         [SerializeField]
-        private float attackDelay = 1.5f;
+        private NetworkVariable<float> attackDelay = new NetworkVariable<float>(1.5f);
 
-        private float lastShot = 0;
+        [SerializeField]
+        private NetworkVariable<float> lastShot = new NetworkVariable<float>(0);
 
         Dictionary<Spell, bool> specialSpellsUsageList = new Dictionary<Spell, bool>();
 
+        private float timer = 0f;
+
         private void Start()
         {
-            lastShot = Time.time;
-
             for (int i = 0; i < specialSpells.Count; i++)
                 specialSpellsUsageList.Add(specialSpells[i], false);
+
+            if (!IsServer) return;
+
+            timer = Time.time;
+            lastShot.Value = timer;
+            UpdateTimerClientRpc(timer);
+        }
+
+        [ClientRpc]
+        void UpdateTimerClientRpc(float newTime)
+        {
+            timer = newTime;
         }
 
         public void AimToPosition()
@@ -53,14 +66,44 @@ namespace TW
             }
         }
 
+        public void ShootInput()
+        {
+            if (timer > attackDelay.Value + lastShot.Value)
+            {
+                if (!IsServer)
+                {
+                    Shoot(); // visual imediato no client local
+                    ShootServerRpc(); // envia pro server fazer o real
+                }
+                else
+                {
+                    Shoot(); // host tamb�m precisa ver o visual
+                    lastShot.Value = timer;
+                    ShootClientRpc(); // envia pra todos os outros clients
+                }
+            }
+        }
+
         public void Shoot()
         {
-            if (Time.time > attackDelay + lastShot)
-            {
-                lastShot = Time.time;
-                InstantiateSpell(spells[equippedSpell]);
-            }
+            Debug.Log("Shoot()");
+            InstantiateSpell(spells[equippedSpell]);
+        }
 
+        [ServerRpc]
+        public void ShootServerRpc()
+        {
+            Shoot(); // servidor instancia o "real"
+            ShootClientRpc(); // replicar pros outros
+            lastShot.Value = timer;
+            
+        }
+
+        [ClientRpc]
+        public void ShootClientRpc()
+        {
+            if (IsServer || IsLocalPlayer) return; // evita duplicar no host
+            Shoot(); // efeito visual nos outros clients
         }
 
         public void ShootSpecial()
@@ -84,6 +127,9 @@ namespace TW
 
         private void Update()
         {
+            if (IsServer) timer += Time.deltaTime;
+            if (IsServer) UpdateTimerClientRpc(timer);
+
             Vector3 newPosition = transform.position;
             newPosition.y += 1.6f;
 

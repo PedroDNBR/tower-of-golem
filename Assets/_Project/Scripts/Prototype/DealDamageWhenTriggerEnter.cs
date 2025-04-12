@@ -2,7 +2,7 @@ using TW;
 using Unity.Netcode;
 using UnityEngine;
 
-public class DealDamageWhenTriggerEnter : MonoBehaviour
+public class DealDamageWhenTriggerEnter : NetworkBehaviour
 {
     [SerializeField] private float damage;
     [SerializeField] private Elements element;
@@ -14,7 +14,10 @@ public class DealDamageWhenTriggerEnter : MonoBehaviour
     [SerializeField]
     bool destroyWhenDamage = false;
 
-    private void Awake() => this.enabled = NetworkManager.Singleton.IsServer;
+    protected void OnNetworkSpawn()
+    {
+        this.enabled = IsServer;
+    }
 
     private void Start()
     {

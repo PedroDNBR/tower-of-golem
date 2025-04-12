@@ -29,7 +29,7 @@ namespace TW
                 playerInput.Motion.Movement.performed += playerInput => movement = playerInput.ReadValue<Vector2>();
                 playerInput.Motion.Jump.performed += playerInput => playerMovement.Jump();
                 playerInput.Motion.Dash.performed += playerInput => playerMovement.Dash(movement.x, movement.y);
-                playerInput.Actions.PrimarySpell.performed += playerInput => playerSpell.Shoot();
+                playerInput.Actions.PrimarySpell.performed += playerInput => playerSpell.ShootInput();
                 playerInput.Actions.SpecialSpell.performed += playerInput => playerSpell.ShootSpecial();
                 playerInput.Settings.Menu.performed += playerInput => TogglePauseMenu();
                 // playerInput.Actions.Aim.performed += playerInput => playerInput.ReadValue<Vector2>());

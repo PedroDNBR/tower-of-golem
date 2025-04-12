@@ -944,9 +944,11 @@ GameObject:
   - component: {fileID: 737116909}
   - component: {fileID: 737116911}
   - component: {fileID: 737116910}
+  - component: {fileID: 737116915}
   - component: {fileID: 737116912}
   - component: {fileID: 737116913}
   - component: {fileID: 737116914}
+  - component: {fileID: 737116916}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -1044,7 +1046,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a0eeec1c7b20b42aca7ca8fe0281ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 200
+  maxHealth:
+    m_InternalValue: 100
   type: 0
   hittedAnimNameString: Hitted
   maxDamageUntilStagger: 20
@@ -1090,6 +1093,58 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &737116915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737116907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3293203854
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &737116916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737116907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!1 &827347600
 GameObject:
   m_ObjectHideFlags: 0
@@ -2537,6 +2592,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1794796725}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cf89f13d9e807364ab8095a7f55ad58c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1794796727}
     - targetCorrespondingSourceObject: {fileID: 2599614042559992637, guid: cf89f13d9e807364ab8095a7f55ad58c,
         type: 3}
       insertIndex: -1
@@ -2747,6 +2806,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canRotate: 1
   isBusy: 0
+--- !u!114 &1794796727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794796720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 1794796721}
 --- !u!1 &1811105542
 GameObject:
   m_ObjectHideFlags: 0

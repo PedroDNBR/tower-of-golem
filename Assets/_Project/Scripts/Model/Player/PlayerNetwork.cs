@@ -40,7 +40,7 @@ namespace TW
             playerCamera.enabled = IsOwner;
             canvas.SetActive(IsOwner);
             cameraObj.SetActive(IsOwner);
-            playerSpell.enabled = IsOwner;
+            playerSpell.enabled = IsOwner || IsServer;
             playerMovement.enabled = IsOwner || IsServer;
             playerUI.enabled = IsOwner;
             playerHealth.enabled = IsOwner || IsServer;
