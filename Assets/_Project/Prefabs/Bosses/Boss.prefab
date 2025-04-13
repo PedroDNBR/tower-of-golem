@@ -130,9 +130,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Enemy test
   stoppingDistance: 2.5
-  walkSpeed: 0
+  walkSpeed: 2
   walkRadius: 30
-  rotationSpeed: 0
+  rotationSpeed: 5
   minSightRangeRadius: 3
   medSightRangeRadius: 6
   maxSightRangeRadius: 10
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    m_InternalValue: 100
+    m_InternalValue: 200
   type: 0
   hittedAnimNameString: Hitted
   maxDamageUntilStagger: 20
@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d0459faeb10bc44b4d79d70f5968d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 30
   element: 4
   destroyWhenDamage: 0
 --- !u!1001 &5345068666645357953
@@ -913,7 +913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d0459faeb10bc44b4d79d70f5968d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 15
+  damage: 30
   element: 0
   destroyWhenDamage: 0
 --- !u!1 &1776487484129085460 stripped

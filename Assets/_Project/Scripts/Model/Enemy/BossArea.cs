@@ -58,7 +58,7 @@ namespace TW
                 PlayerController playerController = playersInArea[i];
                 SetBossUIInPlayerVisible(ref playerController, false);
             }
-            boss.UnsetHealthListener();
+            if(boss != null) boss.UnsetHealthListener();
         }
     }
 }
