@@ -1,55 +1,57 @@
-using TW;
 using Unity.Netcode;
 using UnityEngine;
 
-public class DealDamageWhenTriggerEnter : NetworkBehaviour
+namespace TW
 {
-    [SerializeField] private float damage;
-    [SerializeField] private Elements element;
-
-    BaseHealth characterBaseHealth;
-
-    public BaseHealth CharacterBaseHealth { set => characterBaseHealth = value; get => characterBaseHealth; }
-
-    [SerializeField]
-    bool destroyWhenDamage = false;
-
-    protected void OnNetworkSpawn()
+    public class DealDamageWhenTriggerEnter : NetworkBehaviour
     {
-        this.enabled = IsServer;
-    }
+        [SerializeField] private float damage;
+        [SerializeField] private Elements element;
 
-    private void Start()
-    {
-        if (characterBaseHealth == null)
-            characterBaseHealth = GetComponentInChildren<BaseHealth>();
+        BaseHealth characterBaseHealth;
 
-        if (characterBaseHealth == null)
-            characterBaseHealth = GetComponentInParent<BaseHealth>();
+        public BaseHealth CharacterBaseHealth { set => characterBaseHealth = value; get => characterBaseHealth; }
 
-        if (characterBaseHealth == null)
-            characterBaseHealth = GetComponent<BaseHealth>();
-    }
+        [SerializeField]
+        bool destroyWhenDamage = false;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!NetworkManager.Singleton.IsServer) return;
-        ShouldReceiveDamage shouldReceiveDamage = other.GetComponent<ShouldReceiveDamage>();
-        if (shouldReceiveDamage == null) return;
+        protected void OnNetworkSpawn()
+        {
+            this.enabled = IsServer;
+        }
 
-        BaseHealth health = other.GetComponent<BaseHealth>();
-        if(health == null)
-            health = other.GetComponentInChildren<BaseHealth>();
+        private void Start()
+        {
+            if (characterBaseHealth == null)
+                characterBaseHealth = GetComponentInChildren<BaseHealth>();
 
-        if (health == null)
-            health = other.GetComponentInParent<BaseHealth>();
+            if (characterBaseHealth == null)
+                characterBaseHealth = GetComponentInParent<BaseHealth>();
 
-        if (health == null) return;
+            if (characterBaseHealth == null)
+                characterBaseHealth = GetComponent<BaseHealth>();
+        }
 
-        if(characterBaseHealth == health) return;
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!NetworkManager.Singleton.IsServer) return;
+            ShouldReceiveDamage shouldReceiveDamage = other.GetComponent<ShouldReceiveDamage>();
+            if (shouldReceiveDamage == null) return;
 
-        health.TakeDamage(element, damage, gameObject);
+            BaseHealth health = other.GetComponent<BaseHealth>();
+            if(health == null)
+                health = other.GetComponentInChildren<BaseHealth>();
 
-        if (destroyWhenDamage) Destroy(gameObject);
+            if (health == null)
+                health = other.GetComponentInParent<BaseHealth>();
+
+            if (health == null) return;
+
+            if(characterBaseHealth == health) return;
+
+            health.TakeDamage(element, damage, gameObject);
+
+            if (destroyWhenDamage) Destroy(gameObject);
+        }
     }
 }

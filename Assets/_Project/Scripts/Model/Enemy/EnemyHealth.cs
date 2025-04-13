@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.Netcode;
 
 namespace TW
 {
@@ -15,6 +16,19 @@ namespace TW
         private EnemyController enemyController;
 
         public EnemyController EnemyController { set => enemyController = value; }
+
+        public float minVelocityToDealDamage = 8f;
+
+        public float totalVelocity;
+
+        protected Vector3 previousPosition;
+
+        protected virtual void FixedUpdate()
+        {
+            if (!NetworkManager.Singleton.IsServer) return;
+            totalVelocity = ((transform.position - previousPosition) / Time.deltaTime).magnitude;
+            previousPosition = transform.position;
+        }
 
         public override void TakeDamage(Elements damageType, float damage, GameObject origin)
         {

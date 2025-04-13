@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System;
+using Unity.Netcode;
 
 namespace TW
 {
-    public abstract class BaseAI : MonoBehaviour
+    public abstract class BaseAI : NetworkBehaviour
     {
         [SerializeField]
         protected string enemyName = "Enemy test";
@@ -68,6 +69,8 @@ namespace TW
 
         private void Update()
         {
+            if (!IsServer || agent == null) return;
+
             Roaming();
             FollowPlayer();
             AttackPlayer();
@@ -76,6 +79,7 @@ namespace TW
 
         private void FixedUpdate()
         {
+            if (!IsServer) return;
             TrackPlayer();
         }
 

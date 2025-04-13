@@ -1,9 +1,10 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace TW
 {
-    public class AnimatorController : MonoBehaviour
+    public class AnimatorController : NetworkBehaviour
     {
         protected Animator animator;
 
@@ -28,6 +29,7 @@ namespace TW
 
         private void Update()
         {
+            if (!IsServer && animator == null) return;
             isBusy = GetIsBusyBool();
             animator.applyRootMotion = isBusy;
         }

@@ -32,10 +32,7 @@ namespace TW
             health.OnValueChanged += ((float old, float current) => HealthChanged?.Invoke(health.Value, maxHealth.Value));
 
             if(IsServer) health.Value = maxHealth.Value;
-            //InvokeHealthChangedEvent();
         }
-
-        //protected void InvokeHealthChangedEvent() => HealthChanged?.Invoke(health, maxHealth);
 
         public virtual void TakeDamage(Elements damageType, float damage, GameObject origin)
         {
@@ -46,7 +43,6 @@ namespace TW
 
             float damageMultiplier = DamageMultiplier.table[type][damageType];
             health.Value -= damage * damageMultiplier;
-            //InvokeHealthChangedEvent();
 
             if (health.Value <= 0) InvokeDead();
         }
@@ -57,6 +53,8 @@ namespace TW
             if(objectsThatDamaged.Count > 0) objectsThatDamaged.Clear();
         }
 
-        public void InvokeDead() => Dead?.Invoke();  
+        public void InvokeDead() => Dead?.Invoke();
+
+        public void InvokeHealthUpdateCallback() => HealthChanged?.Invoke(health.Value, maxHealth.Value);
     }
 }

@@ -45,12 +45,9 @@ namespace TW
             playerUI.enabled = IsOwner;
             playerHealth.enabled = IsOwner || IsServer;
 
-            gameObject.name = gameObject.name + " " + NetworkObjectId; 
+            gameObject.name = gameObject.name + " " + NetworkObjectId;
 
-            if (!IsServer || !IsHost)
-            {
-                onCollision.enabled = false;
-            }
+            onCollision.enabled = IsServer;
 
             if(IsServer)
             {

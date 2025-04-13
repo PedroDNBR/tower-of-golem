@@ -24,7 +24,7 @@ namespace TW
         List<Spell> specialSpells = new List<Spell>();
 
         [SerializeField]
-        int equippedSpell = 0;
+        NetworkVariable<int> equippedSpell = new NetworkVariable<int>(0);
 
         [SerializeField]
         private NetworkVariable<float> attackDelay = new NetworkVariable<float>(1.5f);
@@ -34,12 +34,16 @@ namespace TW
 
         Dictionary<Spell, bool> specialSpellsUsageList = new Dictionary<Spell, bool>();
 
+
         private float timer = 0f;
 
-        private void Start()
+        public override void OnNetworkSpawn()
         {
+            base.OnNetworkSpawn();  
             for (int i = 0; i < specialSpells.Count; i++)
                 specialSpellsUsageList.Add(specialSpells[i], false);
+
+            Debug.Log($"specialSpellsUsageList {specialSpellsUsageList}");
 
             if (!IsServer) return;
 
@@ -86,8 +90,7 @@ namespace TW
 
         public void Shoot()
         {
-            Debug.Log("Shoot()");
-            InstantiateSpell(spells[equippedSpell]);
+            InstantiateSpell(spells[equippedSpell.Value]);
         }
 
         [ServerRpc]
@@ -106,12 +109,43 @@ namespace TW
             Shoot(); // efeito visual nos outros clients
         }
 
+        public void ShootSpecialInput()
+        {
+            if (timer > attackDelay.Value + lastShot.Value)
+            {
+                if (!IsServer)
+                {
+                    ShootSpecial(); // visual imediato no client local
+                    ShootSpecialServerRpc(); // envia pro server fazer o real
+                }
+                else
+                {
+                    ShootSpecial(); // host tamb�m precisa ver o visual
+                    ShootSpecialClientRpc(); // envia pra todos os outros clients
+                }
+            }
+        }
+
         public void ShootSpecial()
         {
-            if (specialSpellsUsageList[specialSpells[equippedSpell]] == true) return;
+            if (specialSpellsUsageList[specialSpells[equippedSpell.Value]] == true) return;
 
-            specialSpellsUsageList[specialSpells[equippedSpell]] = true;
-            InstantiateSpell(specialSpells[equippedSpell]);
+            specialSpellsUsageList[specialSpells[equippedSpell.Value]] = true;
+            InstantiateSpell(specialSpells[equippedSpell.Value]);
+        }
+
+        [ServerRpc]
+        public void ShootSpecialServerRpc()
+        {
+            ShootSpecial(); // servidor instancia o "real"
+            ShootSpecialClientRpc(); // replicar pros outros
+        }
+
+        [ClientRpc]
+        public void ShootSpecialClientRpc()
+        {
+            if (IsServer || IsLocalPlayer) return; // evita duplicar no host
+            ShootSpecial(); // efeito visual nos outros clients
         }
 
         public void InstantiateSpell(Spell spell)

@@ -23,15 +23,20 @@ namespace TW
 
         public void HealthValueToSliderValue(float current, float max)
         {
+            if (enemyHealthSlider == null)
+            {
+                Debug.LogAssertion("Health Slider is Null");
+                return;
+            }
+            Debug.Log($"UPDATE: current: {current} max: {max}");
             UIUtils.ConvertToSliderValue(enemyHealthSlider, current, max);
         }
 
         public void SetEnemyStats(ref EnemyController enemy) => enemyNameText.text = enemy.name;
 
-        public void SetEnemyStatsVisible(bool isVisible) => enemyHUD.gameObject.SetActive(isVisible);
-
-        public void EnemyHealthValueToSliderValue(float current, float max) =>
-            UIUtils.ConvertToSliderValue(enemyHealthSlider, current, max);
-        
+        public void SetEnemyStatsVisible(bool isVisible)
+        {
+            if(enemyHUD != null) enemyHUD.gameObject.SetActive(isVisible);
+        }
     }
 }

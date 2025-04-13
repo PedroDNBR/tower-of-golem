@@ -12,6 +12,7 @@ namespace TW
 
         private void SetBossUIInPlayerVisible(ref PlayerController playerController, bool isVisible)
         {
+            if (!playerController.GetComponentInParent<PlayerNetwork>().IsLocalPlayer) return;
             boss.EnemyUI.EnemyHealthSlider = playerController.PlayerUI.BossHealthSlider;
             boss.EnemyUI.EnemyHUD = playerController.PlayerUI.BossHUD;
             boss.EnemyUI.EnemyNameText = playerController.PlayerUI.BossNameText;
@@ -21,6 +22,7 @@ namespace TW
             {
                 boss.SetHealthListener();
                 boss.SetHealthValuesInSlider();
+                boss.EnemyHealth.InvokeHealthUpdateCallback();
             }
             else 
                 boss.UnsetHealthListener();
@@ -46,6 +48,16 @@ namespace TW
                 playersInArea.Remove(player);
 
             SetBossUIInPlayerVisible(ref player, false);
+        }
+
+        private void OnDestroy()
+        {
+            for (int i = 0; i < playersInArea.Count; i++)
+            {
+                PlayerController playerController = playersInArea[i];
+                SetBossUIInPlayerVisible(ref playerController, false);
+            }
+            boss.UnsetHealthListener();
         }
     }
 }

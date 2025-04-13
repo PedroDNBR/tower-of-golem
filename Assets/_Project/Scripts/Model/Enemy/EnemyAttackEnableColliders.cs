@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TW
@@ -13,6 +14,7 @@ namespace TW
 
         private void Start()
         {
+            if (!NetworkManager.Singleton.IsServer) return;
             for (int i = 0; i < colliders.Count; i++)
                 damageColliders.Add(colliders[i].colliderName, colliders[i].collider);
         }
@@ -23,6 +25,7 @@ namespace TW
 
         private void SetDamageColliders(string name, bool isEnabled)
         {
+            if (!NetworkManager.Singleton.IsServer) return;
             string[] colliderNames = name.Split(",");
             for (int i = 0; i < colliderNames.Length; i++)
                 damageColliders[colliderNames[i]].enabled = isEnabled;

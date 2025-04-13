@@ -15,7 +15,6 @@ namespace TW
 
         public PlayerUI PlayerUI { get => playerUI; }
 
-
         [Header("References")]
         public PlayerInput playerInput;
 
@@ -30,7 +29,7 @@ namespace TW
                 playerInput.Motion.Jump.performed += playerInput => playerMovement.Jump();
                 playerInput.Motion.Dash.performed += playerInput => playerMovement.Dash(movement.x, movement.y);
                 playerInput.Actions.PrimarySpell.performed += playerInput => playerSpell.ShootInput();
-                playerInput.Actions.SpecialSpell.performed += playerInput => playerSpell.ShootSpecial();
+                playerInput.Actions.SpecialSpell.performed += playerInput => playerSpell.ShootSpecialInput();
                 playerInput.Settings.Menu.performed += playerInput => TogglePauseMenu();
                 // playerInput.Actions.Aim.performed += playerInput => playerInput.ReadValue<Vector2>());
             }
