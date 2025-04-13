@@ -12,6 +12,7 @@ namespace TW
 
         private void SetBossUIInPlayerVisible(ref PlayerController playerController, bool isVisible)
         {
+            if (playerController == null || boss == null) return;
             if (!playerController.GetComponentInParent<PlayerNetwork>().IsLocalPlayer) return;
             boss.EnemyUI.EnemyHealthSlider = playerController.PlayerUI.BossHealthSlider;
             boss.EnemyUI.EnemyHUD = playerController.PlayerUI.BossHUD;

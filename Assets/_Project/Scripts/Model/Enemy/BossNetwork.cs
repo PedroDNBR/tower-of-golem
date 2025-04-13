@@ -45,7 +45,6 @@ namespace TW
         [ClientRpc]
         public void DieClientRpc()
         {
-            Debug.Log("BOSS DIED");
             UnsetUI();
         }
 

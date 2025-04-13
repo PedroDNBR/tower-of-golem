@@ -43,8 +43,6 @@ namespace TW
             for (int i = 0; i < specialSpells.Count; i++)
                 specialSpellsUsageList.Add(specialSpells[i], false);
 
-            Debug.Log($"specialSpellsUsageList {specialSpellsUsageList}");
-
             if (!IsServer) return;
 
             timer = Time.time;

@@ -29,7 +29,7 @@ namespace TW
 
         protected virtual void Start()
         {
-            health.OnValueChanged += ((float old, float current) => HealthChanged?.Invoke(health.Value, maxHealth.Value));
+            health.OnValueChanged += (float old, float current) => HealthChanged?.Invoke(health.Value, maxHealth.Value);
 
             if(IsServer) health.Value = maxHealth.Value;
         }

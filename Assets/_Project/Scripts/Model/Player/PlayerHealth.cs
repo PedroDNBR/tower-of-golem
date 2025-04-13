@@ -1,17 +1,38 @@
-using UnityEngine;
+using Unity.Netcode;
 
 namespace TW
 {
     public class PlayerHealth : BaseHealth
     {
-        public override void TakeDamage(Elements damageType, float damage, GameObject origin)
+        public override void OnNetworkSpawn()
         {
-            base.TakeDamage(damageType, damage, origin);
-            if(health.Value <= 0)
-            {
-                //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                Destroy(this.gameObject);
-            }
+            base.OnNetworkSpawn();
+
+            Dead += StartDeath;
+        }
+
+        private void StartDeath()
+        {
+            DieServerRpc();
+        }
+
+        [ClientRpc(RequireOwnership = false)]
+        private void DieClientRpc()
+        {
+            Die();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void DieServerRpc()
+        {
+            Die();
+            DieClientRpc();
+        }
+
+        private void Die()
+        {
+            InvokeHealthUpdateCallback();
+            Destroy(gameObject);
         }
     }
 }
