@@ -126,6 +126,7 @@ namespace TW
         {
             graphicsMenuTransform.gameObject.SetActive(false);
             startMenuTransform.gameObject.SetActive(true);
+            multiplayerMenuTransform.gameObject.SetActive(false);
         }
 
         private void SetBloom(bool value)
