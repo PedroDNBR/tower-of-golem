@@ -328,7 +328,6 @@ namespace TW
         {
             Debug.Log("Carregando lista de jogadores");
 
-
             foreach (Transform item in playerListTransform)
                 Destroy(item.gameObject);
 
@@ -345,8 +344,13 @@ namespace TW
             GameObject playerItem = Instantiate(playerListItemPrefab.gameObject, playerListTransform);
             PlayerItemUI playerItemUI = playerItem.GetComponent<PlayerItemUI>();
             if (player.Data == null) return;
+            Debug.Log($"player.Data.Count: {player.Data.Count}");
             foreach (var data in player.Data)
+            {
+                Debug.Log($"player name on Screen: {data.Value.Value}");
                 playerItemUI.PlayerNameText.text = data.Value.Value;
+            }
+
         }
 
         private async Task SendPlayerNameToLobby()
@@ -374,12 +378,11 @@ namespace TW
                         )
                     }
                 };
-                Debug.Log($"Pegou o nome: {playerName}");
 
                 string playerId = AuthenticationService.Instance.PlayerId;
 
                 var lobby = await LobbyService.Instance.UpdatePlayerAsync(currentLobby.Id, playerId, options);
-                Debug.Log("Enviou o nome");
+                Debug.Log($"Enviou o nome: {playerName}");
             }
             catch (LobbyServiceException e)
             {
@@ -407,7 +410,6 @@ namespace TW
 
         private bool IsLobbyHost()
         {
-            Debug.Log($"IsLobbyHost(): currentLobby != null:{currentLobby != null} {currentLobby.HostId} == {AuthenticationService.Instance.PlayerId}");
             return currentLobby != null && currentLobby.HostId == AuthenticationService.Instance.PlayerId;
         }
 
@@ -477,18 +479,14 @@ namespace TW
 
         private async void StartGame()
         {
-            Debug.Log("StartGame()");
             if (currentLobby == null) return;
-            Debug.Log("StartGame() with current lobby");
             startButton.interactable = false;
 
             string joinCode = await StartHost();
 
-            Debug.Log("Join Code: " + joinCode);
 
             UpdateLobbyOptions options = new UpdateLobbyOptions();
 
-            Debug.Log($"NetworkManager.Singleton.IsHost {NetworkManager.Singleton.IsHost}");
             if (NetworkManager.Singleton.IsHost)
             {
                 NetworkManager.Singleton.OnClientConnectedCallback += (ulong test) => {
@@ -516,8 +514,6 @@ namespace TW
             //);
 
             currentLobby = await LobbyService.Instance.UpdateLobbyAsync(currentLobby.Id, options);
-
-            Debug.Log("Load new scene");
 
             if (NetworkManager.Singleton.IsHost)
                 ChangeSceneToGameScene();
@@ -564,7 +560,6 @@ namespace TW
             try
             {
                 string joinCode = currentLobby.Data["JoinCode"].Value;
-                Debug.Log("Joining Relay with " + joinCode);
                 JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
 
                 RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
@@ -581,9 +576,7 @@ namespace TW
 
         private void ChangeSceneToGameScene()
         {
-            Debug.Log("ChangeSceneToGameScene()");
             if (currentLobby == null) return;
-            Debug.Log($"NetworkManager.Singleton.ConnectedClientsList.Count:{NetworkManager.Singleton.ConnectedClientsList.Count} != currentLobby.Players.Count:{currentLobby.Players.Count} = {NetworkManager.Singleton.ConnectedClientsList.Count != currentLobby.Players.Count}");
             if (NetworkManager.Singleton.ConnectedClientsList.Count != currentLobby.Players.Count) return;
 
             CloseLobby();
@@ -593,7 +586,6 @@ namespace TW
         private void CheckIfIsHost()
         {
             if (currentLobby == null) return;
-            Debug.Log($"CheckIfIsHost: {IsLobbyHost()}");
             startButton.gameObject.SetActive(IsLobbyHost());
         }
 
