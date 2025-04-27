@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -72,6 +73,10 @@ namespace TW
         
         private void ClosePauseMenu() => pauseMenu.gameObject.SetActive(false);
 
-        private void QuitGame() => SceneManager.LoadScene("MainMenu");
+        private void QuitGame()
+        {
+            Destroy(NetworkManager.Singleton.gameObject);
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 }

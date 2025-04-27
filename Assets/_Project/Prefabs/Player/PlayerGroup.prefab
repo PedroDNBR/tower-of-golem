@@ -999,7 +999,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9f97aec628027a24fb5574ef406a685d, type: 2}
   specialSpells:
   - {fileID: 11400000, guid: 3259f063c59d9134983d74b297ccf85f, type: 2}
-  equippedSpell: 0
+  equippedSpell:
+    m_InternalValue: 0
   attackDelay:
     m_InternalValue: 1.5
   lastShot:

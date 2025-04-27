@@ -1,7 +1,11 @@
 using Steamworks;
+using Unity.Netcode.Transports.UTP;
+using Unity.Netcode;
+using Unity.Networking.Transport.Relay;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 namespace TW
 {
@@ -21,7 +25,19 @@ namespace TW
             settingsButton.onClick.AddListener(OpenSettingsMenu);
         }
 
-        private void PlaySingleplayer() => SceneManager.LoadScene(1);
+        private void PlaySingleplayer()
+        {
+            Destroy(NetworkManager.Singleton.GetComponent<UnityTransport>());
+
+            NetworkManager.Singleton.NetworkConfig = new NetworkConfig
+            {
+                NetworkTransport = NetworkManager.Singleton.GetComponent<NetworkManager>().AddComponent<UnityTransport>()
+            };
+
+            NetworkManager.Singleton.StartHost();
+
+            NetworkManager.Singleton.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        }
 
         private void OpenMultiplayerMenu()
         {
