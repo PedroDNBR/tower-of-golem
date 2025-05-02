@@ -17,6 +17,7 @@ using Unity.Networking.Transport.Relay;
 using Unity.Services.Relay.Models;
 using Unity.Services.Relay;
 using UnityEngine.SceneManagement;
+using Unity.Services.Lobbies.Http;
 
 namespace TW
 {
@@ -25,8 +26,9 @@ namespace TW
         [SerializeField] protected RectTransform lobbyMenuTransform;
         [SerializeField] protected RectTransform hostModalTransform;
         [SerializeField] protected RectTransform hostMenuTransform;
-        [SerializeField] protected RectTransform lobbyListTransform;
         [SerializeField] protected RectTransform playerListTransform;
+        [SerializeField] protected RectTransform lobbyListTransform;
+        [SerializeField] protected RectTransform joinModalTransform;
 
         [Header("UI Prefabs")]
         [SerializeField] protected LobbyItemUI lobbyListItemPrefab;
@@ -41,10 +43,16 @@ namespace TW
         [SerializeField] private Button createLobbyButton;
         [SerializeField] private Button startButton;
         [SerializeField] private Button joinButton;
+        [SerializeField] private Button backJoinModalButton;
+        [SerializeField] private Button joinModalButton;
 
         [Header("UI Inputs")]
         [SerializeField] private TMP_InputField lobbyNameInput;
+        private UiErrorMessage lobbyNameInputError;
         [SerializeField] private TMP_InputField lobbyPasswordInput;
+        private UiErrorMessage lobbyPasswordInputError;
+        [SerializeField] private TMP_InputField lobbyModalPasswordInput;
+        private UiErrorMessage lobbyModalPasswordInputError;
 
         [Header("UI Text")]
         [SerializeField] private TMP_Text lobbyNameText;
@@ -63,13 +71,8 @@ namespace TW
 
         private async void OnEnable()
         {
-            lobbyBackButton.onClick.AddListener(BackToStartMenu);
-            hostButton.onClick.AddListener(() => HostNewGame(true));
-            hostModalBackButton.onClick.AddListener(() => HostNewGame(false));
-            createLobbyButton.onClick.AddListener(CreateLobby);
-            hostMenuBackButton.onClick.AddListener(BackFromLobby);
-            startButton.onClick.AddListener(StartGame);
-            refreshLobbyListButton.onClick.AddListener(RefreshLobbyList);
+            SetButtonListeners();
+            SetInputListeners();
 
             //await UnityServices.InitializeAsync();
 
@@ -79,9 +82,9 @@ namespace TW
 
             await UnityServices.InitializeAsync();
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
             AuthenticationService.Instance.SignOut(true);
-        #endif
+#endif
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
             try
@@ -105,6 +108,75 @@ namespace TW
             await QueryLobbies();
         }
 
+        private void SetInputListeners()
+        {
+            lobbyPasswordInput.onValueChanged.AddListener((string value) =>
+            {
+                ValidatePassword(value, ref lobbyPasswordInputError);
+                //if (lobbyPasswordInputError == null) return;
+
+                //if (!String.IsNullOrEmpty(value))
+                //{
+                //    if (lobbyPasswordInput.text.Length < 8 || lobbyPasswordInput.text.Length > 64)
+                //    {
+                //        return;
+                //    }
+                //}
+                //Destroy(lobbyPasswordInputError.gameObject);
+                //lobbyPasswordInputError = null;
+            });
+
+            lobbyNameInput.onValueChanged.AddListener((string value) =>
+            {
+                if (String.IsNullOrEmpty(value) || lobbyNameInputError == null) return;
+                Destroy(lobbyNameInputError.gameObject);
+                lobbyNameInputError = null;
+            });
+
+            lobbyModalPasswordInput.onValueChanged.AddListener((string value) =>
+            {
+                ValidatePassword(value, ref lobbyModalPasswordInputError);
+                //if (lobbyModalPasswordInputError == null) return;
+
+                //if (!String.IsNullOrEmpty(value))
+                //{
+                //    if (value.Length < 8 || value.Length > 64)
+                //    {
+                //        return;
+                //    }
+                //}
+                //Destroy(lobbyModalPasswordInputError.gameObject);
+                //lobbyModalPasswordInputError = null;
+            });
+        }
+
+        void ValidatePassword(string value, ref UiErrorMessage errorMessage)
+        {
+            if (errorMessage == null) return;
+
+            if (!String.IsNullOrEmpty(value))
+            {
+                if (value.Length < 8 || value.Length > 64)
+                {
+                    return;
+                }
+            }
+            Destroy(errorMessage.gameObject);
+            errorMessage = null;
+        }
+
+        private void SetButtonListeners()
+        {
+            lobbyBackButton.onClick.AddListener(BackToStartMenu);
+            hostButton.onClick.AddListener(() => HostNewGame(true));
+            hostModalBackButton.onClick.AddListener(() => HostNewGame(false));
+            createLobbyButton.onClick.AddListener(CreateLobby);
+            hostMenuBackButton.onClick.AddListener(BackFromLobby);
+            startButton.onClick.AddListener(StartGame);
+            refreshLobbyListButton.onClick.AddListener(RefreshLobbyList);
+            backJoinModalButton.onClick.AddListener(BackFromJoinModal);
+        }
+
         async void OnAuthCallback(GetTicketForWebApiResponse_t callback)
         {
             ticket = BitConverter.ToString(callback.m_rgubTicket).Replace("-", string.Empty);
@@ -112,7 +184,7 @@ namespace TW
             AuthTicketForWebApiResponseCallback = null;
             Debug.Log("Steam Login success. Session Ticket: " + ticket);
             await SignInWithSteamAsync(ticket, identity);
-            QueryLobbies();
+            await QueryLobbies();
             // Call Unity Authentication SDK to sign in or link with Steam, displayed in the following examples, using the same identity string and the m_SessionTicket.
         }
 
@@ -148,13 +220,13 @@ namespace TW
                 createLobbyButton.interactable = false;
                 hostModalBackButton.interactable = false;
                 string lobbyName = lobbyNameInput.text;
-                if (String.IsNullOrEmpty(lobbyName)) return;
                 CreateLobbyOptions options = new CreateLobbyOptions();
-                if (!String.IsNullOrEmpty(lobbyPasswordInput.text))
+                if (String.IsNullOrEmpty(lobbyName))
                 {
-                    options.IsPrivate = true;
-                    options.Password = lobbyPasswordInput.text;
+                    SetErrorInLobbyCreation(lobbyNameInput.transform, ref lobbyNameInputError, "Lobby name is required");
+                    return;
                 }
+                if (!ValidatePassword(ref lobbyPasswordInput, ref lobbyPasswordInputError, ref options)) return;
                 options.Data = new Dictionary<string, DataObject>()
                 {
                     {
@@ -181,6 +253,47 @@ namespace TW
                 createLobbyButton.interactable = true;
                 hostModalBackButton.interactable = true;
             }
+        }
+
+        private bool ValidatePassword(ref TMP_InputField passwordInput, ref UiErrorMessage passwordInputError)
+        {
+            if (!String.IsNullOrEmpty(passwordInput.text))
+            {
+                if (passwordInput.text.Length < 8 || passwordInput.text.Length > 64)
+                {
+                    SetErrorInLobbyCreation(passwordInput.transform, ref passwordInputError, "Password must have between 8 and 64 characters");
+                    return false;
+                }
+                return true;
+            }
+            SetErrorInLobbyCreation(passwordInput.transform, ref passwordInputError, "Password can't be empty");
+            return false;
+        }
+
+        private bool ValidatePassword(ref TMP_InputField passwordInput, ref UiErrorMessage passwordInputError, ref CreateLobbyOptions options)
+        {
+            if (!String.IsNullOrEmpty(passwordInput.text))
+            {
+                if (passwordInput.text.Length < 8 || passwordInput.text.Length > 64)
+                {
+                    SetErrorInLobbyCreation(passwordInput.transform, ref passwordInputError, "Password must have between 8 and 64 characters");
+                    return false;
+                }
+                options.Password = passwordInput.text;
+                return true;
+            }
+            return true;
+        }
+
+        private void SetErrorInLobbyCreation(Transform parentTransform, ref UiErrorMessage errorMessage, string errorText)
+        {
+            createLobbyButton.interactable = true;
+            hostModalBackButton.interactable = true;
+            joinModalButton.interactable = true;
+            if (errorMessage != null && errorMessage.name == errorText) return;
+            if (errorMessage != null) Destroy(errorMessage.gameObject);
+            errorMessage = UiUtils.Instance.SetErrorMessage(parentTransform.transform, errorText);
+            return;
         }
 
         private async Task LoadLobbyUI()
@@ -237,7 +350,7 @@ namespace TW
             LobbyItemUI lobbyItemUI = lobbyItem.GetComponent<LobbyItemUI>();
             lobbyItemUI.LobbyName.text = lobby.Name;
             lobbyItemUI.PlayerCount.text = $"{lobby.Players.Count}/{lobby.MaxPlayers}";
-            lobbyItemUI.OnSelectAction += () => SetupLobbyToJoin(lobby.Id);
+            lobbyItemUI.OnSelectAction += () => SetupLobbyToJoin(lobby);
         }
 
         IEnumerator HeartbeatLobbyCoroutine()
@@ -390,7 +503,9 @@ namespace TW
             }
         }
 
-#endregion
+        #endregion
+
+        #region JoinLobby
 
         private void BackFromLobby()
         {
@@ -399,6 +514,84 @@ namespace TW
             hostModalTransform.gameObject.SetActive(false);
             hostMenuTransform.gameObject.SetActive(false);
         }
+
+        private void BackFromJoinModal()
+        {
+            joinModalTransform.gameObject.SetActive(false);
+            lobbyModalPasswordInput.text = String.Empty;
+            joinButton.interactable = true; 
+        }
+
+        private void SetupLobbyToJoin(Lobby lobby)
+        {
+            Debug.Log($"Clicked on a lobby: {lobby.Id}");
+            joinButton.interactable = true;
+            joinButton.onClick.RemoveAllListeners();
+            joinButton.onClick.AddListener(async () =>
+            {
+                joinButton.interactable = false;
+                try
+                {
+                    if(lobby.HasPassword)
+                    {
+                        OpenJoinPasswordModal(lobby);
+                    }
+                    else
+                    {
+                        await JoinLobbyById(lobby.Id);
+                    }
+                }
+                catch (LobbyServiceException e)
+                {
+                    joinButton.interactable = true;
+                    Debug.Log(e);
+                }
+            });
+        }
+
+        private async Task<bool> JoinLobbyById(string lobbyId, string password = "")
+        {
+            Lobby joinedLobby;
+            startButton.gameObject.SetActive(false);
+            if (String.IsNullOrEmpty(password))
+            {
+                joinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId);
+            }
+            else
+            {
+                try
+                {
+                    var idOptions = new JoinLobbyByIdOptions { Password = password };
+                    joinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId, idOptions);
+                }
+                catch (Exception e)
+                {
+                    SetErrorInLobbyCreation(lobbyModalPasswordInput.transform, ref lobbyModalPasswordInputError, "Password is incorrect");
+                    return false;
+                }
+            }
+            currentLobby = joinedLobby;
+            await LoadLobbyUI();
+            return true;
+        }
+        
+        private void OpenJoinPasswordModal(Lobby lobby)
+        {
+            joinModalTransform.gameObject.SetActive(true);
+            joinModalButton.onClick.AddListener(() => JoinLobbyViaModal(lobby.Id));
+        }
+
+        private async void JoinLobbyViaModal(string lobbyId)
+        {
+            if (!ValidatePassword(ref lobbyModalPasswordInput, ref lobbyModalPasswordInputError)) return;
+            if(await JoinLobbyById(lobbyId, lobbyModalPasswordInput.text))
+            {
+                joinModalTransform.gameObject.SetActive(false);
+                lobbyModalPasswordInput.text = String.Empty;
+            }
+        }
+
+        #endregion
 
         private void BackToStartMenu()
         {
@@ -451,30 +644,6 @@ namespace TW
                 CheckIfShouldStartGame();
                 CheckIfIsHost();
             }
-        }
-
-        private void SetupLobbyToJoin(string lobbyId)
-        {
-            Debug.Log($"Clicked on a lobby: {lobbyId}");
-            joinButton.interactable = true;
-            joinButton.onClick.RemoveAllListeners();
-            joinButton.onClick.AddListener(async () =>
-            {
-                joinButton.interactable = false;
-                try
-                {
-                    startButton.gameObject.SetActive(false);
-                    Debug.Log($"Joining Lobby: {lobbyId}");
-                    Lobby joinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId);
-                    currentLobby = joinedLobby;
-                    await LoadLobbyUI();
-                }
-                catch (LobbyServiceException e)
-                {
-                    joinButton.interactable = true;
-                    Debug.Log(e);
-                }
-            });
         }
 
         private async void StartGame()
