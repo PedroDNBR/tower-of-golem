@@ -19,6 +19,10 @@ namespace TW
 
         private Vector2 movement;
 
+        private Vector2 analogicAim;
+        private Vector2 mouseAim;
+        private Vector2 lastMouseAim;
+
         public void OnEnable()
         {
             if (playerInput == null)
@@ -30,7 +34,8 @@ namespace TW
                 playerInput.Actions.PrimarySpell.performed += playerInput => playerSpell.ShootInput();
                 playerInput.Actions.SpecialSpell.performed += playerInput => playerSpell.ShootSpecialInput();
                 playerInput.Settings.Menu.performed += playerInput => TogglePauseMenu();
-                // playerInput.Actions.Aim.performed += playerInput => playerInput.ReadValue<Vector2>());
+                playerInput.Actions.AnalogicAim.performed += playerInput => analogicAim = playerInput.ReadValue<Vector2>();
+                playerInput.Actions.MouseAim.performed += playerInput => mouseAim = playerInput.ReadValue<Vector2>();
             }
             playerInput.Enable();
         }
@@ -72,9 +77,29 @@ namespace TW
             playerMovement.Movement(movement.x, movement.y, delta);
         }
 
+        bool usingAnalogic = false;
+        bool usingMouse = true;
+
         private void LateUpdate()
         {
-            playerSpell.AimToPosition();
+            float analogAmout = Mathf.Clamp01(Mathf.Abs(analogicAim.x) + Mathf.Abs(analogicAim.y));
+            if(analogAmout > 0 && !usingAnalogic)
+            {
+                usingAnalogic = true;
+                usingMouse = false;
+            } else if (mouseAim != lastMouseAim)
+            {
+                usingAnalogic = false;
+                usingMouse = true;
+            }
+
+            if (usingAnalogic)
+                playerSpell.AimUsingAnalogic(analogicAim);
+
+            if (usingMouse)
+                playerSpell.AimToPosition();
+
+            lastMouseAim = mouseAim;
         }
     }
 }

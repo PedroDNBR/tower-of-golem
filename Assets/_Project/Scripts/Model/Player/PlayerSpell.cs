@@ -68,6 +68,13 @@ namespace TW
             }
         }
 
+        public void AimUsingAnalogic(Vector3 aim)
+        {
+            if (aim.x == 0 && aim.y == 0) return;
+            Vector3 lookDirection = new Vector3(aim.x, 0, aim.y);
+            spellcaster.rotation = Quaternion.LookRotation(lookDirection);
+        }
+
         public void ShootInput()
         {
             if (timer > attackDelay.Value + lastShot.Value)

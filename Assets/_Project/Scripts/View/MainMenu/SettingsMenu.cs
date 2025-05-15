@@ -34,7 +34,6 @@ namespace TW
         private RefreshRate currentRefreshRate;
         private int currentResolutionIndex = 0;
 
-
         protected override void OnEnable()
         {
             SetToggles();

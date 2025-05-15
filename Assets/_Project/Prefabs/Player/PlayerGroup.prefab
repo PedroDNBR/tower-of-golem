@@ -2488,6 +2488,7 @@ MonoBehaviour:
   graphicsMenuTransform: {fileID: 0}
   multiplayerMenuTransform: {fileID: 0}
   continueButton: {fileID: 6758426108441754692}
+  backButton: {fileID: 6758426108441754692}
 --- !u!1 &7830914877799402869
 GameObject:
   m_ObjectHideFlags: 0

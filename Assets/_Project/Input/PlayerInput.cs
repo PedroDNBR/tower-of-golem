@@ -113,6 +113,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""24f5770c-592e-4be5-8a8f-b644c3d27b08"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""5d6151b6-920e-49c8-86f2-ac6732c8bbae"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -124,8 +135,30 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""ea5e6474-fb0d-4758-810f-133747631b9e"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""bf58d499-4467-4e8b-bef1-7417a99c993c"",
                     ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1715001a-77a2-4c0d-a99d-272b956c0684"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -158,9 +191,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Aim"",
+                    ""name"": ""AnalogicAim"",
                     ""type"": ""PassThrough"",
                     ""id"": ""c68aed87-d6a1-4697-b4d9-c43e118c377d"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseAim"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""1cd7106b-442c-40ef-8526-4504a9a71749"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -181,12 +223,23 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""285f5bc6-f926-4b05-a6c3-c3ae7ef821b3"",
-                    ""path"": ""<Mouse>/position"",
+                    ""id"": ""926bec05-ff1f-4f45-b3e0-8d8cd0494c9f"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Aim"",
+                    ""action"": ""PrimarySpell"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""92dbf367-6a87-4166-8356-548bea5bd425"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": ""StickDeadzone"",
+                    ""groups"": """",
+                    ""action"": ""AnalogicAim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -198,6 +251,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SpecialSpell"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa50328a-b33e-44eb-84f2-d467330fe9f4"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpecialSpell"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c3f3628c-fabe-4b28-ae37-12c4c2fb8793"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseAim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -228,6 +303,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44ee59af-6590-41c1-a067-beedff53e3b5"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -243,7 +329,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Actions = asset.FindActionMap("Actions", throwIfNotFound: true);
         m_Actions_PrimarySpell = m_Actions.FindAction("PrimarySpell", throwIfNotFound: true);
         m_Actions_SpecialSpell = m_Actions.FindAction("SpecialSpell", throwIfNotFound: true);
-        m_Actions_Aim = m_Actions.FindAction("Aim", throwIfNotFound: true);
+        m_Actions_AnalogicAim = m_Actions.FindAction("AnalogicAim", throwIfNotFound: true);
+        m_Actions_MouseAim = m_Actions.FindAction("MouseAim", throwIfNotFound: true);
         // Settings
         m_Settings = asset.FindActionMap("Settings", throwIfNotFound: true);
         m_Settings_Menu = m_Settings.FindAction("Menu", throwIfNotFound: true);
@@ -372,14 +459,16 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IActionsActions> m_ActionsActionsCallbackInterfaces = new List<IActionsActions>();
     private readonly InputAction m_Actions_PrimarySpell;
     private readonly InputAction m_Actions_SpecialSpell;
-    private readonly InputAction m_Actions_Aim;
+    private readonly InputAction m_Actions_AnalogicAim;
+    private readonly InputAction m_Actions_MouseAim;
     public struct ActionsActions
     {
         private @PlayerInput m_Wrapper;
         public ActionsActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @PrimarySpell => m_Wrapper.m_Actions_PrimarySpell;
         public InputAction @SpecialSpell => m_Wrapper.m_Actions_SpecialSpell;
-        public InputAction @Aim => m_Wrapper.m_Actions_Aim;
+        public InputAction @AnalogicAim => m_Wrapper.m_Actions_AnalogicAim;
+        public InputAction @MouseAim => m_Wrapper.m_Actions_MouseAim;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -395,9 +484,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SpecialSpell.started += instance.OnSpecialSpell;
             @SpecialSpell.performed += instance.OnSpecialSpell;
             @SpecialSpell.canceled += instance.OnSpecialSpell;
-            @Aim.started += instance.OnAim;
-            @Aim.performed += instance.OnAim;
-            @Aim.canceled += instance.OnAim;
+            @AnalogicAim.started += instance.OnAnalogicAim;
+            @AnalogicAim.performed += instance.OnAnalogicAim;
+            @AnalogicAim.canceled += instance.OnAnalogicAim;
+            @MouseAim.started += instance.OnMouseAim;
+            @MouseAim.performed += instance.OnMouseAim;
+            @MouseAim.canceled += instance.OnMouseAim;
         }
 
         private void UnregisterCallbacks(IActionsActions instance)
@@ -408,9 +500,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @SpecialSpell.started -= instance.OnSpecialSpell;
             @SpecialSpell.performed -= instance.OnSpecialSpell;
             @SpecialSpell.canceled -= instance.OnSpecialSpell;
-            @Aim.started -= instance.OnAim;
-            @Aim.performed -= instance.OnAim;
-            @Aim.canceled -= instance.OnAim;
+            @AnalogicAim.started -= instance.OnAnalogicAim;
+            @AnalogicAim.performed -= instance.OnAnalogicAim;
+            @AnalogicAim.canceled -= instance.OnAnalogicAim;
+            @MouseAim.started -= instance.OnMouseAim;
+            @MouseAim.performed -= instance.OnMouseAim;
+            @MouseAim.canceled -= instance.OnMouseAim;
         }
 
         public void RemoveCallbacks(IActionsActions instance)
@@ -484,7 +579,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnPrimarySpell(InputAction.CallbackContext context);
         void OnSpecialSpell(InputAction.CallbackContext context);
-        void OnAim(InputAction.CallbackContext context);
+        void OnAnalogicAim(InputAction.CallbackContext context);
+        void OnMouseAim(InputAction.CallbackContext context);
     }
     public interface ISettingsActions
     {

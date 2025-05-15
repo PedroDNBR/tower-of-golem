@@ -91,6 +91,17 @@
                 },
                 {
                     "name": "",
+                    "id": "24f5770c-592e-4be5-8a8f-b644c3d27b08",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5d6151b6-920e-49c8-86f2-ac6732c8bbae",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -102,8 +113,30 @@
                 },
                 {
                     "name": "",
+                    "id": "ea5e6474-fb0d-4758-810f-133747631b9e",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "bf58d499-4467-4e8b-bef1-7417a99c993c",
                     "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1715001a-77a2-4c0d-a99d-272b956c0684",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -136,9 +169,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Aim",
+                    "name": "AnalogicAim",
                     "type": "PassThrough",
                     "id": "c68aed87-d6a1-4697-b4d9-c43e118c377d",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseAim",
+                    "type": "PassThrough",
+                    "id": "1cd7106b-442c-40ef-8526-4504a9a71749",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -159,12 +201,23 @@
                 },
                 {
                     "name": "",
-                    "id": "285f5bc6-f926-4b05-a6c3-c3ae7ef821b3",
-                    "path": "<Mouse>/position",
+                    "id": "926bec05-ff1f-4f45-b3e0-8d8cd0494c9f",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Aim",
+                    "action": "PrimarySpell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "92dbf367-6a87-4166-8356-548bea5bd425",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "StickDeadzone",
+                    "groups": "",
+                    "action": "AnalogicAim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -176,6 +229,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "SpecialSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fa50328a-b33e-44eb-84f2-d467330fe9f4",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpecialSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c3f3628c-fabe-4b28-ae37-12c4c2fb8793",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseAim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -200,6 +275,17 @@
                     "name": "",
                     "id": "885629a5-7d08-4ee5-96b7-bb1d559c62d2",
                     "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "44ee59af-6590-41c1-a067-beedff53e3b5",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
