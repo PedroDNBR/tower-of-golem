@@ -5,18 +5,13 @@ using System;
 
 namespace TW
 {
-    public class LobbyItemUI : Selectable
+    public class LobbyItemUI : Button
     {
         public TextMeshProUGUI LobbyName;
         public TextMeshProUGUI PlayerCount;
 
         public Action OnSelectAction;
 
-        public override void OnSelect(BaseEventData eventData)
-        {
-            base.OnSelect(eventData);
-            OnSelectAction?.Invoke();
-        }
-
+        protected override void Start() => onClick.AddListener(() => OnSelectAction?.Invoke());
     }
 }

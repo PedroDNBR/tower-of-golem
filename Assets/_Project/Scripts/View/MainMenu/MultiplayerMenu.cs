@@ -18,6 +18,7 @@ using Unity.Services.Relay.Models;
 using Unity.Services.Relay;
 using UnityEngine.SceneManagement;
 using Unity.Services.Lobbies.Http;
+using UnityEngine.EventSystems;
 
 namespace TW
 {
@@ -69,10 +70,13 @@ namespace TW
 
         private const int MAX_PLAYER_IN_LOBBY = 4;
 
-        private async void OnEnable()
+        protected async override void OnEnable()
         {
             SetButtonListeners();
             SetInputListeners();
+            SetEventSystemNavigationToLobbyList();
+
+            base.OnEnable();
 
             //await UnityServices.InitializeAsync();
 
@@ -106,6 +110,12 @@ namespace TW
             }
 
             await QueryLobbies();
+        }
+
+        private void SetEventSystemNavigationToLobbyList()
+        {
+            firstSelectedGameObjectUI = refreshLobbyListButton.gameObject;
+            shortcutBackButton = lobbyBackButton;
         }
 
         private void SetInputListeners()
@@ -211,7 +221,19 @@ namespace TW
 
         #region LobbyCreation
 
-        private void HostNewGame(bool isActive) => hostModalTransform.gameObject.SetActive(isActive);
+        private void HostNewGame(bool isActive)
+        {
+            hostModalTransform.gameObject.SetActive(isActive);
+            if(isActive)
+            {
+                EventSystem.current.SetSelectedGameObject(lobbyNameInput.gameObject);
+                shortcutBackButton = hostModalBackButton;
+            }
+            else
+            {
+                SetEventSystemNavigationToLobbyList();
+            }
+        }
 
         private async void CreateLobby()
         {
@@ -246,6 +268,12 @@ namespace TW
                 startButton.gameObject.SetActive(true);
                 createLobbyButton.interactable = true;
                 hostModalBackButton.interactable = true;
+
+                LoadPlayerListUI();
+                LoadLobbyNameUI();
+                CheckIfShouldStartGame();
+                CheckIfIsHost();
+
             }
             catch (LobbyServiceException e)
             {
@@ -298,11 +326,16 @@ namespace TW
 
         private async Task LoadLobbyUI()
         {
+            Debug.Log($"LoadLobbyUI() Load Lobby Data {currentLobby.Name}");
             await SetLobbyCallbacks();
 
             await SendPlayerNameToLobby();
 
             SetNewLobbyUI();
+            LoadPlayerListUI();
+            LoadLobbyNameUI();
+            CheckIfShouldStartGame();
+            CheckIfIsHost();
         }
 
         private void SetNewLobbyUI()
@@ -313,6 +346,8 @@ namespace TW
             lobbyMenuTransform.gameObject.SetActive(false);
             hostModalTransform.gameObject.SetActive(false);
             hostMenuTransform.gameObject.SetActive(true);
+            shortcutBackButton = hostMenuBackButton;
+            EventSystem.current.SetSelectedGameObject(hostMenuBackButton.gameObject);
 
             lobbyPasswordInput.text = lobbyNameInput.text = String.Empty;
             joinButton.onClick.RemoveAllListeners();
@@ -454,9 +489,14 @@ namespace TW
 
         private void AddPlayerToLobbyPlayerList(Player player)
         {
+            if (player.Data == null)
+            {
+                if (currentLobby == null) return;
+                StartCoroutine(LoadPlayerListUIDelay());
+                return;
+            }
             GameObject playerItem = Instantiate(playerListItemPrefab.gameObject, playerListTransform);
             PlayerItemUI playerItemUI = playerItem.GetComponent<PlayerItemUI>();
-            if (player.Data == null) return;
             Debug.Log($"player.Data.Count: {player.Data.Count}");
             foreach (var data in player.Data)
             {
@@ -464,6 +504,12 @@ namespace TW
                 playerItemUI.PlayerNameText.text = data.Value.Value;
             }
 
+        }
+
+        IEnumerator LoadPlayerListUIDelay()
+        {
+            yield return new WaitForSeconds(1f);
+            LoadPlayerListUI();
         }
 
         private async Task SendPlayerNameToLobby()
@@ -513,13 +559,15 @@ namespace TW
             lobbyMenuTransform.gameObject.SetActive(true);
             hostModalTransform.gameObject.SetActive(false);
             hostMenuTransform.gameObject.SetActive(false);
+            SetEventSystemNavigationToLobbyList();
         }
 
         private void BackFromJoinModal()
         {
             joinModalTransform.gameObject.SetActive(false);
             lobbyModalPasswordInput.text = String.Empty;
-            joinButton.interactable = true; 
+            joinButton.interactable = true;
+            SetEventSystemNavigationToLobbyList();
         }
 
         private void SetupLobbyToJoin(Lobby lobby)
@@ -547,6 +595,7 @@ namespace TW
                     Debug.Log(e);
                 }
             });
+            EventSystem.current.SetSelectedGameObject(joinButton.gameObject);
         }
 
         private async Task<bool> JoinLobbyById(string lobbyId, string password = "")
@@ -564,14 +613,20 @@ namespace TW
                     var idOptions = new JoinLobbyByIdOptions { Password = password };
                     joinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId, idOptions);
                 }
-                catch (Exception e)
+                catch (LobbyServiceException e)
                 {
-                    SetErrorInLobbyCreation(lobbyModalPasswordInput.transform, ref lobbyModalPasswordInputError, "Password is incorrect");
+                    Debug.Log(e.ApiError);
+                    Debug.Log(e.Reason);
+                    Debug.Log(e.GetBaseException());
+                    Debug.Log(e.ErrorCode);
+                    if (e.ErrorCode == 16009) SetErrorInLobbyCreation(lobbyModalPasswordInput.transform, ref lobbyModalPasswordInputError, "Password is incorrect");
                     return false;
                 }
             }
             currentLobby = joinedLobby;
             await LoadLobbyUI();
+            EventSystem.current.SetSelectedGameObject(hostMenuBackButton.gameObject);
+            shortcutBackButton = hostMenuBackButton;
             return true;
         }
         
@@ -579,6 +634,8 @@ namespace TW
         {
             joinModalTransform.gameObject.SetActive(true);
             joinModalButton.onClick.AddListener(() => JoinLobbyViaModal(lobby.Id));
+            EventSystem.current.SetSelectedGameObject(lobbyModalPasswordInput.gameObject);
+            shortcutBackButton = backJoinModalButton;
         }
 
         private async void JoinLobbyViaModal(string lobbyId)
@@ -588,6 +645,8 @@ namespace TW
             {
                 joinModalTransform.gameObject.SetActive(false);
                 lobbyModalPasswordInput.text = String.Empty;
+                if (lobbyModalPasswordInputError != null && lobbyModalPasswordInputError.gameObject != null) Destroy(lobbyModalPasswordInputError.gameObject);
+                lobbyModalPasswordInputError = null;
             }
         }
 
@@ -638,6 +697,7 @@ namespace TW
             }
             else
             {
+                Debug.Log($"OnLobbyChanged Load Lobby Data {currentLobby.Name}");
                 changes.ApplyToLobby(currentLobby);
                 LoadPlayerListUI();
                 LoadLobbyNameUI();

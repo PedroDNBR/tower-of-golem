@@ -1,6 +1,7 @@
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -30,6 +31,9 @@ namespace TW
         private Transform pauseMenu;
 
         [SerializeField]
+        private Transform optionsMenu;
+
+        [SerializeField]
         private Transform settingsMenu;
 
         [SerializeField]
@@ -53,6 +57,7 @@ namespace TW
             settingsButton.onClick.AddListener(OpenSettings);
             continueButton.onClick.AddListener(ClosePauseMenu);
             quitButton.onClick.AddListener(QuitGame);
+            NetworkManager.Singleton.OnClientDisconnectCallback += QuitWhenLobbyHostDisconnects;
         }
 
         public void HealthValueToSliderValue(float current, float max)
@@ -65,18 +70,44 @@ namespace TW
             UIUtils.ConvertToSliderValue(staminaSlider, current, max);
         }
 
-        public void TogglePauseMenu() => pauseMenu.gameObject.SetActive(!pauseMenu.gameObject.activeSelf);
+        public void TogglePauseMenu()
+        {
+            if(pauseMenu.gameObject.activeSelf)
+                EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
+            else
+            {
+                settingsMenu.gameObject.SetActive(false);
+                optionsMenu.gameObject.SetActive(true);
+            }
+
+            pauseMenu.gameObject.SetActive(!pauseMenu.gameObject.activeSelf);
+        }
 
         bool GetPauseMenuIsOpen() => pauseMenu.gameObject.activeSelf;
 
-        public void OpenSettings() => settingsMenu.gameObject.SetActive(true);
-        
-        private void ClosePauseMenu() => pauseMenu.gameObject.SetActive(false);
+        public void OpenSettings()
+        {
+            optionsMenu.gameObject.SetActive(false);
+            settingsMenu.gameObject.SetActive(true);
+        }
+
+        private void ClosePauseMenu()
+        {
+            pauseMenu.gameObject.SetActive(false);
+            optionsMenu.gameObject.SetActive(true);
+            settingsMenu.gameObject.SetActive(false);
+        }
 
         private void QuitGame()
         {
             Destroy(NetworkManager.Singleton.gameObject);
             SceneManager.LoadScene("MainMenu");
+        }
+
+        private void QuitWhenLobbyHostDisconnects(ulong id)
+        {
+            Debug.Log($"{id} == {NetworkManager.Singleton.LocalClientId} {id == NetworkManager.Singleton.LocalClientId}");
+            if(id == NetworkManager.Singleton.LocalClientId) QuitGame();
         }
     }
 }

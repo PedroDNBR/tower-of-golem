@@ -1,11 +1,10 @@
-using Steamworks;
 using Unity.Netcode.Transports.UTP;
 using Unity.Netcode;
-using Unity.Networking.Transport.Relay;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine.EventSystems;
 
 namespace TW
 {
@@ -17,12 +16,17 @@ namespace TW
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button quitButton;
 
-        private void OnEnable()
+
+        protected override void OnEnable()
         {
             singleplayerButton.onClick.AddListener(PlaySingleplayer);
             quitButton.onClick.AddListener(QuitGame);
             multiplayerButton.onClick.AddListener(OpenMultiplayerMenu);
             settingsButton.onClick.AddListener(OpenSettingsMenu);
+
+            firstSelectedGameObjectUI = singleplayerButton.gameObject;
+
+            base.OnEnable();
         }
 
         private void PlaySingleplayer()
@@ -55,12 +59,14 @@ namespace TW
 
         private void QuitGame() => Application.Quit();
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
             singleplayerButton.onClick.RemoveAllListeners();
             multiplayerButton.onClick.RemoveAllListeners();
             settingsButton.onClick.RemoveAllListeners();
             quitButton.onClick.RemoveAllListeners();
+
+            base.OnDisable();
         }
     }
 }

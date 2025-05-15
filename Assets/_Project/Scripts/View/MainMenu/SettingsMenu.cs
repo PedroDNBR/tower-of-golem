@@ -35,11 +35,16 @@ namespace TW
         private int currentResolutionIndex = 0;
 
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
             SetToggles();
             SetDrowndownOptions();
             SetListeners();
+
+            firstSelectedGameObjectUI = resolutionDropdown.gameObject;
+            shortcutBackButton = backButton;
+
+            base.OnEnable();
         }
 
         private void SetToggles()
@@ -124,9 +129,9 @@ namespace TW
 
         private void BackToStartMenu()
         {
-            graphicsMenuTransform.gameObject.SetActive(false);
-            startMenuTransform.gameObject.SetActive(true);
-            multiplayerMenuTransform.gameObject.SetActive(false);
+            if (graphicsMenuTransform != null) graphicsMenuTransform.gameObject.SetActive(false);
+            if (startMenuTransform != null) startMenuTransform.gameObject.SetActive(true);
+            if (multiplayerMenuTransform != null) multiplayerMenuTransform.gameObject.SetActive(false);
         }
 
         private void SetBloom(bool value)
