@@ -6762,6 +6762,8 @@ MonoBehaviour:
   LogLevel: 1
   newPlayerPrefab: {fileID: 552111577364598430, guid: da8f98683416ebe40b7ccc986383195c,
     type: 3}
+  dialogue: {fileID: 2565036662877947086, guid: 299988d6ecdd4ff42bb0e33b63ca19b5,
+    type: 3}
 --- !u!224 &1321962416 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 367066855951933619, guid: 2fc19429e13b4eb4c98093877c11cfe4,

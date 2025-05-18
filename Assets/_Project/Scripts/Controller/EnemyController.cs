@@ -21,31 +21,42 @@ namespace TW
         public AnimatorController AnimatorController { get => animatorController; }
         public BossArea BossArea { get => bossArea; }
 
-        private void Start()
+        private void OnEnable()
         {
             enemyUI = GetComponent<EnemyUI>();
-
+            baseAI = GetComponent<BaseAI>();
             enemyHealth = GetComponent<EnemyHealth>();
+            bossArea = FindObjectOfType<BossArea>();
+            bossNetwork = GetComponent<BossNetwork>();
+            animatorController = GetComponentInChildren<AnimatorController>();
+            enemyAttackSpawner = GetComponentInChildren<EnemyAttackSpawner>();
+
+            if (DialogueMenu.instance != null)
+            {
+                baseAI.enabled = false;
+                DialogueMenu.instance.OnDialogStarted += () => baseAI.enabled = false;
+                DialogueMenu.instance.OnDialogEnded += () => baseAI.enabled = true;
+            }
+        }
+
+        private void Start()
+        {
+
             enemyHealth.EnemyController = this;
 
-            bossArea = FindObjectOfType<BossArea>();
             if (bossArea != null) bossArea.boss = this;
 
-            bossNetwork = GetComponent<BossNetwork>();
 
             if (!NetworkManager.Singleton.IsServer) return;
 
             enemyHealth.Dead += Die;
 
-            baseAI = GetComponent<BaseAI>();
             baseAI.EnemyController = this;
             baseAI.Init();
 
-            animatorController = GetComponentInChildren<AnimatorController>();
             animatorController.Agent = baseAI.Agent;
             animatorController.Init();
 
-            enemyAttackSpawner = GetComponentInChildren<EnemyAttackSpawner>();
             enemyAttackSpawner.OriginHealth = enemyHealth;
             baseAI.playerFound += enemyAttackSpawner.SetPlayerAsAttackTarget;
         }

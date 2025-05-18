@@ -3,7 +3,7 @@ using UnityEngine;
 namespace TW
 {
     [System.Serializable]
-    [CreateAssetMenu(menuName = "AI/Enemy attacks")]
+    [CreateAssetMenu(menuName = "TW/AI/Enemy attacks")]
     public class ActionSnapshot : ScriptableObject
     {
         public string anim;

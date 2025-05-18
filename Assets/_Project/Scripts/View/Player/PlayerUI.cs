@@ -106,7 +106,6 @@ namespace TW
 
         private void QuitWhenLobbyHostDisconnects(ulong id)
         {
-            Debug.Log($"{id} == {NetworkManager.Singleton.LocalClientId} {id == NetworkManager.Singleton.LocalClientId}");
             if(id == NetworkManager.Singleton.LocalClientId) QuitGame();
         }
     }

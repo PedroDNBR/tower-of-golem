@@ -25,6 +25,19 @@ namespace TW
 
         public void OnEnable()
         {
+            if (DialogueMenu.instance == null)
+                SetupPlayerInputs();
+            else
+            {
+                DialogueMenu.instance.OnDialogStarted += DisableInput;
+                DialogueMenu.instance.OnDialogEnded += SetupPlayerInputs;
+            }
+
+
+        }
+
+        private void SetupPlayerInputs()
+        {
             if (playerInput == null)
             {
                 playerInput = new PlayerInput();
@@ -47,7 +60,17 @@ namespace TW
 
         private void OnDisable()
         {
-            playerInput.Disable();
+            DisableInput();
+            if (DialogueMenu.instance != null)
+            {
+                DialogueMenu.instance.OnDialogStarted -= DisableInput;
+                DialogueMenu.instance.OnDialogEnded -= SetupPlayerInputs;
+            }
+        }
+
+        private void DisableInput()
+        {
+            if(playerInput != null) playerInput.Disable();
         }
 
         public void Awake()
@@ -73,6 +96,7 @@ namespace TW
 
         private void Update()
         {
+            if (playerInput == null) return;
             float delta = Time.deltaTime;
             playerMovement.Movement(movement.x, movement.y, delta);
         }
@@ -82,6 +106,7 @@ namespace TW
 
         private void LateUpdate()
         {
+            if (playerInput == null) return;
             float analogAmout = Mathf.Clamp01(Mathf.Abs(analogicAim.x) + Mathf.Abs(analogicAim.y));
             if(analogAmout > 0 && !usingAnalogic)
             {

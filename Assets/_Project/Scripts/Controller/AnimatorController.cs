@@ -29,7 +29,7 @@ namespace TW
 
         private void Update()
         {
-            if (!IsServer && animator == null) return;
+            if (!IsServer || animator == null) return;
             isBusy = GetIsBusyBool();
             animator.applyRootMotion = isBusy;
         }

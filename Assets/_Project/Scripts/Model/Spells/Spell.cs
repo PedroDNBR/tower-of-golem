@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TW
 {
-    [CreateAssetMenu(menuName = "GameAssets/Spell")]
+    [CreateAssetMenu(menuName = "TW/GameAssets/Spell")]
     public class Spell : ScriptableObject
     {
         public Elements type;
