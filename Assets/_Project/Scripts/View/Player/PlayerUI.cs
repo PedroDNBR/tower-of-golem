@@ -2,7 +2,6 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace TW
@@ -51,13 +50,15 @@ namespace TW
 
         public Slider BossHealthSlider { get => bossHealthSlider; }
 
+        bool quitted = false;
+
         private void Start()
         {
             canvas.gameObject.SetActive(true);
             settingsButton.onClick.AddListener(OpenSettings);
             continueButton.onClick.AddListener(ClosePauseMenu);
-            quitButton.onClick.AddListener(QuitGame);
-            NetworkManager.Singleton.OnClientDisconnectCallback += QuitWhenLobbyHostDisconnects;
+            quitButton.onClick.AddListener(QuitToMenu);
+            NetworkManager.Singleton.OnClientDisconnectCallback += QuitWhenServerDisconnects;
         }
 
         public void HealthValueToSliderValue(float current, float max)
@@ -98,15 +99,21 @@ namespace TW
             settingsMenu.gameObject.SetActive(false);
         }
 
-        private void QuitGame()
+        private void QuitToMenu()
         {
-            Destroy(NetworkManager.Singleton.gameObject);
-            SceneManager.LoadScene("MainMenu");
+            quitted = true;
+            NetworkManager.Singleton.Shutdown();
+            GameManager.Instance.QuitToMainMenuAndDestroyNetworkManager();
         }
 
-        private void QuitWhenLobbyHostDisconnects(ulong id)
+        private void QuitWhenServerDisconnects(ulong id)
         {
-            if(id == NetworkManager.Singleton.LocalClientId) QuitGame();
+            Debug.Log($"Player quitted {id}");
+            Debug.Log($"{id} == 0");
+            if ((id == 0 || id == NetworkManager.Singleton.LocalClientId) && !quitted)
+            {
+                QuitToMenu();
+            }
         }
     }
 }

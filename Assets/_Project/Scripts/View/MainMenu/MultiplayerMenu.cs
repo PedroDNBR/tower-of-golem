@@ -1,24 +1,14 @@
 using UnityEngine;
 using TMPro;
-using Unity.Services.Authentication;
-using Unity.Services.Core;
-using Unity.Services.Lobbies.Models;
-using Unity.Services.Lobbies;
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
-using System.Collections;
-using System.Threading.Tasks;
-using System.Threading;
 using Steamworks;
 using Unity.Netcode;
-using Unity.Netcode.Transports.UTP;
-using Unity.Networking.Transport.Relay;
-using Unity.Services.Relay.Models;
-using Unity.Services.Relay;
 using UnityEngine.SceneManagement;
-using Unity.Services.Lobbies.Http;
 using UnityEngine.EventSystems;
+using Netcode.Transports;
+using System.Collections;
 
 namespace TW
 {
@@ -58,19 +48,31 @@ namespace TW
         [Header("UI Text")]
         [SerializeField] private TMP_Text lobbyNameText;
 
-
         [Header("Lobby data")]
-        public Lobby currentLobby;
+        public CSteamID currentLobbyId;
+        private const string HostAddressKey = "HostAddress";
+
+        protected Callback<LobbyCreated_t> LobbyCreated;
+        protected Callback<GameLobbyJoinRequested_t> JoinRequest;
+        protected Callback<LobbyEnter_t> LobbyEntered;
+        protected Callback<LobbyInvite_t> LobbyInvite;
+        protected Callback<LobbyChatUpdate_t> LobbyChatUpdate;
+
+        protected Callback<LobbyMatchList_t> LobbyList;
+        protected Callback<LobbyDataUpdate_t> LobbyDataUpdate;
+
+        public List<CSteamID> lobbiesId = new List<CSteamID>();
+
 
         private Callback<GetTicketForWebApiResponse_t> AuthTicketForWebApiResponseCallback;
         private string ticket;
         private string identity = "unityauthenticationservice";
 
-        private ILobbyEvents lobbyEvents;
-
         private const int MAX_PLAYER_IN_LOBBY = 4;
 
-        protected async override void OnEnable()
+        private bool hasTriedToStartClient = false;
+
+        protected override void OnEnable()
         {
             SetButtonListeners();
             SetInputListeners();
@@ -78,38 +80,9 @@ namespace TW
 
             base.OnEnable();
 
-            //await UnityServices.InitializeAsync();
+            SetSteamworksCallbacks();
 
-            //AuthTicketForWebApiResponseCallback = Callback<GetTicketForWebApiResponse_t>.Create(OnAuthCallback);
-
-            //SteamUser.GetAuthTicketForWebApi(identity);
-
-            await UnityServices.InitializeAsync();
-
-#if UNITY_EDITOR
-            AuthenticationService.Instance.SignOut(true);
-#endif
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
-            try
-            {
-                if (
-                    AuthenticationService.Instance == null &&
-                    !AuthenticationService.Instance.IsSignedIn
-                    )
-                {
-                    await UnityServices.InitializeAsync();
-                    await AuthenticationService.Instance.SignInAnonymouslyAsync();
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-                await UnityServices.InitializeAsync();
-                await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            }
-
-            await QueryLobbies();
+            QueryLobbies();
         }
 
         private void SetEventSystemNavigationToLobbyList()
@@ -123,17 +96,6 @@ namespace TW
             lobbyPasswordInput.onValueChanged.AddListener((string value) =>
             {
                 ValidatePassword(value, ref lobbyPasswordInputError);
-                //if (lobbyPasswordInputError == null) return;
-
-                //if (!String.IsNullOrEmpty(value))
-                //{
-                //    if (lobbyPasswordInput.text.Length < 8 || lobbyPasswordInput.text.Length > 64)
-                //    {
-                //        return;
-                //    }
-                //}
-                //Destroy(lobbyPasswordInputError.gameObject);
-                //lobbyPasswordInputError = null;
             });
 
             lobbyNameInput.onValueChanged.AddListener((string value) =>
@@ -146,17 +108,6 @@ namespace TW
             lobbyModalPasswordInput.onValueChanged.AddListener((string value) =>
             {
                 ValidatePassword(value, ref lobbyModalPasswordInputError);
-                //if (lobbyModalPasswordInputError == null) return;
-
-                //if (!String.IsNullOrEmpty(value))
-                //{
-                //    if (value.Length < 8 || value.Length > 64)
-                //    {
-                //        return;
-                //    }
-                //}
-                //Destroy(lobbyModalPasswordInputError.gameObject);
-                //lobbyModalPasswordInputError = null;
             });
         }
 
@@ -187,36 +138,17 @@ namespace TW
             backJoinModalButton.onClick.AddListener(BackFromJoinModal);
         }
 
-        async void OnAuthCallback(GetTicketForWebApiResponse_t callback)
+        private void SetSteamworksCallbacks()
         {
-            ticket = BitConverter.ToString(callback.m_rgubTicket).Replace("-", string.Empty);
-            AuthTicketForWebApiResponseCallback.Dispose();
-            AuthTicketForWebApiResponseCallback = null;
-            Debug.Log("Steam Login success. Session Ticket: " + ticket);
-            await SignInWithSteamAsync(ticket, identity);
-            await QueryLobbies();
-            // Call Unity Authentication SDK to sign in or link with Steam, displayed in the following examples, using the same identity string and the m_SessionTicket.
-        }
+            LobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
+            JoinRequest = Callback<GameLobbyJoinRequested_t>.Create(OnJoinRequest);
+            LobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
+            LobbyInvite = Callback<LobbyInvite_t>.Create(OnLobbyInvite);
 
-        async Task SignInWithSteamAsync(string ticket, string identity)
-        {
-            try
-            {
-                await AuthenticationService.Instance.SignInWithSteamAsync(ticket, identity);
-                Debug.Log("SignIn is successful.");
-            }
-            catch (AuthenticationException ex)
-            {
-                // Compare error code to AuthenticationErrorCodes
-                // Notify the player with the proper error message
-                Debug.LogException(ex);
-            }
-            catch (RequestFailedException ex)
-            {
-                // Compare error code to CommonErrorCodes
-                // Notify the player with the proper error message
-                Debug.LogException(ex);
-            }
+            LobbyChatUpdate = Callback<LobbyChatUpdate_t>.Create(OnLobbyChatUpdate);
+
+            LobbyList = Callback<LobbyMatchList_t>.Create(OnGetLobbyList);
+            LobbyDataUpdate = Callback<LobbyDataUpdate_t>.Create(OnGetLobbyData);
         }
 
         #region LobbyCreation
@@ -235,61 +167,53 @@ namespace TW
             }
         }
 
-        private async void CreateLobby()
+        private void CreateLobby()
         {
-            try
+            if (SteamManager.Initialized)
             {
-                createLobbyButton.interactable = false;
-                hostModalBackButton.interactable = false;
-                string lobbyName = lobbyNameInput.text;
-                CreateLobbyOptions options = new CreateLobbyOptions();
-                if (String.IsNullOrEmpty(lobbyName))
+                if (String.IsNullOrEmpty(lobbyNameInput.text))
                 {
                     SetErrorInLobbyCreation(lobbyNameInput.transform, ref lobbyNameInputError, "Lobby name is required");
                     return;
                 }
-                if (!ValidatePassword(ref lobbyPasswordInput, ref lobbyPasswordInputError, ref options)) return;
-                options.Data = new Dictionary<string, DataObject>()
-                {
-                    {
-                        "GameMode", new DataObject(
-                            visibility: DataObject.VisibilityOptions.Public, // Visible publicly.
-                            value: "Campaign",
-                            index: DataObject.IndexOptions.S1)
-                    },
-                };
 
-                currentLobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, MAX_PLAYER_IN_LOBBY, options);
+                if (!ValidatePasswordCreateLobby(ref lobbyPasswordInput, ref lobbyPasswordInputError)) return;
 
-                StartCoroutine(HeartbeatLobbyCoroutine());
-
-                await LoadLobbyUI();
-
-                startButton.gameObject.SetActive(true);
-                createLobbyButton.interactable = true;
-                hostModalBackButton.interactable = true;
-
-                LoadPlayerListUI();
-                LoadLobbyNameUI();
-                CheckIfShouldStartGame();
-                CheckIfIsHost();
-
+                SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, 4);
             }
-            catch (LobbyServiceException e)
-            {
-                Debug.LogException(e);
-                createLobbyButton.interactable = true;
-                hostModalBackButton.interactable = true;
-            }
+        }
+
+        private void OnLobbyCreated(LobbyCreated_t callback)
+        {
+            Debug.Log(callback.m_eResult);
+            if (callback.m_eResult != EResult.k_EResultOK) return;
+
+            Debug.Log($"createLobbyButton {createLobbyButton}");
+            createLobbyButton.interactable = false;
+            hostModalBackButton.interactable = false;
+            string lobbyName = lobbyNameInput.text;
+            string lobbyPassword = lobbyPasswordInput.text;
+
+            CSteamID steamID = new CSteamID(callback.m_ulSteamIDLobby);
+
+            SteamMatchmaking.SetLobbyData(steamID, HostAddressKey, SteamUser.GetSteamID().ToString());
+            SteamMatchmaking.SetLobbyData(steamID, "name", lobbyName);
+            if(!String.IsNullOrEmpty(lobbyPassword)) SteamMatchmaking.SetLobbyData(steamID, "password", lobbyPassword);
+            SteamMatchmaking.SetLobbyData(steamID, "identifier", "feijaocomarroz");
+
+            createLobbyButton.interactable = true;
+            hostModalBackButton.interactable = true;
+
+            QueryLobbies();
         }
 
         private bool ValidatePassword(ref TMP_InputField passwordInput, ref UiErrorMessage passwordInputError)
         {
             if (!String.IsNullOrEmpty(passwordInput.text))
             {
-                if (passwordInput.text.Length < 8 || passwordInput.text.Length > 64)
+                if (passwordInput.text.Length < 3 || passwordInput.text.Length > 64)
                 {
-                    SetErrorInLobbyCreation(passwordInput.transform, ref passwordInputError, "Password must have between 8 and 64 characters");
+                    SetErrorInLobbyCreation(passwordInput.transform, ref passwordInputError, "Password must have between 3 and 64 characters");
                     return false;
                 }
                 return true;
@@ -298,16 +222,15 @@ namespace TW
             return false;
         }
 
-        private bool ValidatePassword(ref TMP_InputField passwordInput, ref UiErrorMessage passwordInputError, ref CreateLobbyOptions options)
+        private bool ValidatePasswordCreateLobby(ref TMP_InputField passwordInput, ref UiErrorMessage passwordInputError)
         {
             if (!String.IsNullOrEmpty(passwordInput.text))
             {
-                if (passwordInput.text.Length < 8 || passwordInput.text.Length > 64)
+                if (passwordInput.text.Length < 3 || passwordInput.text.Length > 64)
                 {
-                    SetErrorInLobbyCreation(passwordInput.transform, ref passwordInputError, "Password must have between 8 and 64 characters");
+                    SetErrorInLobbyCreation(passwordInput.transform, ref passwordInputError, "Password must have between 3 and 64 characters");
                     return false;
                 }
-                options.Password = passwordInput.text;
                 return true;
             }
             return true;
@@ -324,17 +247,12 @@ namespace TW
             return;
         }
 
-        private async Task LoadLobbyUI()
+        private void LoadLobbyUI()
         {
-            Debug.Log($"LoadLobbyUI() Load Lobby Data {currentLobby.Name}");
-            await SetLobbyCallbacks();
-
-            await SendPlayerNameToLobby();
-
             SetNewLobbyUI();
             LoadPlayerListUI();
             LoadLobbyNameUI();
-            CheckIfShouldStartGame();
+            StartClient();
             CheckIfIsHost();
         }
 
@@ -354,113 +272,89 @@ namespace TW
             joinButton.interactable = false;
         }
 
-        private async Task SetLobbyCallbacks()
-        {
-            var callbacks = new LobbyEventCallbacks();
-            callbacks.LobbyChanged += OnLobbyChanged;
-            callbacks.PlayerJoined += OnPlayerJoined;
-            callbacks.PlayerLeft += OnPlayerLeft;
-            callbacks.KickedFromLobby += BackFromLobby;
-            callbacks.LobbyDeleted += BackFromLobby;
-
-            try
-            {
-                lobbyEvents = await Lobbies.Instance.SubscribeToLobbyEventsAsync(currentLobby.Id, callbacks);
-            }
-            catch (LobbyServiceException ex)
-            {
-                switch (ex.Reason)
-                {
-                    case LobbyExceptionReason.AlreadySubscribedToLobby: Debug.LogWarning($"Already subscribed to lobby[{currentLobby.Id}]. We did not need to try and subscribe again. Exception Message: {ex.Message}"); break;
-                    case LobbyExceptionReason.SubscriptionToLobbyLostWhileBusy: Debug.LogError($"Subscription to lobby events was lost while it was busy trying to subscribe. Exception Message: {ex.Message}"); throw;
-                    case LobbyExceptionReason.LobbyEventServiceConnectionError: Debug.LogError($"Failed to connect to lobby events. Exception Message: {ex.Message}"); throw;
-                    default: throw;
-                }
-            }
-        }
-
-        private void AddLobbyToUIList(Lobby lobby)
-        {
-            GameObject lobbyItem = Instantiate(lobbyListItemPrefab.gameObject, lobbyListTransform);
-            LobbyItemUI lobbyItemUI = lobbyItem.GetComponent<LobbyItemUI>();
-            lobbyItemUI.LobbyName.text = lobby.Name;
-            lobbyItemUI.PlayerCount.text = $"{lobby.Players.Count}/{lobby.MaxPlayers}";
-            lobbyItemUI.OnSelectAction += () => SetupLobbyToJoin(lobby);
-        }
-
-        IEnumerator HeartbeatLobbyCoroutine()
-        {
-            yield return new WaitForSeconds(5);
-            if (currentLobby != null)
-            {
-                LobbyService.Instance.SendHeartbeatPingAsync(currentLobby.Id);
-                if (IsLobbyHost())
-                {
-                    StartCoroutine(HeartbeatLobbyCoroutine());
-                }
-            }
-        }
-
-        async Task Delay() => Thread.Sleep(500);
-
 #endregion
 
         #region LobbyRetrieval
 
-        private async Task QueryLobbies()
+        List<CSteamID> lobbyList = new List<CSteamID>();
+
+        private void OnGetLobbyList(LobbyMatchList_t result)
         {
-            // Common query options to use for paging
-            var queryOptions = new QueryLobbiesOptions
+            if (!SteamManager.Initialized) return;
+            lobbyList = new List<CSteamID>();
+            for (int i = 0; i < result.m_nLobbiesMatching; i++)
             {
-                SampleResults = false, // Paging cannot use randomized results
-                Filters = new List<QueryFilter>
-                {
-                    // Only include open lobbies in the pages
-                    new QueryFilter(
-                        field: QueryFilter.FieldOptions.AvailableSlots,
-                        op: QueryFilter.OpOptions.GT,
-                        value: "0")
-                },
-                Order = new List<QueryOrder>
-                {
-                    // Show the oldest lobbies first
-                    new QueryOrder(true, QueryOrder.FieldOptions.Created),
-                }
-            };
-
-            var response = await LobbyService.Instance.QueryLobbiesAsync(queryOptions);
-            var lobbies = response.Results;
-
-            foreach (Transform child in lobbyListTransform.transform)
-                Destroy(child.gameObject);
-
-            // A continuation token will still be returned when the next page is empty,
-            // so continue paging until there are no new lobbies in the response
-            while (lobbies.Count > 0)
-            {
-                Debug.Log("procurando segunda paginas de lobby");
-                // Do something here with the lobbies in the current page
-                foreach (var lobby in lobbies)
-                {
-                    AddLobbyToUIList(lobby);
-                }
-
-                await Delay();
-
-                // Get the next page. Be careful not to modify the filter or order in the
-                // query options, as this will return an error
-                queryOptions.ContinuationToken = response.ContinuationToken;
-                response = await LobbyService.Instance.QueryLobbiesAsync(queryOptions);
-                lobbies = response.Results;
+                CSteamID lobbyId = SteamMatchmaking.GetLobbyByIndex(i);
+                lobbyList.Add(lobbyId);
+                SteamMatchmaking.RequestLobbyData(lobbyId);
             }
         }
 
-        private async void RefreshLobbyList()
+        private void OnGetLobbyData(LobbyDataUpdate_t result)
+        {
+            DisplayLobbies(lobbyList, result);
+            if (currentLobbyId != null && !IsLobbyHost() && currentLobbyId == new CSteamID(result.m_ulSteamIDLobby))
+                StartClient();
+        }
+
+        private void DisplayLobbies(List<CSteamID> lobbyIds, LobbyDataUpdate_t result)
+        {
+            if (!SteamManager.Initialized) return;
+
+            if (lobbyListTransform == null) return;
+            foreach (Transform child in lobbyListTransform.transform)
+                Destroy(child.gameObject);
+
+            for (int i = 0; i < lobbyIds.Count; i++)
+            {
+                if (lobbyIds[i].m_SteamID == result.m_ulSteamIDLobby)
+                {
+                    GameObject lobbyItem = Instantiate(lobbyListItemPrefab.gameObject, lobbyListTransform);
+                    LobbyItemUI lobbyItemUI = lobbyItem.GetComponent<LobbyItemUI>();
+                    CSteamID lobbyId = (CSteamID)lobbyIds[i].m_SteamID;
+
+                    lobbyItemUI.LobbyName.text = SteamMatchmaking.GetLobbyData(lobbyId, "name");
+                    lobbyItemUI.PlayerCount.text = $"{SteamMatchmaking.GetNumLobbyMembers(lobbyId)}/4";
+                    lobbyItemUI.OnSelectAction += () => SetupLobbyToJoin(lobbyId);
+                }
+            }
+        }
+
+        private void SetupLobbyToJoin(CSteamID lobbyId)
+        {
+            joinButton.interactable = true;
+            joinButton.onClick.RemoveAllListeners();
+            joinButton.onClick.AddListener(() =>
+            {
+                joinButton.interactable = false;
+                if (!String.IsNullOrEmpty(SteamMatchmaking.GetLobbyData(lobbyId, "password")))
+                {
+                    OpenJoinPasswordModal(lobbyId);
+                }
+                else
+                {
+                    JoinLobbyById(lobbyId);
+                }
+                hasTriedToStartClient = false;
+            });
+                        EventSystem.current.SetSelectedGameObject(joinButton.gameObject);
+
+        }
+
+        private void QueryLobbies()
+        {
+            if (!SteamManager.Initialized) return;
+
+            SteamMatchmaking.AddRequestLobbyListStringFilter("identifier", "feijaocomarroz", ELobbyComparison.k_ELobbyComparisonEqual);
+            SteamMatchmaking.RequestLobbyList();
+        }
+
+        private void RefreshLobbyList()
         {
             refreshLobbyListButton.interactable = false;
             try
             {
-                await QueryLobbies();
+                QueryLobbies();
             }
             catch (Exception ex)
             {
@@ -474,84 +368,67 @@ namespace TW
 
         private void LoadPlayerListUI()
         {
+            if(!SteamManager.Initialized) return;
+            if (currentLobbyId == null) return;
+            CSteamID LobbyId = currentLobbyId;
+
             Debug.Log("Carregando lista de jogadores");
 
             foreach (Transform item in playerListTransform)
                 Destroy(item.gameObject);
 
-            foreach (Player player in currentLobby.Players)
+            for (int i = 0; i < SteamMatchmaking.GetNumLobbyMembers(LobbyId); i++)
             {
-                AddPlayerToLobbyPlayerList(player);
+                AddPlayerToLobbyPlayerList(SteamMatchmaking.GetLobbyMemberByIndex(LobbyId, i));
             }
         }
 
-        private void LoadLobbyNameUI() => lobbyNameText.text = currentLobby.Name;
+        private void LoadLobbyNameUI() => lobbyNameText.text = SteamMatchmaking.GetLobbyData(currentLobbyId, "name");
 
-        private void AddPlayerToLobbyPlayerList(Player player)
+        private void AddPlayerToLobbyPlayerList(CSteamID memberId)
         {
-            if (player.Data == null)
-            {
-                if (currentLobby == null) return;
-                StartCoroutine(LoadPlayerListUIDelay());
-                return;
-            }
             GameObject playerItem = Instantiate(playerListItemPrefab.gameObject, playerListTransform);
             PlayerItemUI playerItemUI = playerItem.GetComponent<PlayerItemUI>();
-            Debug.Log($"player.Data.Count: {player.Data.Count}");
-            foreach (var data in player.Data)
-            {
-                Debug.Log($"player name on Screen: {data.Value.Value}");
-                playerItemUI.PlayerNameText.text = data.Value.Value;
-            }
-
-        }
-
-        IEnumerator LoadPlayerListUIDelay()
-        {
-            yield return new WaitForSeconds(1f);
-            LoadPlayerListUI();
-        }
-
-        private async Task SendPlayerNameToLobby()
-        {
-            try
-            {
-                string playerName;
-#if !UNITY_EDITOR
-                if (!SteamManager.Initialized) return;
-                Debug.Log("Logado na steam");
-                playerName = SteamFriends.GetPersonaName();
-#else
-                playerName = $"Jogador {UnityEngine.Random.Range(0, 1000)}";
-
-#endif
-
-                UpdatePlayerOptions options = new UpdatePlayerOptions();
-
-                options.Data = new Dictionary<string, PlayerDataObject>()
-                {
-                    {
-                        "PlayerName", new PlayerDataObject(
-                            visibility: PlayerDataObject.VisibilityOptions.Member,
-                            value: playerName
-                        )
-                    }
-                };
-
-                string playerId = AuthenticationService.Instance.PlayerId;
-
-                var lobby = await LobbyService.Instance.UpdatePlayerAsync(currentLobby.Id, playerId, options);
-                Debug.Log($"Enviou o nome: {playerName}");
-            }
-            catch (LobbyServiceException e)
-            {
-                Debug.Log(e);
-            }
+            playerItemUI.PlayerNameText.text = SteamFriends.GetFriendPersonaName(memberId);
         }
 
         #endregion
 
         #region JoinLobby
+
+        private void OnJoinRequest(GameLobbyJoinRequested_t callback)
+        {
+            SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
+        }
+
+        private void OnLobbyEntered(LobbyEnter_t callback)
+        {
+            // Everyone
+            currentLobbyId = new CSteamID(callback.m_ulSteamIDLobby);
+            LoadLobbyUI();
+
+            if (IsLobbyHost())
+            {
+                // Host
+                startButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                // Clients
+                startButton.gameObject.SetActive(false);
+                StartCoroutine(WaitForServerStart());
+            }
+        }
+
+        private void OnLobbyChatUpdate(LobbyChatUpdate_t callback)
+        {
+            LoadLobbyUI();
+        }
+
+        private void OnLobbyInvite(LobbyInvite_t callback)
+        {
+            SteamMatchmaking.JoinLobby(new CSteamID(callback.m_ulSteamIDLobby));
+        }
 
         private void BackFromLobby()
         {
@@ -570,78 +447,43 @@ namespace TW
             SetEventSystemNavigationToLobbyList();
         }
 
-        private void SetupLobbyToJoin(Lobby lobby)
+        private bool JoinLobbyById(CSteamID lobbyId, string password = "")
         {
-            Debug.Log($"Clicked on a lobby: {lobby.Id}");
-            joinButton.interactable = true;
-            joinButton.onClick.RemoveAllListeners();
-            joinButton.onClick.AddListener(async () =>
-            {
-                joinButton.interactable = false;
-                try
-                {
-                    if(lobby.HasPassword)
-                    {
-                        OpenJoinPasswordModal(lobby);
-                    }
-                    else
-                    {
-                        await JoinLobbyById(lobby.Id);
-                    }
-                }
-                catch (LobbyServiceException e)
-                {
-                    joinButton.interactable = true;
-                    Debug.Log(e);
-                }
-            });
-            EventSystem.current.SetSelectedGameObject(joinButton.gameObject);
-        }
-
-        private async Task<bool> JoinLobbyById(string lobbyId, string password = "")
-        {
-            Lobby joinedLobby;
             startButton.gameObject.SetActive(false);
             if (String.IsNullOrEmpty(password))
             {
-                joinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId);
+                if (SteamManager.Initialized)
+                    SteamMatchmaking.JoinLobby(lobbyId);
             }
             else
             {
-                try
+                if(SteamMatchmaking.GetLobbyData(lobbyId, "password") == password)
                 {
-                    var idOptions = new JoinLobbyByIdOptions { Password = password };
-                    joinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId, idOptions);
+                    SteamMatchmaking.JoinLobby(lobbyId);
                 }
-                catch (LobbyServiceException e)
+                else
                 {
-                    Debug.Log(e.ApiError);
-                    Debug.Log(e.Reason);
-                    Debug.Log(e.GetBaseException());
-                    Debug.Log(e.ErrorCode);
-                    if (e.ErrorCode == 16009) SetErrorInLobbyCreation(lobbyModalPasswordInput.transform, ref lobbyModalPasswordInputError, "Password is incorrect");
+                    SetErrorInLobbyCreation(lobbyModalPasswordInput.transform, ref lobbyModalPasswordInputError, "Password is incorrect");
                     return false;
                 }
             }
-            currentLobby = joinedLobby;
-            await LoadLobbyUI();
             EventSystem.current.SetSelectedGameObject(hostMenuBackButton.gameObject);
             shortcutBackButton = hostMenuBackButton;
             return true;
         }
         
-        private void OpenJoinPasswordModal(Lobby lobby)
+        private void OpenJoinPasswordModal(CSteamID lobbyId)
         {
             joinModalTransform.gameObject.SetActive(true);
-            joinModalButton.onClick.AddListener(() => JoinLobbyViaModal(lobby.Id));
+            joinModalButton.onClick.AddListener(() => JoinLobbyViaModal(lobbyId));
             EventSystem.current.SetSelectedGameObject(lobbyModalPasswordInput.gameObject);
             shortcutBackButton = backJoinModalButton;
         }
 
-        private async void JoinLobbyViaModal(string lobbyId)
+        private void JoinLobbyViaModal(CSteamID lobbyId)
         {
             if (!ValidatePassword(ref lobbyModalPasswordInput, ref lobbyModalPasswordInputError)) return;
-            if(await JoinLobbyById(lobbyId, lobbyModalPasswordInput.text))
+            if (JoinLobbyById(lobbyId, lobbyModalPasswordInput.text))
             {
                 joinModalTransform.gameObject.SetActive(false);
                 lobbyModalPasswordInput.text = String.Empty;
@@ -654,7 +496,6 @@ namespace TW
 
         private void BackToStartMenu()
         {
-            CloseLobby();
             startMenuTransform.gameObject.SetActive(true);
             graphicsMenuTransform.gameObject.SetActive(false);
             multiplayerMenuTransform.gameObject.SetActive(false);
@@ -662,160 +503,112 @@ namespace TW
 
         private bool IsLobbyHost()
         {
-            return currentLobby != null && currentLobby.HostId == AuthenticationService.Instance.PlayerId;
+            return currentLobbyId != null && SteamMatchmaking.GetLobbyOwner(currentLobbyId) == SteamUser.GetSteamID();
         }
 
-        private async void CloseLobby()
+        private void CloseLobby()
         {
-            if (currentLobby != null)
-            {
-                await LobbyService.Instance.RemovePlayerAsync(currentLobby.Id, AuthenticationService.Instance.PlayerId);
-
-                currentLobby = null;
-                Debug.Log("Quitting Lobby");
-            }
+            if (!SteamManager.Initialized || currentLobbyId == null) return;
+            SteamMatchmaking.LeaveLobby(currentLobbyId);
+            currentLobbyId = new CSteamID(0);
         }
 
-        private void OnPlayerLeft(List<int> playerId)
+        private void StartGame()
         {
-            LoadPlayerListUI();
-            CheckIfIsHost();
-        }
-
-        private void OnPlayerJoined(List<LobbyPlayerJoined> players)
-        {
-            LoadPlayerListUI();
-            CheckIfIsHost();
-        }
-
-        private void OnLobbyChanged(ILobbyChanges changes)
-        {
-            if (changes.LobbyDeleted)
-            {
-                // Handle lobby being deleted
-                // Calling changes.ApplyToLobby will log a warning and do nothing
-            }
-            else
-            {
-                Debug.Log($"OnLobbyChanged Load Lobby Data {currentLobby.Name}");
-                changes.ApplyToLobby(currentLobby);
-                LoadPlayerListUI();
-                LoadLobbyNameUI();
-                CheckIfShouldStartGame();
-                CheckIfIsHost();
-            }
-        }
-
-        private async void StartGame()
-        {
-            if (currentLobby == null) return;
+            if (currentLobbyId == null) return;
             startButton.interactable = false;
-
-            string joinCode = await StartHost();
-
-
-            UpdateLobbyOptions options = new UpdateLobbyOptions();
+            Debug.Log("ConnectToSteamID = ((ulong)SteamMatchmaking.GetLobbyOwner(currentLobbyId)");
+            NetworkManager.Singleton.GetComponent<SteamNetworkingSocketsTransport>().ConnectToSteamID = ((ulong)SteamMatchmaking.GetLobbyOwner(currentLobbyId));
+            Debug.Log("SetLobbyData(currentLobbyId, \"start_server\", \"true\")");
+            SteamMatchmaking.SetLobbyData(currentLobbyId, "start_server", "true");
+            Debug.Log("StartHost()");
+            NetworkManager.Singleton.StartHost();
 
             if (NetworkManager.Singleton.IsHost)
             {
                 NetworkManager.Singleton.OnClientConnectedCallback += (ulong test) => {
                     ChangeSceneToGameScene();
                 };
-            }
-
-            options.Data = new Dictionary<string, DataObject>()
-            {
-                {
-                    "JoinCode",
-                    new DataObject(
-                        visibility: DataObject.VisibilityOptions.Member,
-                        value: joinCode
-                    )
-                }
-            };
-
-            //currentLobby.Data.Add(
-            //    "JoinCode",
-            //    new DataObject(
-            //        visibility: DataObject.VisibilityOptions.Member,
-            //        value: joinCode
-            //    )
-            //);
-
-            currentLobby = await LobbyService.Instance.UpdateLobbyAsync(currentLobby.Id, options);
-
-            if (NetworkManager.Singleton.IsHost)
                 ChangeSceneToGameScene();
-
-        }
-
-        private void CheckIfShouldStartGame()
-        {
-            if (currentLobby == null) return;
-            if (IsLobbyHost()) return;
-            if (currentLobby.Data != null && !currentLobby.Data.ContainsKey("JoinCode")) return;
-            StartClient();
-        }
-
-        private async Task<string> StartHost()
-        {
-            try
-            {
-                Allocation allocation = await RelayService.Instance.CreateAllocationAsync(4);
-
-                string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-                
-                GUIUtility.systemCopyBuffer = joinCode;
-
-                RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
-
-                NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
-
-                NetworkManager.Singleton.StartHost();
-
-                return joinCode;
             }
-            catch (RelayServiceException e)
-            {
-                Debug.LogError(e);
-            }
-            return String.Empty;
         }
 
-        public async void StartClient()
+        public void StartClient()
         {
-            if (currentLobby == null) return;
-            if (currentLobby.Data != null && !currentLobby.Data.ContainsKey("JoinCode")) return;
-            try
+            Debug.Log($"hasTriedToStartClient {hasTriedToStartClient}");
+            if (currentLobbyId == null || hasTriedToStartClient) return;
+            if (
+                !IsLobbyHost() && 
+                SteamMatchmaking.GetLobbyData(currentLobbyId, "start_server") == "true"
+                )
             {
-                string joinCode = currentLobby.Data["JoinCode"].Value;
-                JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
-
-                RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
-
-                NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
-
+                hasTriedToStartClient = true;
+                NetworkManager.Singleton.GetComponent<SteamNetworkingSocketsTransport>().ConnectToSteamID = ((ulong)SteamMatchmaking.GetLobbyOwner(currentLobbyId));
                 NetworkManager.Singleton.StartClient();
-            }
-            catch (RelayServiceException e)
-            {
-                Debug.LogError(e);
             }
         }
 
         private void ChangeSceneToGameScene()
         {
-            if (currentLobby == null) return;
-            if (NetworkManager.Singleton.ConnectedClientsList.Count != currentLobby.Players.Count) return;
+            if (currentLobbyId == null) return;
+            if (NetworkManager.Singleton.ConnectedClientsList.Count != SteamMatchmaking.GetNumLobbyMembers(currentLobbyId)) return;
 
-            CloseLobby();
             NetworkManager.Singleton.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
         }
 
         private void CheckIfIsHost()
         {
-            if (currentLobby == null) return;
+            if (currentLobbyId == null) return;
             startButton.gameObject.SetActive(IsLobbyHost());
+        }
+
+        IEnumerator WaitForServerStart()
+        {
+            while (true)
+            {
+                if (currentLobbyId == null) yield break;
+                string startServer = SteamMatchmaking.GetLobbyData(currentLobbyId, "start_server");
+
+                if (startServer == "true")
+                {
+                    StartClient();
+                    yield break;
+                }
+
+                yield return new WaitForSeconds(1f); // verifica a cada segundo
+            }
+        }
+
+        protected override void OnDisable()
+        {
+            UnsetButtonListeners();
+            DisposeSteamworksCallbacks();
+            base.OnDisable();
+        }
+
+        private void UnsetButtonListeners()
+        {
+            lobbyBackButton.onClick.RemoveAllListeners();
+            hostButton.onClick.RemoveAllListeners();
+            hostModalBackButton.onClick.RemoveAllListeners();
+            createLobbyButton.onClick.RemoveAllListeners();
+            hostMenuBackButton.onClick.RemoveAllListeners();
+            startButton.onClick.RemoveAllListeners();
+            refreshLobbyListButton.onClick.RemoveAllListeners();
+            backJoinModalButton.onClick.RemoveAllListeners();
+        }
+
+        private void DisposeSteamworksCallbacks()
+        {
+            LobbyCreated?.Dispose();
+            JoinRequest?.Dispose();
+            LobbyEntered?.Dispose();
+            LobbyInvite?.Dispose();
+
+            LobbyChatUpdate?.Dispose();
+
+            LobbyList?.Dispose();
+            LobbyDataUpdate?.Dispose();
         }
 
     }
