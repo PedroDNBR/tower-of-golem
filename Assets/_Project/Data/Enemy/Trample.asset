@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: Trample
   score: 8
-  recoveryTime: 0.2
+  recoveryTime: 0.4
   minDist: 0
   maxDist: 5
   minAngle: -180

@@ -964,7 +964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    m_InternalValue: 100
+    m_InternalValue: 1000
   type: 4
 --- !u!114 &2199053026118640892
 MonoBehaviour:

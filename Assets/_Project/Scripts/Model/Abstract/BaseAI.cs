@@ -8,49 +8,52 @@ namespace TW
     public abstract class BaseAI : NetworkBehaviour
     {
         [SerializeField]
-        protected string enemyName = "Enemy test";
+        public string enemyName = "Enemy test";
 
         [SerializeField]
-        protected float stoppingDistance = 1f;
+        public float maxAttackDistance = 20;
 
         [SerializeField]
-        protected float walkSpeed = 5f;
+        public float stoppingDistance = 1f;
 
         [SerializeField]
-        protected float walkRadius = 10f;
+        public float walkSpeed = 5f;
 
         [SerializeField]
-        protected float rotationSpeed = 10f;
+        public float walkRadius = 10f;
 
         [SerializeField]
-        protected float minSightRangeRadius = 4f;
+        public float rotationSpeed = 10f;
 
         [SerializeField]
-        protected float medSightRangeRadius = 3f;
+        public float minSightRangeRadius = 4f;
 
         [SerializeField]
-        protected float maxSightRangeRadius = 10f;
+        public float medSightRangeRadius = 3f;
 
         [SerializeField]
-        protected LayerMask detectionLayer;
+        public float maxSightRangeRadius = 10f;
 
         [SerializeField]
-        protected ActionSnapshot[] actionSnapshots;
+        public LayerMask detectionLayer;
 
-        protected PlayerController currentPlayerInsight;
-        protected ActionSnapshot currentSnapshot;
+        [SerializeField]
+        public ActionSnapshot[] actionSnapshots;
 
-        protected EnemyController enemyController;
+        public PlayerController currentPlayerInsight;
+        public ActionSnapshot currentSnapshot;
 
-        protected Vector3 finalDestination;
+        public EnemyController enemyController;
 
-        protected NavMeshAgent agent;
+        public Vector3 finalDestination;
 
-        protected bool isBusy = false;
+        public NavMeshAgent agent;
 
-        protected bool actionFlag = false;
+        public bool isBusy = false;
 
-        protected float recoveryTimer;
+        public bool actionFlag = false;
+
+        public float recoveryTimer;
 
         public string EnemyName { get => enemyName; }
 
@@ -59,39 +62,45 @@ namespace TW
 
         public Action<PlayerController> playerFound;
 
-        public void Init()
+        protected IAIState currentState;
+
+        public IAIState followPlayerState;
+
+        // FSM API
+        public void SwitchState(IAIState newState)
+        {
+            currentState?.Exit(this);
+            currentState = newState;
+            currentState?.Enter(this);
+        }
+
+        public virtual void Init()
         {
             agent = GetComponent<NavMeshAgent>();
-            agent.speed = walkSpeed;
-            agent.stoppingDistance = stoppingDistance;
-            agent.updateRotation = false;
-            agent.avoidancePriority = 50;
+            agent.speed = 0;
+            SetFollowPlayerState();
+            SwitchState(States.roamingState);
         }
+
+        protected virtual void SetFollowPlayerState() => followPlayerState = States.followPlayerState;
 
         private void Update()
         {
-            if (!IsServer || agent == null) return;
+            if (!IsServer && !enabled) return;
 
-            Roaming();
-            FollowPlayer();
-            AttackPlayer();
             UpdateAnimation();
+            SetSpeedBasedOnIfIsBusy();
+            currentState?.Execute(this);
         }
 
-        private void FixedUpdate()
-        {
-            if (!IsServer) return;
-            TrackPlayer();
-        }
-
-        protected virtual void UpdateAnimation()
+        public virtual void UpdateAnimation()
         {
             isBusy = enemyController.AnimatorController.GetIsBusyBool();
             float speed = agent.velocity.magnitude;
             enemyController.AnimatorController.SetMovementValue(Mathf.Clamp01(speed / walkSpeed));
         }
 
-        protected virtual void TrackPlayer()
+        public virtual void TrackPlayer()
         {
             RaycastHit[] hits = Physics.SphereCastAll(transform.position, minSightRangeRadius, Vector3.forward, minSightRangeRadius, detectionLayer);
             if (hits.Length > 0)
@@ -131,91 +140,7 @@ namespace TW
             }
         }
 
-        protected virtual void AttackPlayer()
-        {
-            if (currentPlayerInsight == null) return;
-
-            if (enemyController.AnimatorController.GetCanRotate()) HandleRotation();
-
-            Vector3 dir = currentPlayerInsight.transform.position - transform.position;
-            dir.y = 0;
-            dir.Normalize();
-
-            float dis = Vector3.Distance(transform.position, currentPlayerInsight.transform.position);
-            float angle = Vector2.Angle(transform.position, dir);
-            float dot = Vector3.Dot(transform.right, dir);
-            if (dot < 0)
-                angle *= -1;
-
-            if (!isBusy)
-            {
-                if (actionFlag)
-                {
-                    recoveryTimer -= Time.deltaTime;
-                    if (recoveryTimer <= 0)
-                    {
-                        actionFlag = false;
-                    }
-                }
-
-                if (!isBusy && actionFlag == false)
-                {
-                    currentSnapshot = GetAction(dis, angle);
-
-                    if (currentSnapshot != null)
-                    {
-                        if (enemyController.AnimatorController.GetCanRotate()) HandleRotation(true);
-
-                        agent.avoidancePriority = 10;
-                        enemyController.AnimatorController.PlayTargetAnimation(currentSnapshot.anim, true);
-                        actionFlag = true;
-                        recoveryTimer = currentSnapshot.recoveryTime;
-                    }
-                }
-
-            }
-        }
-
-        protected virtual void FollowPlayer()
-        {
-            if (currentPlayerInsight == null) return;
-            if (enemyController.AnimatorController.GetCanRotate()) HandleRotation();
-            agent.avoidancePriority = 50;
-            if (isBusy)
-            {
-                agent.speed = 0;
-                return;
-            }
-            else
-            {
-                float dis = Vector3.Distance(transform.position, currentPlayerInsight.transform.position);
-                agent.speed = walkSpeed;
-
-                if (dis < 2)
-                {
-                    float rotationLess = rotationSpeed / 4;
-                }
-            }
-
-            if (agent.destination != currentPlayerInsight.transform.position)
-                agent.SetDestination(currentPlayerInsight.transform.position);
-        }
-
-        protected virtual void Roaming()
-        {
-            if (currentPlayerInsight != null) return;
-
-            if (finalDestination == null || finalDestination == Vector3.zero) finalDestination = FindRoamingSpot();
-
-            if (Vector3.Distance(transform.position, finalDestination) < .5f)
-                finalDestination = FindRoamingSpot();
-            
-            HandleRotation();
-            if (agent.destination != finalDestination)
-                agent.SetDestination(finalDestination);
-        }
-
-        protected virtual Vector3 FindRoamingSpot()
+        public virtual Vector3 FindRoamingSpot()
         {
             Vector3 finalPosition = transform.position;
             NavMeshPath path = new NavMeshPath();
@@ -240,7 +165,7 @@ namespace TW
             return finalPosition;
         }
 
-        protected Vector3 GetLocationAroundPlayer()
+        public Vector3 GetLocationAroundPlayer()
         {
             Vector3 randomDir = Quaternion.Euler(0, UnityEngine.Random.Range(-90, 90), 0) * Vector3.forward;
             Vector3 rawPos = currentPlayerInsight.transform.position + randomDir * UnityEngine.Random.Range(1.1f, 1.6f);
@@ -286,7 +211,7 @@ namespace TW
             return null;
         }
 
-        protected void HandleRotation(bool isAttacking = false)
+        public void HandleRotation(bool isAttacking = false)
         {
             if (isAttacking)
             {
@@ -321,6 +246,20 @@ namespace TW
         public void Die()
         {
             agent.enabled = false;
+        }
+
+        public void SetSpeedBasedOnIfIsBusy()
+        {
+            if (isBusy)
+            {
+                if (agent.speed != 0)
+                    agent.speed = 0;
+            }
+            else
+            {
+                if (agent.speed != walkSpeed)
+                    agent.speed = walkSpeed;
+            }
         }
 
         protected virtual void OnDrawGizmos()

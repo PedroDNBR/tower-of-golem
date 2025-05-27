@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: Throw
   score: 2
-  recoveryTime: 2
+  recoveryTime: 3
   minDist: 7
   maxDist: 17
   minAngle: -180
