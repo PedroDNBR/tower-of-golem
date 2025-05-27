@@ -37,10 +37,10 @@ namespace TW
         [SerializeField]
         protected ActionSnapshot[] actionSnapshots;
 
-        PlayerController currentPlayerInsight;
+        protected PlayerController currentPlayerInsight;
         protected ActionSnapshot currentSnapshot;
 
-        private EnemyController enemyController;
+        protected EnemyController enemyController;
 
         protected Vector3 finalDestination;
 
@@ -65,6 +65,7 @@ namespace TW
             agent.speed = walkSpeed;
             agent.stoppingDistance = stoppingDistance;
             agent.updateRotation = false;
+            agent.avoidancePriority = 50;
         }
 
         private void Update()
@@ -86,8 +87,8 @@ namespace TW
         protected virtual void UpdateAnimation()
         {
             isBusy = enemyController.AnimatorController.GetIsBusyBool();
-            Vector3 relativeVelocity = transform.InverseTransformDirection(agent.desiredVelocity);
-            enemyController.AnimatorController.SetMovementValue(Mathf.Clamp(relativeVelocity.z, 0, 1));
+            float speed = agent.velocity.magnitude;
+            enemyController.AnimatorController.SetMovementValue(Mathf.Clamp01(speed / walkSpeed));
         }
 
         protected virtual void TrackPlayer()
@@ -163,6 +164,9 @@ namespace TW
 
                     if (currentSnapshot != null)
                     {
+                        if (enemyController.AnimatorController.GetCanRotate()) HandleRotation(true);
+
+                        agent.avoidancePriority = 10;
                         enemyController.AnimatorController.PlayTargetAnimation(currentSnapshot.anim, true);
                         actionFlag = true;
                         recoveryTimer = currentSnapshot.recoveryTime;
@@ -175,7 +179,8 @@ namespace TW
         protected virtual void FollowPlayer()
         {
             if (currentPlayerInsight == null) return;
-
+            if (enemyController.AnimatorController.GetCanRotate()) HandleRotation();
+            agent.avoidancePriority = 50;
             if (isBusy)
             {
                 agent.speed = 0;
@@ -183,18 +188,17 @@ namespace TW
             }
             else
             {
+                float dis = Vector3.Distance(transform.position, currentPlayerInsight.transform.position);
                 agent.speed = walkSpeed;
 
-                float dis = Vector3.Distance(transform.position, currentPlayerInsight.transform.position);
                 if (dis < 2)
                 {
                     float rotationLess = rotationSpeed / 4;
-                    HandleRotation();
-
                 }
             }
 
-            agent.SetDestination(currentPlayerInsight.transform.position);
+            if (agent.destination != currentPlayerInsight.transform.position)
+                agent.SetDestination(currentPlayerInsight.transform.position);
         }
 
         protected virtual void Roaming()
@@ -207,19 +211,48 @@ namespace TW
                 finalDestination = FindRoamingSpot();
             
             HandleRotation();
-
-            agent.SetDestination(finalDestination);
+            if (agent.destination != finalDestination)
+                agent.SetDestination(finalDestination);
         }
 
         protected virtual Vector3 FindRoamingSpot()
         {
-            Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * walkRadius;
+            Vector3 finalPosition = transform.position;
+            NavMeshPath path = new NavMeshPath();
+            int attempts = 3;
 
-            randomDirection += transform.position;
-            NavMeshHit hit;
-            NavMesh.SamplePosition(randomDirection, out hit, walkRadius, 1);
-            Vector3 finalPosition = hit.position;
+            for (int i = 0; i < attempts; i++)
+            {
+                Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * walkRadius;
+                randomDirection += transform.position;
+
+                if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, walkRadius, NavMesh.AllAreas))
+                {
+                    // check if path is valid within navmesh
+                    if (agent.CalculatePath(hit.position, path) && path.status == NavMeshPathStatus.PathComplete)
+                    {
+                        finalPosition = hit.position;
+                        break;
+                    }
+                }
+            }
+
             return finalPosition;
+        }
+
+        protected Vector3 GetLocationAroundPlayer()
+        {
+            Vector3 randomDir = Quaternion.Euler(0, UnityEngine.Random.Range(-90, 90), 0) * Vector3.forward;
+            Vector3 rawPos = currentPlayerInsight.transform.position + randomDir * UnityEngine.Random.Range(1.1f, 1.6f);
+
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(rawPos, out hit, 2f, NavMesh.AllAreas))
+            {
+                return hit.position;
+            }
+
+            // fallback
+            return transform.position;
         }
 
         public ActionSnapshot GetAction(float distance, float angle)
@@ -253,23 +286,36 @@ namespace TW
             return null;
         }
 
-        void HandleRotation()
+        protected void HandleRotation(bool isAttacking = false)
         {
-            Vector3 objectivePosition = finalDestination;
-            if (currentPlayerInsight != null)
-                objectivePosition = currentPlayerInsight.transform.position;
-
-            Vector3 dir = objectivePosition - transform.position;
-            dir.y = 0;
-            dir.Normalize();
-
-            if (dir == Vector3.zero)
+            if (isAttacking)
             {
-                dir = transform.forward;
-            }
+                Vector3 objectivePosition = finalDestination;
+                if (currentPlayerInsight != null)
+                    objectivePosition = currentPlayerInsight.transform.position;
 
-            Quaternion targetRot = Quaternion.LookRotation(dir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSpeed);
+                Vector3 dir = objectivePosition - transform.position;
+                dir.y = 0;
+                dir.Normalize();
+
+                if (dir == Vector3.zero)
+                {
+                    dir = transform.forward;
+                }
+
+                Quaternion targetRot = Quaternion.LookRotation(dir);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSpeed);
+            }
+            else
+            {
+                Vector3 moveDirection = agent.velocity;
+
+                if (moveDirection.sqrMagnitude > 0.1f)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(moveDirection.normalized);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+                }
+            }
         }
 
         public void Die()
@@ -277,7 +323,7 @@ namespace TW
             agent.enabled = false;
         }
 
-        private void OnDrawGizmos()
+        protected virtual void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, minSightRangeRadius);

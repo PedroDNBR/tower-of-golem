@@ -1,33 +1,28 @@
-using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace TW
 {
-    public class EnemyController : MonoBehaviour
+    public abstract class EnemyController : MonoBehaviour
     {
-        private BaseAI baseAI;
-        private EnemyHealth enemyHealth;
-        private EnemyUI enemyUI;
+        protected BaseAI baseAI;
+        protected EnemyHealth enemyHealth;
+        protected EnemyUI enemyUI;
         protected AnimatorController animatorController;
-        private EnemyAttackSpawner enemyAttackSpawner;
-        private BossNetwork bossNetwork;
-        private BossArea bossArea;
+        protected EnemyAttackSpawner enemyAttackSpawner;
+        protected EnemyNetwork enemyNetwork;
 
         public BaseAI BaseAI { get => baseAI; }
         public EnemyHealth EnemyHealth { get => enemyHealth; }
         public EnemyUI EnemyUI { get => enemyUI; }
         public AnimatorController AnimatorController { get => animatorController; }
-        public BossArea BossArea { get => bossArea; }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             enemyUI = GetComponent<EnemyUI>();
             baseAI = GetComponent<BaseAI>();
             enemyHealth = GetComponent<EnemyHealth>();
-            bossArea = FindObjectOfType<BossArea>();
-            bossNetwork = GetComponent<BossNetwork>();
+            enemyNetwork = GetComponent<EnemyNetwork>();
             animatorController = GetComponentInChildren<AnimatorController>();
             enemyAttackSpawner = GetComponentInChildren<EnemyAttackSpawner>();
 
@@ -39,12 +34,9 @@ namespace TW
             }
         }
 
-        private void Start()
+        protected virtual void Start()
         {
-
             enemyHealth.EnemyController = this;
-
-            if (bossArea != null) bossArea.boss = this;
 
 
             if (!NetworkManager.Singleton.IsServer) return;
@@ -57,8 +49,11 @@ namespace TW
             animatorController.Agent = baseAI.Agent;
             animatorController.Init();
 
-            enemyAttackSpawner.OriginHealth = enemyHealth;
-            baseAI.playerFound += enemyAttackSpawner.SetPlayerAsAttackTarget;
+            if(enemyAttackSpawner != null)
+            {
+                enemyAttackSpawner.OriginHealth = enemyHealth;
+                baseAI.playerFound += enemyAttackSpawner.SetPlayerAsAttackTarget;
+            }
         }
 
         public void SetHealthValuesInSlider() => enemyUI.HealthValueToSliderValue(enemyHealth.Health, enemyHealth.MaxHealth);
@@ -69,31 +64,30 @@ namespace TW
         public void UnsetHealthListener() =>
             enemyHealth.HealthChanged -= enemyUI.HealthValueToSliderValue;
 
-        private void Die()
+        protected virtual void Die()
         {
 
             if (!NetworkManager.Singleton.IsServer) return;
-            bossNetwork.Die();
+            enemyNetwork.Die();
             baseAI.Die();
             baseAI.enabled = false;
             enemyHealth.InvokeHealthUpdateCallback();
-            enemyUI.SetEnemyStatsVisible(false);
+            if (enemyUI != null)
+            {
+                enemyUI.SetEnemyStatsVisible(false);
+                enemyUI.enabled = false;
+            }
             enemyHealth.enabled = false;
-            enemyUI.enabled = false;
             animatorController.enabled = false;
-            enemyAttackSpawner.enabled = false;
+            if (enemyAttackSpawner != null)
+            {
+                enemyAttackSpawner.enabled = false;
+                Destroy(enemyAttackSpawner);
+            }
             Destroy(enemyHealth);
             Destroy(baseAI);
             animatorController.PlayTargetAnimation("Dead", true);
             Destroy(animatorController);
-            Destroy(enemyAttackSpawner);
-            // StartCoroutine(ResetScene());
-        }
-
-        IEnumerator ResetScene()
-        {
-            yield return new WaitForSeconds(3f);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

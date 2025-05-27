@@ -18,6 +18,9 @@ namespace TW
                 return;
 
             cameraTransform.eulerAngles = cameraRotation;
+            Vector3 newCameraPosition = new Vector3(transform.position.x, transform.position.y + cameraHeight, transform.position.z + cameraDistance);
+            cameraTransform.position = newCameraPosition;
+
         }
 
         private void LateUpdate()
@@ -25,7 +28,9 @@ namespace TW
             if (cameraTransform == null)
                 return;
 
-            cameraTransform.position = new Vector3(transform.position.x, cameraHeight, transform.position.z + cameraDistance);
+            Vector3 newCameraPosition = new Vector3(transform.position.x, transform.position.y + cameraHeight, transform.position.z + cameraDistance);
+
+            cameraTransform.position = Vector3.Lerp(cameraTransform.position, newCameraPosition, Time.deltaTime * 10);
         }
     }
 }

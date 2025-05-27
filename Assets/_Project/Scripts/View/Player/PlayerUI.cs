@@ -103,7 +103,7 @@ namespace TW
         {
             quitted = true;
             NetworkManager.Singleton.Shutdown();
-            GameManager.Instance.QuitToMainMenuAndDestroyNetworkManager();
+            if(GameManager.Instance != null) GameManager.Instance.QuitToMainMenuAndDestroyNetworkManager();
         }
 
         private void QuitWhenServerDisconnects(ulong id)

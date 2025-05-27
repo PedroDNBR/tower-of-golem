@@ -1,59 +1,34 @@
-using UnityEngine;
 using Unity.Netcode;
 
 namespace TW
 {
-    public class BossNetwork : NetworkBehaviour
+    public class BossNetwork : EnemyNetwork
     {
-        EnemyController enemyController;
-        EnemyUI enemyUI;
-        EnemyHealth enemyHealth;
-
-
-        public override void OnNetworkSpawn()
+        private void UnsetUI()
         {
-            base.OnNetworkSpawn();
+            BossController bossController = (BossController)enemyController;
+            if (bossController.BossArea != null)
+                Destroy(bossController.BossArea.gameObject);
 
-            enemyController = GetComponent<EnemyController>();
-            enemyUI = GetComponent<EnemyUI>();
-            enemyHealth = GetComponent<EnemyHealth>();
+            if (enemyUI == null) return;
 
-            if (IsServer) return;
+            enemyUI.HealthValueToSliderValue(0, enemyHealth.MaxHealth);
 
-            var damageColliders1 = GetComponentsInChildren<DealDamageWhenTriggerEnter>();
-            var damageColliders2 = GetComponentsInChildren<ShouldReceiveDamage>();
-
-            foreach (var damage in damageColliders1) 
-                damage.enabled = false;
-
-            foreach (var damage in damageColliders2)
-                damage.enabled = false;
-        }
-
-        public void Die()
-        {
-            DieServerRpc();
+            bossController.UnsetHealthListener();
         }
 
         [ServerRpc]
-        public void DieServerRpc()
+        public override void DieServerRpc()
         {
             UnsetUI();
-            DieClientRpc();
+            base.DieServerRpc();
         }
 
         [ClientRpc]
-        public void DieClientRpc()
+        public override void DieClientRpc()
         {
             UnsetUI();
-        }
-
-        private void UnsetUI()
-        {
-            Destroy(enemyController.BossArea.gameObject);
-            enemyUI.HealthValueToSliderValue(0, enemyHealth.MaxHealth);
-            enemyController.UnsetHealthListener();
+            base.DieClientRpc();
         }
     }
-
 }

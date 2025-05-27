@@ -8,17 +8,17 @@ namespace TW
     public class FakeLobbyBehaviourLocalTest : MonoBehaviour
     {
         [SerializeField]
-        NetworkGameManager gameManager;
+        NetworkGameManager networkGameManager;
 
         private void OnEnable()
         {
-            gameManager.OnClientConnectedCallback += StartGame;
+            networkGameManager.OnClientConnectedCallback += StartGame;
         }
 
         public void StartGame(ulong test)
         {
-            if(gameManager.IsServer && gameManager.ConnectedClients.Count > 1)
-                gameManager.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+            if(networkGameManager.IsServer && networkGameManager.ConnectedClients.Count >= 1)
+                networkGameManager.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
         }
     }
 }
