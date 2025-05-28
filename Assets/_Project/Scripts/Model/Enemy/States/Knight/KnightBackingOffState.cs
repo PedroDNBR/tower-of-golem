@@ -33,7 +33,7 @@ namespace TW
             knight.backoffCooldown -= Time.deltaTime;
 
             if (Vector3.Distance(knight.transform.position, knight.backoffPos) < 0.75f || knight.backoffCooldown <= 0)
-                knight.SwitchState(States.followPlayerState);
+                knight.SwitchState(knight.followPlayerState);
 
             knight.HandleRotation();
         }

@@ -25,7 +25,7 @@ namespace TW
                     if (baseAI.recoveryTimer <= 0)
                     {
                         baseAI.actionFlag = false;
-                        baseAI.SwitchState(States.followPlayerState);
+                        baseAI.SwitchState(baseAI.followPlayerState);
                         return;
                     }
                     else

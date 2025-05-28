@@ -5,8 +5,6 @@ namespace TW
 {
     public class Knight : BaseAI
     {
-        [SerializeField] bool debug = false;
-
         // Destinations
         public Vector3 circlePos = Vector3.zero;
         public Vector3 backoffPos = Vector3.zero;
@@ -107,7 +105,6 @@ namespace TW
             NavMeshHit hit;
             if (NavMesh.SamplePosition(targetPos, out hit, 1f, NavMesh.AllAreas))
             {
-                if (debug) Debug.Log("GetOppositePosition (LEFT OFFSET)", gameObject);
                 return hit.position;
             }
 

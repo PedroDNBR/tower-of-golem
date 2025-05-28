@@ -22,7 +22,7 @@ namespace TW
 
             if (Vector3.Distance(knight.transform.position, knight.circlePos) <= 1.3f || blocker == null)
             {
-                knight.SwitchState(States.followPlayerState);
+                knight.SwitchState(knight.followPlayerState);
                 return;
             }
 

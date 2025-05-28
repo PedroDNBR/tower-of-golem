@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Enemy test
+  maxAttackDistance: 20
   stoppingDistance: 1.35
   walkSpeed: 2
   walkRadius: 6
@@ -141,7 +142,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 83097cffb81f810408b52071dcd48190, type: 2}
   - {fileID: 11400000, guid: ba90efb9c76786a459df56215abf31a4, type: 2}
   - {fileID: 11400000, guid: 27b06a6fbc1b7fa46b1bf3a898107b4e, type: 2}
+  currentPlayerInsight: {fileID: 0}
+  currentSnapshot: {fileID: 0}
+  enemyController: {fileID: 0}
+  finalDestination: {x: 0, y: 0, z: 0}
+  agent: {fileID: 0}
+  isBusy: 0
+  actionFlag: 0
+  recoveryTimer: 0
+  debugtest: 0
   debug: 0
+  circlePos: {x: 0, y: 0, z: 0}
+  backoffPos: {x: 0, y: 0, z: 0}
+  backoffCooldown: 0
 --- !u!114 &3993325283274647888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    m_InternalValue: 30
+    m_InternalValue: 3000
   type: 0
   hittedAnimNameString: Hitted
   maxDamageUntilStagger: 6

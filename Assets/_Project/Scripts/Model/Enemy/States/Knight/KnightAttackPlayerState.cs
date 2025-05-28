@@ -18,6 +18,7 @@ namespace TW
             }
 
             float distanceToPlayer = Vector3.Distance(baseAI.transform.position, baseAI.currentPlayerInsight.transform.position);
+            if(baseAI.debugtest) Debug.Log($"distanceToPlayer < 1f {distanceToPlayer < 1f}");
             if (distanceToPlayer < 1f)
             {
                 baseAI.SwitchState(KnightStates.backingOffState);
@@ -28,24 +29,25 @@ namespace TW
 
             if (!knight.isBusy)
             {
+                if(baseAI.debugtest) Debug.Log($"knight.GetBlockingEnemy() {knight.GetBlockingEnemy()}");
+                if (knight.GetBlockingEnemy() != null)
+                {
+                    knight.SwitchState(KnightStates.avoidingHitState);
+                    return;
+                }
+
                 if (knight.actionFlag)
                 {
                     knight.recoveryTimer -= Time.deltaTime;
                     if (knight.recoveryTimer <= 0)
                     {
                         baseAI.actionFlag = false;
-                        knight.SwitchState(States.followPlayerState);
+                        knight.SwitchState(knight.followPlayerState);
                         return;
                     }
                 }
                 else
                 {
-                    if(knight.GetBlockingEnemy() != null)
-                    {
-                        knight.SwitchState(KnightStates.avoidingHitState);
-                        return;
-                    }
-
                     Vector3 dir = knight.currentPlayerInsight.transform.position - knight.transform.position;
                     dir.y = 0;
                     dir.Normalize();
