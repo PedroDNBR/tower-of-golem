@@ -16,6 +16,10 @@ Algo estranho ocorre, é algo novo, a anos não surgia algo assim. Após a grand
 
 ---
 
+Eu pensei num aleatório agora xD tu rola pelo chão, podia ter um q se disfarça de flor, planta SLA, e se tu passa por cima ele te prende, aí vc tem q se soltar se mexendo bastante
+
+---
+
 Elemento dos Bosses
 
 - fogo

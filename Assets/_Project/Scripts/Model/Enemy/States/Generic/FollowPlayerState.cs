@@ -19,7 +19,7 @@ namespace TW
 
             float dist = Vector3.Distance(baseAI.transform.position, baseAI.currentPlayerInsight.transform.position);
 
-            if (dist < baseAI.maxAttackDistance)
+            if (dist <= baseAI.maxAttackDistance)
             {
                 baseAI.SwitchState(States.attackPlayerState);
                 return;

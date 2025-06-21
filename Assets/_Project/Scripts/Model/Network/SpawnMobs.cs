@@ -13,6 +13,7 @@ public class SpawnMobs : MonoBehaviour
     {
         if (playerSpawner != null) 
             playerSpawner.OnSpawnedPlayers += SpawnEnemy;
+
     }
 
     private void SpawnEnemy()

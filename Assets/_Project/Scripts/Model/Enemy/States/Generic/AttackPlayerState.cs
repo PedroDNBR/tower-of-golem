@@ -4,12 +4,12 @@ namespace TW
 {
     public class AttackPlayerState : IAIState
     {
-        public void Enter(BaseAI baseAI)
+        public virtual void Enter(BaseAI baseAI)
         {
             baseAI.agent.avoidancePriority = 10;
         }
 
-        public void Execute(BaseAI baseAI)
+        public virtual void Execute(BaseAI baseAI)
         {
             if (baseAI.currentPlayerInsight == null)
             {
@@ -58,6 +58,6 @@ namespace TW
             if (baseAI.enemyController.AnimatorController.GetCanRotate()) baseAI.HandleRotation(true);
         }
 
-        public void Exit(BaseAI baseAI) { }
+        public virtual void Exit(BaseAI baseAI) { }
     }
 }

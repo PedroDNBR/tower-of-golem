@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 79b00f5dec5f6a94a843c46e302522cd
+guid: 96ac0994f03c05d4c8c7302a1b469e1f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: MinionDead
+      name: MinionJumpSlash
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 69
+      lastFrame: 73
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -56,21 +56,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.08237548
-        functionName: CanRotate
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.11111111
-        functionName: DisableDamageColliders
-        data: Sword
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

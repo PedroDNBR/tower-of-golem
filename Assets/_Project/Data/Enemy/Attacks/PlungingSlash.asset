@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f02fe36c7110ce5489e681ddb7d5dd34, type: 3}
-  m_Name: TwoHandedSlash
+  m_Name: PlungingSlash
   m_EditorClassIdentifier: 
-  anim: TwoHandedSlash
+  anim: PlungingSlash
   score: 2
-  recoveryTime: 0.4
-  minDist: 0
-  maxDist: 2.5
-  minAngle: -180
-  maxAngle: 180
+  recoveryTime: 5
+  minDist: 4
+  maxDist: 10
+  minAngle: -45
+  maxAngle: 45

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f02fe36c7110ce5489e681ddb7d5dd34, type: 3}
-  m_Name: OneHandedSlash
+  m_Name: OneHandedAttackCrouch
   m_EditorClassIdentifier: 
-  anim: OneHandedSlash
-  score: 5
+  anim: OneHandedAttackCrouch
+  score: 10
   recoveryTime: 0.4
   minDist: 0
-  maxDist: 2.5
+  maxDist: 4
   minAngle: -180
   maxAngle: 180

@@ -20,7 +20,7 @@ GameObject:
   m_Layer: 0
   m_Name: Minion
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -127,7 +127,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Enemy test
-  maxAttackDistance: 20
+  maxAttackDistance: 2.5
+  minAttackDistance: 1.5
   stoppingDistance: 1.35
   walkSpeed: 2
   walkRadius: 6
@@ -142,6 +143,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 83097cffb81f810408b52071dcd48190, type: 2}
   - {fileID: 11400000, guid: ba90efb9c76786a459df56215abf31a4, type: 2}
   - {fileID: 11400000, guid: 27b06a6fbc1b7fa46b1bf3a898107b4e, type: 2}
+  circlePos: {x: 0, y: 0, z: 0}
   currentPlayerInsight: {fileID: 0}
   currentSnapshot: {fileID: 0}
   enemyController: {fileID: 0}
@@ -151,8 +153,7 @@ MonoBehaviour:
   actionFlag: 0
   recoveryTimer: 0
   debugtest: 0
-  debug: 0
-  circlePos: {x: 0, y: 0, z: 0}
+  currentStateName: 
   backoffPos: {x: 0, y: 0, z: 0}
   backoffCooldown: 0
 --- !u!114 &3993325283274647888

@@ -6,7 +6,6 @@ namespace TW
     public class Knight : BaseAI
     {
         // Destinations
-        public Vector3 circlePos = Vector3.zero;
         public Vector3 backoffPos = Vector3.zero;
         Vector3 forceEscapePos = Vector3.zero;
 
@@ -18,7 +17,6 @@ namespace TW
         public override void Init()
         {
             base.Init();
-            maxAttackDistance = 1.4f;
         }
 
         protected override void SetFollowPlayerState() => followPlayerState = KnightStates.followPlayerState;
@@ -103,7 +101,7 @@ namespace TW
 
             // Make sure position is within navmesh
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(targetPos, out hit, 1f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(targetPos, out hit, 4f, NavMesh.AllAreas))
             {
                 return hit.position;
             }

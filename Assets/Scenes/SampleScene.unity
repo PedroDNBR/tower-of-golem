@@ -248,6 +248,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2477511411847689622, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!114 &34950457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34950449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &42061361
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1020,6 +1039,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 34950453}
+    - targetCorrespondingSourceObject: {fileID: -2045257923548263128, guid: 37d9fdcdb54a2c248befde8d550761f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 34950457}
     - targetCorrespondingSourceObject: {fileID: -6763858364670572316, guid: 37d9fdcdb54a2c248befde8d550761f2,
         type: 3}
       insertIndex: -1
@@ -1036,6 +1059,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 230571137}
+    - targetCorrespondingSourceObject: {fileID: -7271449666460269675, guid: 37d9fdcdb54a2c248befde8d550761f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 230571141}
     - targetCorrespondingSourceObject: {fileID: 1502877291743220047, guid: 37d9fdcdb54a2c248befde8d550761f2,
         type: 3}
       insertIndex: -1
@@ -1052,14 +1079,26 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1029158985}
+    - targetCorrespondingSourceObject: {fileID: 4356877828898064976, guid: 37d9fdcdb54a2c248befde8d550761f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1029158989}
     - targetCorrespondingSourceObject: {fileID: -4906838889796845047, guid: 37d9fdcdb54a2c248befde8d550761f2,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 682102986}
+    - targetCorrespondingSourceObject: {fileID: -4906838889796845047, guid: 37d9fdcdb54a2c248befde8d550761f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 682102990}
     - targetCorrespondingSourceObject: {fileID: 4504409719310791647, guid: 37d9fdcdb54a2c248befde8d550761f2,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1930188651}
+    - targetCorrespondingSourceObject: {fileID: 4504409719310791647, guid: 37d9fdcdb54a2c248befde8d550761f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1930188655}
     - targetCorrespondingSourceObject: {fileID: -3778644264426962316, guid: 37d9fdcdb54a2c248befde8d550761f2,
         type: 3}
       insertIndex: -1
@@ -1196,26 +1235,50 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 236246818}
+    - targetCorrespondingSourceObject: {fileID: -4960584510277547667, guid: 37d9fdcdb54a2c248befde8d550761f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 236246822}
     - targetCorrespondingSourceObject: {fileID: 5194334309628646677, guid: 37d9fdcdb54a2c248befde8d550761f2,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 502579243}
+    - targetCorrespondingSourceObject: {fileID: 5194334309628646677, guid: 37d9fdcdb54a2c248befde8d550761f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 502579247}
     - targetCorrespondingSourceObject: {fileID: 9017328541939089309, guid: 37d9fdcdb54a2c248befde8d550761f2,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1618348491}
+    - targetCorrespondingSourceObject: {fileID: 9017328541939089309, guid: 37d9fdcdb54a2c248befde8d550761f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1618348495}
     - targetCorrespondingSourceObject: {fileID: 3559817854460706613, guid: 37d9fdcdb54a2c248befde8d550761f2,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 441839375}
+    - targetCorrespondingSourceObject: {fileID: 3559817854460706613, guid: 37d9fdcdb54a2c248befde8d550761f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 441839379}
     - targetCorrespondingSourceObject: {fileID: -8856916482769721425, guid: 37d9fdcdb54a2c248befde8d550761f2,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1346926452}
+    - targetCorrespondingSourceObject: {fileID: -8856916482769721425, guid: 37d9fdcdb54a2c248befde8d550761f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1346926456}
     - targetCorrespondingSourceObject: {fileID: -4058879426038799192, guid: 37d9fdcdb54a2c248befde8d550761f2,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 363666008}
+    - targetCorrespondingSourceObject: {fileID: -4058879426038799192, guid: 37d9fdcdb54a2c248befde8d550761f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 363666012}
     - targetCorrespondingSourceObject: {fileID: -9203324390398772745, guid: 37d9fdcdb54a2c248befde8d550761f2,
         type: 3}
       insertIndex: -1
@@ -1252,10 +1315,18 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 278007535}
+    - targetCorrespondingSourceObject: {fileID: -5568371526223589888, guid: 37d9fdcdb54a2c248befde8d550761f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 278007539}
     - targetCorrespondingSourceObject: {fileID: 8513859187771203891, guid: 37d9fdcdb54a2c248befde8d550761f2,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 85942304}
+    - targetCorrespondingSourceObject: {fileID: 8513859187771203891, guid: 37d9fdcdb54a2c248befde8d550761f2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 85942308}
   m_SourcePrefab: {fileID: 100100000, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
 --- !u!1 &60235455
 GameObject:
@@ -2393,6 +2464,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7387706064836869012, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!114 &85942308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85942300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &111380423 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 26844662620191305, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -2469,6 +2559,54 @@ MonoBehaviour:
   mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
     type: 3}
   spawnPoint: {fileID: 160351329}
+--- !u!1 &186878654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 186878655}
+  - component: {fileID: 186878656}
+  m_Layer: 0
+  m_Name: KnightSpawner (11)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &186878655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186878654}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249607890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &186878656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186878654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 186878655}
 --- !u!1 &220236811
 GameObject:
   m_ObjectHideFlags: 0
@@ -2630,6 +2768,73 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7807538432633192378, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!114 &230571141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230571133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
+--- !u!1 &231792183
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 231792184}
+  - component: {fileID: 231792185}
+  m_Layer: 0
+  m_Name: KnightSpawner (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &231792184
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231792183}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249607890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &231792185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231792183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 231792184}
 --- !u!1 &236246814 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4960584510277547667, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -2658,6 +2863,135 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1997392669490731943, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!114 &236246822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236246814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
+--- !u!1 &249607888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 249607890}
+  - component: {fileID: 249607889}
+  m_Layer: 0
+  m_Name: KnightSpawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &249607889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249607888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 249607890}
+--- !u!4 &249607890
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249607888}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -54.13, y: 0.28, z: -0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1393492943}
+  - {fileID: 1478844316}
+  - {fileID: 1729654675}
+  - {fileID: 465945721}
+  - {fileID: 231792184}
+  - {fileID: 1064312405}
+  - {fileID: 304992668}
+  - {fileID: 360734846}
+  - {fileID: 1924666713}
+  - {fileID: 1700332856}
+  - {fileID: 614756832}
+  - {fileID: 796464343}
+  - {fileID: 186878655}
+  - {fileID: 257547425}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &257547424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 257547425}
+  - component: {fileID: 257547426}
+  m_Layer: 0
+  m_Name: KnightSpawner (12)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &257547425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257547424}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249607890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &257547426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257547424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 257547425}
 --- !u!1 &278007531 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5568371526223589888, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -2686,6 +3020,73 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2534964839176971238, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!114 &278007539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278007531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
+--- !u!1 &304992667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 304992668}
+  - component: {fileID: 304992669}
+  m_Layer: 0
+  m_Name: KnightSpawner (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &304992668
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304992667}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249607890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &304992669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304992667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 304992668}
 --- !u!1 &342868907
 GameObject:
   m_ObjectHideFlags: 0
@@ -2791,6 +3192,54 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 342868907}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &360734845
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 360734846}
+  - component: {fileID: 360734847}
+  m_Layer: 0
+  m_Name: KnightSpawner (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &360734846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360734845}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249607890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &360734847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360734845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 360734846}
 --- !u!1 &363666004 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4058879426038799192, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -2819,6 +3268,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2329056047041703686, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!114 &363666012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363666004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &369874558 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1558721567721526513, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -3147,6 +3615,73 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7087473724099325196, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!114 &441839379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441839371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
+--- !u!1 &465945720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 465945721}
+  - component: {fileID: 465945722}
+  m_Layer: 0
+  m_Name: KnightSpawner (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &465945721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465945720}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249607890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &465945722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465945720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 465945721}
 --- !u!1 &466097894 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2040254050740271484, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -3279,6 +3814,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6335965048631572536, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!114 &502579247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502579239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!64 &514835520
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3456,6 +4010,54 @@ MonoBehaviour:
   mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
     type: 3}
   spawnPoint: {fileID: 594118630}
+--- !u!1 &614756831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 614756832}
+  - component: {fileID: 614756833}
+  m_Layer: 0
+  m_Name: KnightSpawner (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &614756832
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614756831}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249607890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &614756833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614756831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 614756832}
 --- !u!1 &641221721 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8485173162082002552, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -3534,6 +4136,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3541629673168548286, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!114 &682102990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682102982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &697516641
 GameObject:
   m_ObjectHideFlags: 0
@@ -3754,6 +4375,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1170981639}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &796464342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 796464343}
+  - component: {fileID: 796464344}
+  m_Layer: 0
+  m_Name: KnightSpawner (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &796464343
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796464342}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249607890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &796464344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796464342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 796464343}
 --- !u!1 &802484692
 GameObject:
   m_ObjectHideFlags: 0
@@ -4404,6 +5073,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5928785198427282456, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!114 &1029158989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029158981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1036625516 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1835210009659533079, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -4432,6 +5120,54 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6163357941915963767, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!1 &1064312404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1064312405}
+  - component: {fileID: 1064312406}
+  m_Layer: 0
+  m_Name: KnightSpawner (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1064312405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064312404}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249607890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1064312406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064312404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 1064312405}
 --- !u!1 &1066550673 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7103153012782714218, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -4985,6 +5721,125 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4224634350726116895, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!114 &1346926456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346926448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
+--- !u!1 &1347213859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1347213863}
+  - component: {fileID: 1347213862}
+  - component: {fileID: 1347213861}
+  - component: {fileID: 1347213860}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!208 &1347213860
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347213859}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!23 &1347213861
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347213859}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1347213862
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347213859}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1347213863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347213859}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -35.6528, y: 2.0611, z: -37.3997}
+  m_LocalScale: {x: 18.291864, y: 0.576416, z: 12.729608}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1383123035 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -652209905907201759, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -5013,6 +5868,54 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6055277006425145491, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!1 &1393492942
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1393492943}
+  - component: {fileID: 1393492944}
+  m_Layer: 0
+  m_Name: KnightSpawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1393492943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393492942}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249607890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1393492944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393492942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 1393492943}
 --- !u!64 &1395125948
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5225,6 +6128,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1478844315
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1478844316}
+  - component: {fileID: 1478844317}
+  m_Layer: 0
+  m_Name: KnightSpawner (13)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1478844316
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478844315}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249607890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1478844317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478844315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 1478844316}
 --- !u!1 &1525384821 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5754060345647867467, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -5414,6 +6365,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4563637298700409943, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!114 &1618348495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618348487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1655693012
 GameObject:
   m_ObjectHideFlags: 0
@@ -5462,6 +6432,52 @@ MonoBehaviour:
   mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
     type: 3}
   spawnPoint: {fileID: 1655693013}
+--- !u!1 &1668055828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1668055830}
+  - component: {fileID: 1668055831}
+  m_Layer: 0
+  m_Name: AICommander
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1668055830
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668055828}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -61.65844, y: -1.8601463, z: -0.77882147}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1668055831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668055828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 692f432998e08c042bff220a6dc34734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkInterval: 2
+  maxAttackersPerPlayer: 3
 --- !u!1 &1688440421 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7917349904687423284, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -5490,6 +6506,54 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3048851310703494, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!1 &1700332855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1700332856}
+  - component: {fileID: 1700332857}
+  m_Layer: 0
+  m_Name: KnightSpawner (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1700332856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700332855}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249607890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1700332857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700332855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 1700332856}
 --- !u!1 &1710045766 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6014503084441653313, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -5546,6 +6610,54 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8999911773206952699, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!1 &1729654674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1729654675}
+  - component: {fileID: 1729654676}
+  m_Layer: 0
+  m_Name: KnightSpawner (14)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1729654675
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729654674}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249607890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1729654676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729654674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 1729654675}
 --- !u!1 &1747083903 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8455728280606582528, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -6011,6 +7123,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1170981639}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1924666712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1924666713}
+  - component: {fileID: 1924666714}
+  m_Layer: 0
+  m_Name: KnightSpawner (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1924666713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924666712}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249607890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1924666714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924666712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f1f3ab2b45cb747ba52d75eb0ae896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1170981638}
+  mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
+    type: 3}
+  spawnPoint: {fileID: 1924666713}
 --- !u!1 &1930188647 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4504409719310791647, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -6039,6 +7199,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2911736426955009642, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
+--- !u!114 &1930188655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930188647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1931393325 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3137722172632951806, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -6704,7 +7883,10 @@ SceneRoots:
   - {fileID: 1170981639}
   - {fileID: 1478479451}
   - {fileID: 60235457}
+  - {fileID: 249607890}
   - {fileID: 1269613157}
   - {fileID: 77554932}
   - {fileID: 42061361}
   - {fileID: 697516645}
+  - {fileID: 1668055830}
+  - {fileID: 1347213863}

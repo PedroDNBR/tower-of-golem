@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TW
@@ -11,23 +12,29 @@ namespace TW
             knight.agent.avoidancePriority = 50;
 
             BaseAI blocker = knight.GetBlockingEnemy();
-            if (knight.circlePos == Vector3.zero)
-                knight.circlePos = knight.GetOppositePosition(blocker);
+
+            knight.circlePos = knight.GetOppositePosition(blocker);
+            knight.agent.SetDestination(knight.circlePos);
         }
 
         public void Execute(BaseAI baseAI)
         {
             Knight knight = baseAI as Knight;
-            BaseAI blocker = knight.GetBlockingEnemy();
 
-            if (Vector3.Distance(knight.transform.position, knight.circlePos) <= 1.3f || blocker == null)
+            if (Vector3.Distance(knight.transform.position, knight.currentPlayerInsight.transform.position) < baseAI.minAttackDistance)
+            {
+                if (Random.Range(0, 9) < 4)
+                {
+                    baseAI.SwitchState(KnightStates.backingOffState);
+                    return;
+                }
+            }
+
+            if (Vector3.Distance(knight.transform.position, knight.circlePos) <= knight.stoppingDistance + .1f)
             {
                 knight.SwitchState(knight.followPlayerState);
                 return;
             }
-
-            if (knight.agent.destination != knight.circlePos)
-                knight.agent.SetDestination(knight.circlePos);
 
             knight.HandleRotation();
         }
@@ -37,7 +44,6 @@ namespace TW
             Knight knight = baseAI as Knight;
 
             knight.circlePos = Vector3.zero;
-            knight.agent.SetDestination(knight.currentPlayerInsight.transform.position);
         }
     }
 }

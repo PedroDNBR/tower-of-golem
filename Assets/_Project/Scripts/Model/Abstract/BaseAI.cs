@@ -14,6 +14,9 @@ namespace TW
         public float maxAttackDistance = 20;
 
         [SerializeField]
+        public float minAttackDistance = 2;
+
+        [SerializeField]
         public float stoppingDistance = 1f;
 
         [SerializeField]
@@ -39,6 +42,10 @@ namespace TW
 
         [SerializeField]
         public ActionSnapshot[] actionSnapshots;
+
+        public Vector3 circlePos = Vector3.zero;
+
+        public IAIState CurrentState { get => currentState; }
 
         public PlayerController currentPlayerInsight;
         public ActionSnapshot currentSnapshot;
@@ -68,6 +75,8 @@ namespace TW
 
         public bool debugtest;
 
+        public string currentStateName;
+
 
         // FSM API
         public void SwitchState(IAIState newState)
@@ -76,6 +85,7 @@ namespace TW
             currentState?.Exit(this);
             currentState = newState;
             currentState?.Enter(this);
+            currentStateName = newState.ToString();
         }
 
         public virtual void Init()
@@ -169,19 +179,17 @@ namespace TW
             return finalPosition;
         }
 
-        public Vector3 GetLocationAroundPlayer()
+        public Vector3 GetLocationAroundPosition(float min = 1.1f, float max = 1.6f)
         {
-            Vector3 randomDir = Quaternion.Euler(0, UnityEngine.Random.Range(-90, 90), 0) * Vector3.forward;
-            Vector3 rawPos = currentPlayerInsight.transform.position + randomDir * UnityEngine.Random.Range(1.1f, 1.6f);
+            // Gera um offset fixo em torno do jogador (aleatório dentro de um arco)
+            float angle = UnityEngine.Random.Range(-135f, 135f);
+            float radius = UnityEngine.Random.Range(min, max);
 
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(rawPos, out hit, 2f, NavMesh.AllAreas))
-            {
-                return hit.position;
-            }
+            Quaternion rotation = Quaternion.Euler(0, angle, 0);
+            Vector3 relativeOffset = rotation * Vector3.forward * radius;
 
             // fallback
-            return transform.position;
+            return relativeOffset;
         }
 
         public ActionSnapshot GetAction(float distance, float angle)
@@ -268,14 +276,14 @@ namespace TW
 
         protected virtual void OnDrawGizmos()
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, minSightRangeRadius);
+            //Gizmos.color = Color.green;
+            //Gizmos.DrawWireSphere(transform.position, minSightRangeRadius);
 
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, medSightRangeRadius);
+            //Gizmos.color = Color.yellow;
+            //Gizmos.DrawWireSphere(transform.position, medSightRangeRadius);
 
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, maxSightRangeRadius);
+            //Gizmos.color = Color.red;
+            //Gizmos.DrawWireSphere(transform.position, maxSightRangeRadius);
         }
     }
 }

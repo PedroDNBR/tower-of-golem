@@ -15,7 +15,7 @@ namespace TW
             Vector3 backDirection = -toPlayer.normalized;
             Vector3 targetPos = knight.transform.position + backDirection * backoffDistance;
 
-            if (NavMesh.SamplePosition(targetPos, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(targetPos, out NavMeshHit hit, 4f, NavMesh.AllAreas))
             {
                 knight.backoffPos = hit.position;
                 knight.agent.SetDestination(knight.backoffPos);

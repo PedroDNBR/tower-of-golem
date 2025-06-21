@@ -2,14 +2,9 @@ using UnityEngine;
 
 namespace TW
 {
-    public class KnightAttackPlayerState : IAIState
+    public class KnightAttackPlayerState : AttackPlayerState
     {
-        public void Enter(BaseAI baseAI)
-        {
-            baseAI.agent.avoidancePriority = 10;
-        }
-
-        public void Execute(BaseAI baseAI)
+        public override void Execute(BaseAI baseAI)
         {
             if (baseAI.currentPlayerInsight == null)
             {
@@ -18,8 +13,7 @@ namespace TW
             }
 
             float distanceToPlayer = Vector3.Distance(baseAI.transform.position, baseAI.currentPlayerInsight.transform.position);
-            if(baseAI.debugtest) Debug.Log($"distanceToPlayer < 1f {distanceToPlayer < 1f}");
-            if (distanceToPlayer < 1f)
+            if (distanceToPlayer < baseAI.minAttackDistance)
             {
                 baseAI.SwitchState(KnightStates.backingOffState);
                 return;
@@ -27,15 +21,14 @@ namespace TW
 
             Knight knight = baseAI as Knight;
 
+            if (knight.GetBlockingEnemy() != null)
+            {
+                knight.SwitchState(KnightStates.avoidingHitState);
+                return;
+            }
+
             if (!knight.isBusy)
             {
-                if(baseAI.debugtest) Debug.Log($"knight.GetBlockingEnemy() {knight.GetBlockingEnemy()}");
-                if (knight.GetBlockingEnemy() != null)
-                {
-                    knight.SwitchState(KnightStates.avoidingHitState);
-                    return;
-                }
-
                 if (knight.actionFlag)
                 {
                     knight.recoveryTimer -= Time.deltaTime;
@@ -68,7 +61,5 @@ namespace TW
 
             knight.HandleRotation(true);
         }
-
-        public void Exit(BaseAI baseAI) { }
     }
 }

@@ -6,8 +6,11 @@ namespace TW
     {
         public void Enter(BaseAI baseAI)
         {
+            baseAI.enemyController.AnimatorController.PlayTargetAnimation("DrawSword", true);
             baseAI.agent.stoppingDistance = baseAI.stoppingDistance;
-        }
+            if (AICommander.Instance != null)
+                AICommander.Instance.Register(baseAI as Knight, baseAI.currentPlayerInsight);
+    }
 
         public void Execute(BaseAI baseAI)
         {
@@ -19,18 +22,17 @@ namespace TW
 
             float dist = Vector3.Distance(baseAI.transform.position, baseAI.currentPlayerInsight.transform.position);
 
-            if (dist < 1f)
+            if (dist < baseAI.minAttackDistance)
             {
                 baseAI.SwitchState(KnightStates.backingOffState);
                 return;
             }
 
-            if (dist < baseAI.maxAttackDistance)
+            if (dist <= baseAI.maxAttackDistance)
             {
                 baseAI.SwitchState(KnightStates.attackPlayerState);
                 return;
             }
-
             baseAI.agent.SetDestination(baseAI.currentPlayerInsight.transform.position);
             baseAI.HandleRotation();
         }
