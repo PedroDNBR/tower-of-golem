@@ -22,12 +22,12 @@ namespace TW
             {
                 if(enemyController.BaseAI.currentPlayerInsight != playerController)
                 {
-                    enemyController.AnimatorController.PlayTargetAnimation("DrawSword", true);
+                    enemyController.AnimatorController.PlayTargetAnimation("Draw", true);
                 }
             };
         }
 
-        protected override void SetFollowPlayerState() => followPlayerState = KnightStates.followPlayerState;
+        protected override void SetFollowPlayerState() => followPlayerState = States.followPlayerState;
 
         //bool HandleForceEscapeLogic()
         //{
