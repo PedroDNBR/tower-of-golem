@@ -19,10 +19,25 @@ namespace TW
 
             float dist = Vector3.Distance(baseAI.transform.position, baseAI.currentPlayerInsight.transform.position);
 
-            if (dist <= baseAI.maxAttackDistance)
+            if (!baseAI.isBusy)
             {
-                baseAI.SwitchState(States.attackPlayerState);
-                return;
+                if (!baseAI.actionFlag)
+                {
+                    Vector3 dir = baseAI.currentPlayerInsight.transform.position - baseAI.transform.position;
+                    dir.y = 0;
+                    dir.Normalize();
+
+
+                    float angle = Vector2.Angle(baseAI.transform.position, dir);
+                    baseAI.currentSnapshot = baseAI.GetAction(dist, angle);
+
+                    if (baseAI.currentSnapshot != null)
+                    {
+                        baseAI.SwitchState(States.attackPlayerState);
+                        return;
+                    }
+
+                }
             }
 
             baseAI.agent.SetDestination(baseAI.currentPlayerInsight.transform.position);

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f02fe36c7110ce5489e681ddb7d5dd34, type: 3}
-  m_Name: RotatingSlash
+  m_Name: PlungingSlash
   m_EditorClassIdentifier: 
-  anim: RotatingSlash
-  score: 2
-  recoveryTime: 4
-  minDist: 3
+  anim: PlungingSlash
+  score: 4
+  recoveryTime: 3
+  minDist: 4
   maxDist: 6
-  minAngle: -45
-  maxAngle: 45
+  minAngle: -180
+  maxAngle: 180

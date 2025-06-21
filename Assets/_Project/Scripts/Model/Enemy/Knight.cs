@@ -17,6 +17,14 @@ namespace TW
         public override void Init()
         {
             base.Init();
+            enemyController.EnemyHealth.Dead += () => AICommander.Instance.Unregister(this);
+            playerFound += (PlayerController playerController) =>
+            {
+                if(enemyController.BaseAI.currentPlayerInsight != playerController)
+                {
+                    enemyController.AnimatorController.PlayTargetAnimation("DrawSword", true);
+                }
+            };
         }
 
         protected override void SetFollowPlayerState() => followPlayerState = KnightStates.followPlayerState;
@@ -59,7 +67,7 @@ namespace TW
             // origin point dislocated to the right
             Vector3 detectionPosition = Vector3.Lerp(currentPlayerInsight.transform.position, transform.position, 0.5f) + rightOffset;
 
-            float middleDistance = Vector3.Distance(currentPlayerInsight.transform.position, transform.position) * 0.65f;
+            float middleDistance = Vector3.Distance(currentPlayerInsight.transform.position, transform.position) * 0.6f;
 
             RaycastHit[] hits = Physics.SphereCastAll(detectionPosition, middleDistance, detectionPosition, middleDistance, detectionLayer);
             foreach (var hit in hits)

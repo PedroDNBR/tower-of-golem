@@ -105,13 +105,41 @@ namespace TW
             UpdateAnimation();
             SetSpeedBasedOnIfIsBusy();
             currentState?.Execute(this);
+            if (!isBusy)
+            {
+                if (actionFlag && recoveryTimer > 0)
+                {
+                    recoveryTimer -= Time.deltaTime;
+                    if (recoveryTimer <= 0)
+                    {
+                        actionFlag = false;
+                        SwitchState(followPlayerState);
+                        return;
+                    }
+                }
+            }
         }
 
         public virtual void UpdateAnimation()
         {
             isBusy = enemyController.AnimatorController.GetIsBusyBool();
-            float speed = agent.velocity.magnitude;
-            enemyController.AnimatorController.SetMovementValue(Mathf.Clamp01(speed / walkSpeed));
+            Vector3 velocity = agent.velocity;
+
+            velocity.y = 0;
+
+            Vector3 moveDir = velocity.normalized;
+
+            Vector3 forward = transform.forward;
+            Vector3 right = transform.right;
+
+            float forwardAmount = Vector3.Dot(moveDir, forward);
+            float strafeAmount = Vector3.Dot(moveDir, right);
+
+            float speed = velocity.magnitude;
+            forwardAmount *= Mathf.Clamp01(speed / walkSpeed);
+            strafeAmount *= Mathf.Clamp01(speed / walkSpeed);
+
+            enemyController.AnimatorController.SetMovementValue(strafeAmount, forwardAmount);
         }
 
         public virtual void TrackPlayer()
@@ -125,7 +153,6 @@ namespace TW
                     if (player == null) continue;
                     currentPlayerInsight = player;
                     playerFound?.Invoke(currentPlayerInsight);
-
                 }
             }
 
@@ -181,8 +208,8 @@ namespace TW
 
         public Vector3 GetLocationAroundPosition(float min = 1.1f, float max = 1.6f)
         {
-            // Gera um offset fixo em torno do jogador (aleatório dentro de um arco)
-            float angle = UnityEngine.Random.Range(-135f, 135f);
+            // Gera um offset fixo em torno do jogador (aleatï¿½rio dentro de um arco)
+            float angle = UnityEngine.Random.Range(-170f, 170f);
             float radius = UnityEngine.Random.Range(min, max);
 
             Quaternion rotation = Quaternion.Euler(0, angle, 0);
@@ -225,6 +252,7 @@ namespace TW
 
         public void HandleRotation(bool isAttacking = false)
         {
+            if (!enemyController.AnimatorController.GetCanRotate()) return;
             if (isAttacking)
             {
                 Vector3 objectivePosition = finalDestination;

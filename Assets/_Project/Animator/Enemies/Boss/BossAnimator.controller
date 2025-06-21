@@ -152,7 +152,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: movement
     m_Mirror: 0
-  m_BlendParameter: movement
+  m_BlendParameter: vertical
   m_BlendParameterY: movement
   m_MinThreshold: 0
   m_MaxThreshold: 1
@@ -210,7 +210,7 @@ AnimatorState:
   m_Motion: {fileID: -5416110200494163472, guid: cf89f13d9e807364ab8095a7f55ad58c,
     type: 3}
   m_Tag: 
-  m_SpeedParameter: movement
+  m_SpeedParameter: vertical
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -229,7 +229,13 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: movement
+  - m_Name: vertical
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: horizontal
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0

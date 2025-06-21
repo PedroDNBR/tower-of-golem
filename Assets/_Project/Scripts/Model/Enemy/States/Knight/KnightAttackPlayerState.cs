@@ -29,36 +29,26 @@ namespace TW
 
             if (!knight.isBusy)
             {
-                if (knight.actionFlag)
+                if (!knight.actionFlag)
                 {
-                    knight.recoveryTimer -= Time.deltaTime;
-                    if (knight.recoveryTimer <= 0)
+                    if(baseAI.currentSnapshot == null)
                     {
-                        baseAI.actionFlag = false;
-                        knight.SwitchState(knight.followPlayerState);
-                        return;
+                        Vector3 dir = knight.currentPlayerInsight.transform.position - knight.transform.position;
+                        dir.y = 0;
+                        dir.Normalize();
+                        float angle = Vector2.Angle(knight.transform.position, dir);
+                        float dot = Vector3.Dot(knight.transform.right, dir);
+                        if (dot < 0) angle *= -1;
+                        var snapshot = knight.GetAction(distanceToPlayer, angle);
                     }
-                }
-                else
-                {
-                    Vector3 dir = knight.currentPlayerInsight.transform.position - knight.transform.position;
-                    dir.y = 0;
-                    dir.Normalize();
-
-                    float angle = Vector2.Angle(knight.transform.position, dir);
-                    float dot = Vector3.Dot(knight.transform.right, dir);
-                    if (dot < 0) angle *= -1;
-
-                    var snapshot = knight.GetAction(distanceToPlayer, angle);
-                    if (snapshot != null)
+                    if (baseAI.currentSnapshot != null)
                     {
-                        knight.enemyController.AnimatorController.PlayTargetAnimation(snapshot.anim, true);
-                        knight.recoveryTimer = snapshot.recoveryTime;
+                        knight.enemyController.AnimatorController.PlayTargetAnimation(baseAI.currentSnapshot.anim, true);
+                        knight.recoveryTimer = baseAI.currentSnapshot.recoveryTime;
                         knight.actionFlag = true;
                     }
                 }
             }
-
             knight.HandleRotation(true);
         }
     }

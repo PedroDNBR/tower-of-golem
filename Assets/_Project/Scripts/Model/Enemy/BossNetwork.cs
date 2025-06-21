@@ -21,14 +21,13 @@ namespace TW
         public override void DieServerRpc()
         {
             UnsetUI();
-            base.DieServerRpc();
+            DieClientRpc();
         }
 
         [ClientRpc]
         public override void DieClientRpc()
         {
             UnsetUI();
-            base.DieClientRpc();
         }
     }
 }

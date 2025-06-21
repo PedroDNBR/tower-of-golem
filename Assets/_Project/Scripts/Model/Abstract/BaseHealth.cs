@@ -36,7 +36,7 @@ namespace TW
 
         public virtual void TakeDamage(Elements damageType, float damage, GameObject origin)
         {
-            if(!IsServer) return;
+            if (!IsServer) return;
             if (objectsThatDamaged.Contains(origin)) return;
 
             objectsThatDamaged.Add(origin);

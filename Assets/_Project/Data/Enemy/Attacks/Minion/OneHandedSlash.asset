@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f02fe36c7110ce5489e681ddb7d5dd34, type: 3}
-  m_Name: RaiseSwordCast
+  m_Name: OneHandedSlash
   m_EditorClassIdentifier: 
-  anim: RaiseSwordCast
-  score: 2
-  recoveryTime: 2
-  minDist: 3
-  maxDist: 10
+  anim: OneHandedSlash
+  score: 14
+  recoveryTime: 0.8
+  minDist: 0.7
+  maxDist: 1.6
   minAngle: -180
   maxAngle: 180

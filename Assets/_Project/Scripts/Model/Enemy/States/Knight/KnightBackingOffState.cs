@@ -8,22 +8,35 @@ namespace TW
         public void Enter(BaseAI baseAI)
         {
             Knight knight = baseAI as Knight;
-
             float backoffDistance = 2.5f;
 
             Vector3 toPlayer = knight.currentPlayerInsight.transform.position - knight.transform.position;
             Vector3 backDirection = -toPlayer.normalized;
-            Vector3 targetPos = knight.transform.position + backDirection * backoffDistance;
 
-            if (NavMesh.SamplePosition(targetPos, out NavMeshHit hit, 4f, NavMesh.AllAreas))
+            const int maxAttempts = 5;
+            float angleStep = 45f;
+
+            bool found = false;
+            for (int i = 0; i < maxAttempts; i++)
             {
-                knight.backoffPos = hit.position;
-                knight.agent.SetDestination(knight.backoffPos);
-                knight.backoffCooldown = 1.25f;
-                knight.agent.avoidancePriority = 60;
+                float angleOffset = (i == 0) ? 0 : ((i % 2 == 0 ? 1 : -1) * angleStep * ((i + 1) / 2));
+                Vector3 rotatedDir = Quaternion.Euler(0, angleOffset, 0) * backDirection;
+                Vector3 targetPos = knight.transform.position + rotatedDir * backoffDistance;
+
+                if (NavMesh.SamplePosition(targetPos, out NavMeshHit hit, 5f, NavMesh.AllAreas))
+                {
+                    knight.backoffPos = hit.position;
+                    knight.agent.SetDestination(knight.backoffPos);
+                    found = true;
+                    break;
+                }
             }
 
-            knight.agent.SetDestination(knight.backoffPos);
+            if (!found)
+                knight.backoffPos = knight.transform.position;
+
+            knight.backoffCooldown = 1.25f;
+            knight.agent.avoidancePriority = 60;
         }
 
         public void Execute(BaseAI baseAI)
@@ -35,7 +48,7 @@ namespace TW
             if (Vector3.Distance(knight.transform.position, knight.backoffPos) < 0.75f || knight.backoffCooldown <= 0)
                 knight.SwitchState(knight.followPlayerState);
 
-            knight.HandleRotation();
+            knight.HandleRotation(true);
         }
 
         public void Exit(BaseAI baseAI)

@@ -52,7 +52,6 @@ namespace TW
             if(enemyAttackSpawner != null)
             {
                 enemyAttackSpawner.OriginHealth = enemyHealth;
-                baseAI.playerFound += enemyAttackSpawner.SetPlayerAsAttackTarget;
             }
         }
 

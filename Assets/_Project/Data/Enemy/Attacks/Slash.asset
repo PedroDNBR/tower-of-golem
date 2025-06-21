@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Slash
   m_EditorClassIdentifier: 
   anim: Slash
-  score: 10
+  score: 8
   recoveryTime: 0.4
   minDist: 3
   maxDist: 7

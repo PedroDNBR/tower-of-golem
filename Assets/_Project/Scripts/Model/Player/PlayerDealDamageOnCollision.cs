@@ -57,6 +57,10 @@ namespace TW
 
                 enemy.TakeDamage(type, totalVelocity * damageMultiplier, gameObject);
 
+                //Vector3 moveDir;
+                //moveDir = rigid.transform.position - enemy.transform.position;
+                //rigid.AddForce(moveDir.normalized * 5.5f, ForceMode.Impulse);
+
                 alreadyDamagedEnemy = true;
             } 
             else

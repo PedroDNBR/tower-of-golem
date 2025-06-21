@@ -129,6 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Enemy test
+  maxAttackDistance: 20
+  minAttackDistance: 2
   stoppingDistance: 2.5
   walkSpeed: 2
   walkRadius: 30
@@ -140,9 +142,30 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   actionSnapshots:
-  - {fileID: 11400000, guid: c0bc3addf48536e41aa5249f771dcf12, type: 2}
+  - {fileID: 11400000, guid: 030a422a125c90a4dbe4cafb172948f1, type: 2}
+  - {fileID: 11400000, guid: af851465c56eaea47a19611c74c3bbb3, type: 2}
+  - {fileID: 11400000, guid: d9730e24cc19e81469bc2bc7de80fdd2, type: 2}
+  - {fileID: 11400000, guid: 27b06a6fbc1b7fa46b1bf3a898107b4e, type: 2}
+  - {fileID: 11400000, guid: da4b3ffbc1e99de4db1ab374e2f12d6e, type: 2}
+  - {fileID: 11400000, guid: 83097cffb81f810408b52071dcd48190, type: 2}
+  - {fileID: 11400000, guid: 9f59bda38cc904245be8080e69de6355, type: 2}
+  - {fileID: 11400000, guid: ed7bd4f1246ae5449b159193d6beb8f6, type: 2}
+  - {fileID: 11400000, guid: 172274f52c10d594f96ab2178836b61d, type: 2}
   - {fileID: 11400000, guid: ed922dbbd281dd04997ab590c935fa1f, type: 2}
   - {fileID: 11400000, guid: 68ad17e5d3757f542b1c6c77dcf78453, type: 2}
+  - {fileID: 11400000, guid: c0bc3addf48536e41aa5249f771dcf12, type: 2}
+  - {fileID: 11400000, guid: ba90efb9c76786a459df56215abf31a4, type: 2}
+  circlePos: {x: 0, y: 0, z: 0}
+  currentPlayerInsight: {fileID: 0}
+  currentSnapshot: {fileID: 0}
+  enemyController: {fileID: 0}
+  finalDestination: {x: 0, y: 0, z: 0}
+  agent: {fileID: 0}
+  isBusy: 0
+  actionFlag: 0
+  recoveryTimer: 0
+  debugtest: 0
+  currentStateName: 
 --- !u!114 &8723315128715453079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    m_InternalValue: 200
+    m_InternalValue: 20
   type: 0
   hittedAnimNameString: Hitted
   maxDamageUntilStagger: 20
@@ -226,6 +249,50 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eeacbf9150994c04f8b9778eac62b0c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5912978222095168393
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2620641447648882782}
+  - component: {fileID: 3188413357994099756}
+  m_Layer: 11
+  m_Name: SpellOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2620641447648882782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5912978222095168393}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6891800755460457932}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3188413357994099756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5912978222095168393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5416c745d4712be4a9ef9c749868ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8983786410282868523
@@ -602,7 +669,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -7671345507359596467, guid: cf89f13d9e807364ab8095a7f55ad58c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2620641447648882782}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cf89f13d9e807364ab8095a7f55ad58c,
         type: 3}
@@ -1291,11 +1362,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e64f143335eec34439388828b4cf9c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackLists:
+  attackAttackDataList:
   - attackName: ThrowMagic
     attackPrefab: {fileID: 5294890440175974610, guid: 84541bdce1226814789c57a20e24e074,
       type: 3}
-  attackOrigin: {fileID: 6891800755460457932}
+    origin: {fileID: 2620641447648882782}
 --- !u!114 &774887406697185227
 MonoBehaviour:
   m_ObjectHideFlags: 0

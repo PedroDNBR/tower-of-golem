@@ -36,7 +36,7 @@ namespace TW
                 return;
             }
 
-            knight.HandleRotation();
+            knight.HandleRotation(true);
         }
 
         public void Exit(BaseAI baseAI)

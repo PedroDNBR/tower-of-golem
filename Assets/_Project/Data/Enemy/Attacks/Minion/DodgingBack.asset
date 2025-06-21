@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f02fe36c7110ce5489e681ddb7d5dd34, type: 3}
-  m_Name: JumpBack
+  m_Name: DodgingBack
   m_EditorClassIdentifier: 
-  anim: JumpBack
-  score: 4
-  recoveryTime: 0.4
+  anim: DodgingBack
+  score: 6
+  recoveryTime: 0.8
   minDist: 0
-  maxDist: 5
+  maxDist: 1.4
   minAngle: -180
   maxAngle: 180

@@ -48,7 +48,7 @@ namespace TW
                 UpdateCircleTarget(baseAI);
             }
 
-            baseAI.HandleRotation();
+            baseAI.HandleRotation(true);
         }
 
         public void Exit(BaseAI baseAI) { }
@@ -56,7 +56,7 @@ namespace TW
         private void UpdateCircleTarget(BaseAI baseAI)
         {
             // Novo ângulo e raio
-            relativeOffset = baseAI.GetLocationAroundPosition(14f, 16f);
+            relativeOffset = baseAI.GetLocationAroundPosition(7f, 10f);
         }
 
         private void FollowNewPosition(BaseAI baseAI)

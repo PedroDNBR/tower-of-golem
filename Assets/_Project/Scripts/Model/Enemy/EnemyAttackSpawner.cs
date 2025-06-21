@@ -8,71 +8,77 @@ namespace TW
     public class EnemyAttackSpawner : NetworkBehaviour
     {
         [SerializeField]
-        private List<AttackList> attackLists = new List<AttackList>();
-
-        [SerializeField]
-        private Transform attackOrigin;
-
-        private Transform attackTarget;
+        private List<AttackData> attackAttackDataList = new List<AttackData>();
 
         private BaseHealth originHealth;
 
         public BaseHealth OriginHealth { set => originHealth = value; }
 
-        private Dictionary<string, GameObject> attacks = new Dictionary<string, GameObject>();
+        private Dictionary<string, AttackInstanceData> attacks = new Dictionary<string, AttackInstanceData>();
 
         private void Awake()
         {
-            for (int i = 0; i < attackLists.Count; i++)
-                attacks.Add(attackLists[i].attackName, attackLists[i].attackPrefab);
+            for (int i = 0; i < attackAttackDataList.Count; i++)
+            {
+                AttackInstanceData attackInstanceData = new AttackInstanceData();
+                attackInstanceData.attackPrefab = attackAttackDataList[i].attackPrefab;
+                attackInstanceData.origin = attackAttackDataList[i].origin;
+                attacks.Add(attackAttackDataList[i].attackName, attackInstanceData);
+            }
         }
 
         public void SpawnAttack(string name)
         {
             if (!IsServer) return;
-            if(attackTarget != null) attackOrigin.LookAt(attackTarget);
 
             if (!IsServer)
             {
-                Shoot(attackOrigin.rotation, name); // visual imediato no client local
-                ShootServerRpc(attackOrigin.rotation, name); // envia pro server fazer o real
+                Shoot(name); // visual imediato no client local
+                ShootServerRpc(name); // envia pro server fazer o real
             }
             else
             {
-                Shoot(attackOrigin.rotation, name); // host também precisa ver o visual
-                ShootClientRpc(attackOrigin.rotation, name); // envia pra todos os outros clients
+                Shoot(name); // host também precisa ver o visual
+                ShootClientRpc(name); // envia pra todos os outros clients
             }
         }
 
-        private void Shoot(Quaternion rotation, string name)
+        private void Shoot(string name)
         {
-            GameObject damageOnEnterObj = Instantiate(attacks[name], attackOrigin.position, rotation);
+            attacks[name].origin.gameObject.SetActive(true);
+            GameObject damageOnEnterObj = Instantiate(attacks[name].attackPrefab, attacks[name].origin.position, attacks[name].origin.rotation);
             if (!IsServer) return;
             if (damageOnEnterObj.GetComponent<DealDamageWhenTriggerEnter>() != null)
                 damageOnEnterObj.GetComponent<DealDamageWhenTriggerEnter>().CharacterBaseHealth = originHealth;
         }
 
         [ServerRpc]
-        public void ShootServerRpc(Quaternion rotation, string name)
+        public void ShootServerRpc(string name)
         {
-            Shoot(rotation, name); // servidor instancia o "real"
-            ShootClientRpc(rotation, name); // replicar pros outros
+            Shoot(name); // servidor instancia o "real"
+            ShootClientRpc(name); // replicar pros outros
         }
 
         [ClientRpc]
-        public void ShootClientRpc(Quaternion rotation, string name)
+        public void ShootClientRpc(string name)
         {
             if (IsServer || IsLocalPlayer) return; // evita duplicar no host
-            Shoot(rotation, name); // efeito visual nos outros clients
+            Shoot(name); // efeito visual nos outros clients
         }
-
-        public void SetPlayerAsAttackTarget(PlayerController player) => attackTarget = player.transform;
     }
 
     [Serializable]
-    class AttackList
+    class AttackData
     {
         public string attackName;
         public GameObject attackPrefab;
+        public Transform origin;
+    }
+
+    [Serializable]
+    class AttackInstanceData
+    {
+        public GameObject attackPrefab;
+        public Transform origin;
     }
 }

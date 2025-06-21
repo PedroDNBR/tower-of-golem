@@ -9,7 +9,6 @@ namespace TW
         protected Animator animator;
 
         protected const string isBusyString = "isBusy";
-        protected const string movementString = "movement";
 
         protected NavMeshAgent agent;
 
@@ -34,7 +33,11 @@ namespace TW
             animator.applyRootMotion = isBusy;
         }
 
-        public void SetMovementValue(float value) => animator.SetFloat(movementString, value);
+        public void SetMovementValue(float horizontal, float vertical)
+        {
+            animator.SetFloat("horizontal", horizontal);
+            animator.SetFloat("vertical", vertical);
+        }
 
         public bool GetIsBusyBool() => animator.GetBool(isBusyString);
 

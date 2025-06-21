@@ -43,8 +43,5 @@ namespace TW
         public virtual void DieClientRpc()
         {
         }
-
-
     }
-
 }
