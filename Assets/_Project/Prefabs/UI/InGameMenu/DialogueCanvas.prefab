@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3752791576
+  GlobalObjectIdHash: 4053335005
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -140,11 +140,7 @@ MonoBehaviour:
   title: {fileID: 8846848000270260099}
   dialogue: {fileID: 7922996181427251742}
   NextButton: {fileID: 2031292078244169808}
-  dialogues:
-  - character: {fileID: 11400000, guid: 0c4c13bcc743c4249896c20407adef3c, type: 2}
-    dialogueIndex: teste4
-  - character: {fileID: 11400000, guid: 0c4c13bcc743c4249896c20407adef3c, type: 2}
-    dialogueIndex: teste1
+  dialogueList: {fileID: 11400000, guid: 8ff725b76a9c41047a351a7290c8c3b1, type: 2}
   currentIndex:
     m_InternalValue: 0
 --- !u!1001 &72561891442553360

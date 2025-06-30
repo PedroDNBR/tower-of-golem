@@ -100,7 +100,7 @@ namespace TW
 
         private void Update()
         {
-            if (!IsServer && !enabled) return;
+            if (!IsServer || !enabled) return;
 
             UpdateAnimation();
             SetSpeedBasedOnIfIsBusy();

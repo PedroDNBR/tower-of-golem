@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    m_InternalValue: 30
+    m_InternalValue: 3
   type: 0
   hittedAnimNameString: Hitted
   maxDamageUntilStagger: 4

@@ -657,8 +657,6 @@ MonoBehaviour:
   title: {fileID: 8919268861037127059}
   dialogue: {fileID: 7851438448003422222}
   NextButton: {fileID: 2103554610381126208}
-  dialogues:
-  - character: {fileID: 11400000, guid: 0c4c13bcc743c4249896c20407adef3c, type: 2}
-    dialogueIndex: teste4
-  - character: {fileID: 11400000, guid: 0c4c13bcc743c4249896c20407adef3c, type: 2}
-    dialogueIndex: teste1
+  dialogueList: {fileID: 11400000, guid: 8ff725b76a9c41047a351a7290c8c3b1, type: 2}
+  currentIndex:
+    m_InternalValue: 0

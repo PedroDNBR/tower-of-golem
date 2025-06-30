@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TW
@@ -9,6 +8,5 @@ namespace TW
         public string characterName;
         public Elements type;
         public Sprite image;
-        public List<string> dialogues;
     }
 }

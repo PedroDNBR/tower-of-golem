@@ -38,6 +38,13 @@ namespace TW
                 playersInArea.Add(player);
 
             SetBossUIInPlayerVisible(ref player, true);
+
+            if (!boss.gameObject.activeSelf)
+            {
+                boss.gameObject.SetActive(true);
+                boss.enabled = true;
+                boss.BaseAI.enabled = true;
+            }
         }
 
         private void OnTriggerExit(Collider other)

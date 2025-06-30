@@ -12,10 +12,13 @@ namespace TW
         public float checkInterval = 10f;
         public int maxAttackersPerPlayer = 4;
 
+        public List<BaseAI> allEnemies = new();
+
         private Dictionary<PlayerController, List<BaseAI>> engagements = new();
 
         private void Awake()
         {
+            if(!NetworkGameManager.Singleton.IsServer) Destroy(gameObject);
             if (Instance == null) Instance = this;
             else Destroy(gameObject);
         }

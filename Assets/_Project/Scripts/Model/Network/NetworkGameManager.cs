@@ -41,6 +41,7 @@ namespace TW
             if (!IsServer) return;
             GameObject newMob = Instantiate(mob, spawnPoint.position, spawnPoint.rotation);
             newMob.GetComponent<NetworkObject>().Spawn(true);
+            AICommander.Instance.allEnemies.Add(newMob.GetComponent<BaseAI>());
         }
     }
 }

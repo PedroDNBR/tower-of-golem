@@ -29,8 +29,14 @@ namespace TW
             if (DialogueMenu.instance != null)
             {
                 baseAI.enabled = false;
-                DialogueMenu.instance.OnDialogStarted += () => baseAI.enabled = false;
-                DialogueMenu.instance.OnDialogEnded += () => baseAI.enabled = true;
+                DialogueMenu.instance.OnDialogStarted += () => 
+                { 
+                    if(baseAI != null) baseAI.enabled = false; 
+                };
+                DialogueMenu.instance.OnDialogEnded += () =>
+                {
+                    if (baseAI != null) baseAI.enabled = true;
+                };
             }
         }
 

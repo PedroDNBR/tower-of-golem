@@ -12,6 +12,8 @@ namespace TW
         [SerializeField] private Camera playerCamera;
         public Camera PlayerCameraObj { get => playerCamera; set => playerCamera = value; }
 
+        public Vector3 OverrideCameraPosition;
+
         private void Start()
         {
             if (cameraTransform == null)
@@ -28,7 +30,11 @@ namespace TW
             if (cameraTransform == null)
                 return;
 
-            Vector3 newCameraPosition = new Vector3(transform.position.x, transform.position.y + cameraHeight, transform.position.z + cameraDistance);
+            Vector3 newCameraPosition;
+            if (OverrideCameraPosition == Vector3.zero)
+                newCameraPosition = new Vector3(transform.position.x, transform.position.y + cameraHeight, transform.position.z + cameraDistance);
+            else
+                newCameraPosition = OverrideCameraPosition;
 
             cameraTransform.position = Vector3.Lerp(cameraTransform.position, newCameraPosition, Time.deltaTime * 10);
         }

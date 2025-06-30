@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -24,7 +23,7 @@ namespace TW
 
         [Header("System")]
         [SerializeField]
-        public List<DialogueData> dialogues = new List<DialogueData>();
+        private DialogueList dialogueList;
     
         public NetworkVariable<int> currentIndex = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
@@ -46,12 +45,12 @@ namespace TW
 
         protected void NextDialogue(int index)
         {
-            if (index >= dialogues.Count)
+            if (index >= dialogueList.dialogues.Count)
             {
                 gameObject.SetActive(false);
                 return;
             }
-            SetUI(dialogues[index]);
+            SetUI(dialogueList.dialogues[index]);
         }
 
         protected void SetUI(DialogueData data)
@@ -59,12 +58,12 @@ namespace TW
             title.text = data.character.characterName;
             dialogue.text = DialogueDatabase.Dialogues[data.dialogueIndex];
         }
-    }
 
-    [Serializable]
-    public class DialogueData
-    {
-        public Character character;
-        public string dialogueIndex;
-    }
+        public void SetDialogueList(DialogueList dialogueList)
+        {
+            this.dialogueList = dialogueList;
+            currentIndex.Value = 0;
+            gameObject.SetActive(true);
+        }
+    }    
 }

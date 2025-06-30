@@ -18,7 +18,7 @@ namespace TW
         PlayerController playerController;
 
         [SerializeField]
-        PlayerCamera playerCamera;
+        public PlayerCamera playerCamera;
 
         [SerializeField]
         PlayerSpell playerSpell;
