@@ -30,6 +30,12 @@ namespace TW
             for (int i = 0; i < colliderNames.Length; i++)
                 damageColliders[colliderNames[i]].enabled = isEnabled;
         }
+
+        public void DestroyAllColliders()
+        {
+            for (int i = 0; i < colliders.Count; i++)
+                Destroy(colliders[i].collider.gameObject);
+        }
     }
 
     [Serializable]

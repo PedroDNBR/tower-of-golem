@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using UnityEngine;
 
 namespace TW
 {
@@ -7,6 +8,7 @@ namespace TW
         protected EnemyController enemyController;
         protected EnemyUI enemyUI;
         protected EnemyHealth enemyHealth;
+        protected AnimatorController animatorController;
 
         public override void OnNetworkSpawn()
         {
@@ -15,6 +17,11 @@ namespace TW
             enemyController = GetComponent<EnemyController>();
             enemyUI = GetComponent<EnemyUI>();
             enemyHealth = GetComponent<EnemyHealth>();
+            animatorController = GetComponentInChildren<AnimatorController>();
+
+            if(enemyUI != null) enemyUI.enabled = IsServer;
+            enemyHealth.enabled = IsServer;
+            animatorController.enabled = IsServer;
 
             if (IsServer) return;
 

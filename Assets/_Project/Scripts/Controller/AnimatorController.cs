@@ -35,6 +35,7 @@ namespace TW
 
         public void SetMovementValue(float horizontal, float vertical)
         {
+            if (!IsServer) return;
             animator.SetFloat("horizontal", horizontal);
             animator.SetFloat("vertical", vertical);
         }
@@ -43,8 +44,9 @@ namespace TW
 
         public void PlayTargetAnimation(string animationName, bool isBusy)
         {
+            if (!enabled || !IsServer) return;
             animator.SetBool(isBusyString, isBusy);
-            animator.CrossFade(animationName, 0.1f);
+            animator.CrossFade(animationName, 0);
         }
 
         public void CanRotate(int canRotate) => this.canRotate = canRotate == 1 ? true : false;

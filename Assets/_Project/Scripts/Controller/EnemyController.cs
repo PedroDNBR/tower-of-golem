@@ -11,6 +11,8 @@ namespace TW
         protected AnimatorController animatorController;
         protected EnemyAttackSpawner enemyAttackSpawner;
         protected EnemyNetwork enemyNetwork;
+        protected NetworkObject networkObject;
+        protected EnemyAttackEnableColliders enemyAttackEnableColliders;
 
         public BaseAI BaseAI { get => baseAI; }
         public EnemyHealth EnemyHealth { get => enemyHealth; }
@@ -23,7 +25,9 @@ namespace TW
             baseAI = GetComponent<BaseAI>();
             enemyHealth = GetComponent<EnemyHealth>();
             enemyNetwork = GetComponent<EnemyNetwork>();
+            networkObject = GetComponent<NetworkObject>();
             animatorController = GetComponentInChildren<AnimatorController>();
+            enemyAttackEnableColliders = GetComponentInChildren<EnemyAttackEnableColliders>();
             enemyAttackSpawner = GetComponentInChildren<EnemyAttackSpawner>();
 
             if (DialogueMenu.instance != null)
@@ -71,11 +75,15 @@ namespace TW
 
         protected virtual void Die()
         {
-
             if (!NetworkManager.Singleton.IsServer) return;
+
             enemyNetwork.Die();
             baseAI.Die();
             baseAI.enabled = false;
+            Destroy(baseAI);
+            animatorController.PlayTargetAnimation("Dead", true);
+            animatorController.enabled = false;
+            Destroy(animatorController);
             enemyHealth.InvokeHealthUpdateCallback();
             if (enemyUI != null)
             {
@@ -83,16 +91,15 @@ namespace TW
                 enemyUI.enabled = false;
             }
             enemyHealth.enabled = false;
-            animatorController.enabled = false;
+            Destroy(enemyHealth);
+            enemyAttackEnableColliders.DestroyAllColliders();
+            Destroy(enemyAttackEnableColliders);
+            networkObject.Despawn(false);
             if (enemyAttackSpawner != null)
             {
                 enemyAttackSpawner.enabled = false;
                 Destroy(enemyAttackSpawner);
             }
-            Destroy(enemyHealth);
-            Destroy(baseAI);
-            animatorController.PlayTargetAnimation("Dead", true);
-            Destroy(animatorController);
         }
     }
 }

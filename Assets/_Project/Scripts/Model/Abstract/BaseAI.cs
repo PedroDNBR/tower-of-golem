@@ -286,6 +286,8 @@ namespace TW
         public void Die()
         {
             agent.enabled = false;
+            currentState = null;
+
         }
 
         public void SetSpeedBasedOnIfIsBusy()
