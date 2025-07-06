@@ -31,16 +31,7 @@ namespace TW
         {
             if (!IsServer) return;
 
-            if (!IsServer)
-            {
-                Shoot(name); // visual imediato no client local
-                ShootServerRpc(name); // envia pro server fazer o real
-            }
-            else
-            {
-                Shoot(name); // host também precisa ver o visual
-                ShootClientRpc(name); // envia pra todos os outros clients
-            }
+            ShootServerRpc(name, attacks[name].origin.position, attacks[name].origin.rotation);
         }
 
         private void Shoot(string name)
@@ -53,17 +44,19 @@ namespace TW
         }
 
         [ServerRpc]
-        public void ShootServerRpc(string name)
+        public void ShootServerRpc(string name, Vector3 position, Quaternion rotation)
         {
-            Shoot(name); // servidor instancia o "real"
-            ShootClientRpc(name); // replicar pros outros
+            Shoot(name);
+            ShootClientRpc(name, position, rotation);
         }
 
         [ClientRpc]
-        public void ShootClientRpc(string name)
+        public void ShootClientRpc(string name, Vector3 position, Quaternion rotation)
         {
-            if (IsServer || IsLocalPlayer) return; // evita duplicar no host
-            Shoot(name); // efeito visual nos outros clients
+            if (IsServer || IsLocalPlayer) return;
+            attacks[name].origin.gameObject.SetActive(true);
+            Instantiate(attacks[name].attackPrefab, position, rotation);
+            Debug.Log($"Instantiated on Client in {position} with rotation {rotation}");
         }
     }
 
