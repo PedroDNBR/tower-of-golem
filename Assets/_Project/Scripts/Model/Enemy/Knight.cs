@@ -29,33 +29,6 @@ namespace TW
 
         protected override void SetFollowPlayerState() => followPlayerState = States.followPlayerState;
 
-        //bool HandleForceEscapeLogic()
-        //{
-        //    if (!isBackingOff && !avoidHit) return false;
-
-        //    stuckTimer += Time.deltaTime;
-        //    if (stuckTimer > stuckThreshold && !forceEscape)
-        //    {
-        //        HandleForceEscape();
-        //        return true;
-        //    }
-
-        //    if (forceEscape)
-        //    {
-        //        if (Vector3.Distance(transform.position, forceEscapePos) <= 1.5f)
-        //        {
-        //            forceEscape = false;
-        //            forceEscapePos = Vector3.zero;
-        //            stuckTimer = 0;
-        //        }
-        //        else
-        //        {
-        //            agent.SetDestination(forceEscapePos);
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
 
         public BaseAI GetBlockingEnemy()
         {
@@ -116,25 +89,6 @@ namespace TW
 
             return transform.position; // fallback
         }
-
-        //public void HandleForceEscape()
-        //{
-        //    Vector3 toPlayer = (transform.position - currentPlayerInsight.transform.position).normalized;
-        //    Vector3 escapeDir = Quaternion.Euler(0, Random.Range(-45f, 45f), 0) * toPlayer;
-        //    Vector3 escapePos = transform.position + escapeDir * Random.Range(4f, 6f);
-
-        //    if (NavMesh.SamplePosition(escapePos, out NavMeshHit hit, 2f, NavMesh.AllAreas))
-        //    {
-        //        forceEscapePos = hit.position;
-        //        agent.SetDestination(forceEscapePos);
-        //        forceEscape = true;
-        //        stuckTimer = 0f;
-        //        avoidHit = false;
-        //        isBackingOff = false;
-        //        backoffCooldown = 0;
-        //        if (debug) Debug.Log($"{gameObject.name} FOR�ANDO ESCAPE", gameObject);
-        //    }
-        //}
 
         protected override void OnDrawGizmos()
         {

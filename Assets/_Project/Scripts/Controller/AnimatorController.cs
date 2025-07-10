@@ -44,7 +44,6 @@ namespace TW
 
         public void PlayTargetAnimation(string animationName, bool isBusy)
         {
-            if (!enabled || !IsServer) return;
             animator.SetBool(isBusyString, isBusy);
             animator.CrossFade(animationName, 0);
         }

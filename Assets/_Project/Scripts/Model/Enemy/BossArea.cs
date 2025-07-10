@@ -17,8 +17,8 @@ namespace TW
             boss.EnemyUI.EnemyHealthSlider = playerController.PlayerUI.BossHealthSlider;
             boss.EnemyUI.EnemyHUD = playerController.PlayerUI.BossHUD;
             boss.EnemyUI.EnemyNameText = playerController.PlayerUI.BossNameText;
-            boss.EnemyUI.SetEnemyStatsVisible(isVisible);
             boss.EnemyUI.SetEnemyStats(ref boss);
+            Debug.Log($"isVisible {isVisible}");
             if (isVisible)
             {
                 boss.SetHealthListener();
@@ -27,6 +27,19 @@ namespace TW
             }
             else 
                 boss.UnsetHealthListener();
+
+            if (isVisible)
+                EnableEnemyUI();
+            else
+                boss.EnemyUI.SetEnemyStatsVisible(false);
+        }
+
+        private void EnableEnemyUI()
+        {
+            if (boss.EnemyHealth.health.Value <= 0)
+                Invoke(nameof(EnableEnemyUI), .1f);
+            else
+                boss.EnemyUI.SetEnemyStatsVisible(true);
         }
 
         private void OnTriggerEnter(Collider other)

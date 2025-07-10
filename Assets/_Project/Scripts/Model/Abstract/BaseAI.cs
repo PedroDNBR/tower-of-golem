@@ -287,7 +287,6 @@ namespace TW
         {
             agent.enabled = false;
             currentState = null;
-
         }
 
         public void SetSpeedBasedOnIfIsBusy()

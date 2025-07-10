@@ -21,6 +21,7 @@ namespace TW
 
             if(enemyUI != null) enemyUI.enabled = IsServer;
             enemyHealth.enabled = IsServer;
+            enemyHealth.InitOnHealthChangedAction();
             animatorController.enabled = IsServer;
 
             if (IsServer) return;

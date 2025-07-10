@@ -11,7 +11,6 @@ namespace TW
         protected AnimatorController animatorController;
         protected EnemyAttackSpawner enemyAttackSpawner;
         protected EnemyNetwork enemyNetwork;
-        protected NetworkObject networkObject;
         protected EnemyAttackEnableColliders enemyAttackEnableColliders;
 
         public BaseAI BaseAI { get => baseAI; }
@@ -25,7 +24,6 @@ namespace TW
             baseAI = GetComponent<BaseAI>();
             enemyHealth = GetComponent<EnemyHealth>();
             enemyNetwork = GetComponent<EnemyNetwork>();
-            networkObject = GetComponent<NetworkObject>();
             animatorController = GetComponentInChildren<AnimatorController>();
             enemyAttackEnableColliders = GetComponentInChildren<EnemyAttackEnableColliders>();
             enemyAttackSpawner = GetComponentInChildren<EnemyAttackSpawner>();
@@ -65,7 +63,12 @@ namespace TW
             }
         }
 
-        public void SetHealthValuesInSlider() => enemyUI.HealthValueToSliderValue(enemyHealth.Health, enemyHealth.MaxHealth);
+        public void SetHealthValuesInSlider()
+        {
+            Debug.Log(enemyHealth.health.Value);
+            Debug.Log(enemyHealth.maxHealth.Value);
+            enemyUI.HealthValueToSliderValue(enemyHealth.Health, enemyHealth.MaxHealth);
+        }
 
         public void SetHealthListener() =>
             enemyHealth.HealthChanged += enemyUI.HealthValueToSliderValue;
@@ -77,28 +80,33 @@ namespace TW
         {
             if (!NetworkManager.Singleton.IsServer) return;
 
-            enemyNetwork.Die();
             baseAI.Die();
             baseAI.enabled = false;
-            Destroy(baseAI);
-            animatorController.PlayTargetAnimation("Dead", true);
+            enemyAttackEnableColliders.DestroyAllColliders();
+            if (enemyAttackSpawner != null)
+            {
+                enemyAttackSpawner.enabled = false;
+            }
             animatorController.enabled = false;
-            Destroy(animatorController);
+            DieServerRpc();
+            Destroy(enemyHealth);
+        }
+
+        [ServerRpc]
+        public void DieServerRpc()
+        {
+            DieClientRpc();
+        }
+
+        [ClientRpc]
+        public void DieClientRpc()
+        {
             enemyHealth.InvokeHealthUpdateCallback();
+            enemyHealth.enabled = false;
             if (enemyUI != null)
             {
                 enemyUI.SetEnemyStatsVisible(false);
                 enemyUI.enabled = false;
-            }
-            enemyHealth.enabled = false;
-            Destroy(enemyHealth);
-            enemyAttackEnableColliders.DestroyAllColliders();
-            Destroy(enemyAttackEnableColliders);
-            networkObject.Despawn(false);
-            if (enemyAttackSpawner != null)
-            {
-                enemyAttackSpawner.enabled = false;
-                Destroy(enemyAttackSpawner);
             }
         }
     }

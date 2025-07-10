@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b14b3e7893097c41b6195e1d5183e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkObject: {fileID: 4771127446810528360}
 --- !u!54 &7165989981590243208
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -241,10 +242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeacbf9150994c04f8b9778eac62b0c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyController: {fileID: 6260290256832285808}
-  enemyUI: {fileID: 8723315128715453079}
-  enemyHealth: {fileID: 1591770994530753306}
-  animatorController: {fileID: 3121008599834340635}
 --- !u!1 &5912978222095168393
 GameObject:
   m_ObjectHideFlags: 0

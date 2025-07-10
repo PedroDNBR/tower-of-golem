@@ -24,7 +24,6 @@ namespace TW
         public void HealthValueToSliderValue(float current, float max)
         {
             if (enemyHealthSlider == null) return;
-
             UIUtils.ConvertToSliderValue(enemyHealthSlider, current, max);
         }
 

@@ -8,9 +8,9 @@ namespace TW
     public abstract class BaseHealth : NetworkBehaviour
     {
         [SerializeField]
-        protected NetworkVariable<float> maxHealth = new NetworkVariable<float>(100f);
+        public NetworkVariable<float> maxHealth = new NetworkVariable<float>(100f);
 
-        protected NetworkVariable<float> health = new NetworkVariable<float>(0);
+        public NetworkVariable<float> health = new NetworkVariable<float>(0);
 
         [SerializeField]
         protected Elements type;
@@ -29,9 +29,13 @@ namespace TW
 
         protected virtual void Start()
         {
-            health.OnValueChanged += (float old, float current) => HealthChanged?.Invoke(health.Value, maxHealth.Value);
+            InitOnHealthChangedAction();
+            if (IsServer) health.Value = maxHealth.Value;
+        }
 
-            if(IsServer) health.Value = maxHealth.Value;
+        public void InitOnHealthChangedAction()
+        {
+            health.OnValueChanged += (float old, float current) => HealthChanged?.Invoke(health.Value, maxHealth.Value);
         }
 
         public virtual void TakeDamage(Elements damageType, float damage, GameObject origin)

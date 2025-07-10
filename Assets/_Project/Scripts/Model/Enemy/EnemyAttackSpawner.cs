@@ -56,7 +56,6 @@ namespace TW
             if (IsServer || IsLocalPlayer) return;
             attacks[name].origin.gameObject.SetActive(true);
             Instantiate(attacks[name].attackPrefab, position, rotation);
-            Debug.Log($"Instantiated on Client in {position} with rotation {rotation}");
         }
     }
 
