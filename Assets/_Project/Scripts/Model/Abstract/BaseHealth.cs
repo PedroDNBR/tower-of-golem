@@ -57,7 +57,11 @@ namespace TW
             if(objectsThatDamaged.Count > 0) objectsThatDamaged.Clear();
         }
 
-        public void InvokeDead() => Dead?.Invoke();
+        public void InvokeDead()
+        {
+            Dead?.Invoke();
+            Dead = null;
+        }
 
         public void InvokeHealthUpdateCallback() => HealthChanged?.Invoke(health.Value, maxHealth.Value);
     }

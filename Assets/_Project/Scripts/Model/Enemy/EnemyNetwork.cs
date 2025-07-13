@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 
 namespace TW
@@ -9,6 +10,7 @@ namespace TW
         protected EnemyUI enemyUI;
         protected EnemyHealth enemyHealth;
         protected AnimatorController animatorController;
+        protected Animator animator;
 
         public override void OnNetworkSpawn()
         {
@@ -18,11 +20,13 @@ namespace TW
             enemyUI = GetComponent<EnemyUI>();
             enemyHealth = GetComponent<EnemyHealth>();
             animatorController = GetComponentInChildren<AnimatorController>();
+            animator= GetComponentInChildren<Animator>();
 
             if(enemyUI != null) enemyUI.enabled = IsServer;
             enemyHealth.enabled = IsServer;
             enemyHealth.InitOnHealthChangedAction();
             animatorController.enabled = IsServer;
+
 
             if (IsServer) return;
 
@@ -36,20 +40,41 @@ namespace TW
                 damage.enabled = false;
         }
 
-        public void Die()
+        public override void OnDestroy()
         {
-            DieServerRpc();
+            Destroy(GetComponent<NetworkAnimator>());
+            animator.gameObject.name = "EU MORRI";
+            animator.transform.SetParent(null);
+            animator.enabled = true;
+            animator.SetBool("isBusy", true);
+            animator.CrossFade("Dead", 0);
+            Destroy(animatorController);
+            Invoke(nameof(DisableAnimator), 3);
+
+            base.OnDestroy();
         }
 
-        [ServerRpc]
-        public virtual void DieServerRpc()
+        public override void OnNetworkDespawn()
         {
-            DieClientRpc();
+            Die();
+            base.OnNetworkDespawn();
         }
 
-        [ClientRpc]
-        public virtual void DieClientRpc()
+        protected virtual void Die()
         {
+            enemyController.BaseAI.Die();
+            enemyController.BaseAI.enabled = false;
+            enemyController.EnemyAttackEnableColliders.DestroyAllColliders();
+            if (enemyController.EnemyAttackSpawner != null)
+            {
+                enemyController.EnemyAttackSpawner.enabled = false;
+            }
+        }
+
+        private void DisableAnimator()
+        {
+            animatorController.enabled = false;
+            animator.enabled = false;
         }
     }
 }

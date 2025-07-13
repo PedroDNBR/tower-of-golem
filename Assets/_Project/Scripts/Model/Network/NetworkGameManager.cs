@@ -40,8 +40,17 @@ namespace TW
         {
             if (!IsServer) return;
             GameObject newMob = Instantiate(mob, spawnPoint.position, spawnPoint.rotation);
-            newMob.GetComponent<NetworkObject>().Spawn(true);
+            NetworkObject networkObject = newMob.GetComponent<NetworkObject>();
+            networkObject.Spawn(true);
             AICommander.Instance.allEnemies.Add(newMob.GetComponent<BaseAI>());
+            newMob.GetComponent<EnemyHealth>().Dead += () => DespawnMob(networkObject, true);
+        }
+
+        public void DespawnMob(NetworkObject network, bool destroy)
+        {
+            if (!IsServer) return;
+            network.Despawn(destroy);
+            Debug.Log($"Mob Despawned: {network.gameObject.name} | Destroy: {destroy}");
         }
     }
 }

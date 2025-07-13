@@ -19,6 +19,8 @@ namespace TW
 
         public NavMeshAgent Agent { set => agent = value; }
 
+        public Animator Animator { get => animator; }
+
 
         public void Init()
         {

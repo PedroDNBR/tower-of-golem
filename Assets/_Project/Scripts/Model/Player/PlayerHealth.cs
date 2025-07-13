@@ -32,7 +32,6 @@ namespace TW
         private void Die()
         {
             InvokeHealthUpdateCallback();
-            Destroy(gameObject);
         }
     }
 }

@@ -285,7 +285,7 @@ namespace TW
 
         public void Die()
         {
-            agent.enabled = false;
+            if(agent != null) agent.enabled = false;
             currentState = null;
         }
 

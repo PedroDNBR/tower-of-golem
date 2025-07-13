@@ -17,15 +17,21 @@ namespace TW
             bossController.UnsetHealthListener();
         }
 
+        protected override void Die()
+        {
+            base.Die();
+            DieServerRpc();
+        }
+
         [ServerRpc]
-        public override void DieServerRpc()
+        public void DieServerRpc()
         {
             UnsetUI();
             DieClientRpc();
         }
 
         [ClientRpc]
-        public override void DieClientRpc()
+        public void DieClientRpc()
         {
             UnsetUI();
         }
