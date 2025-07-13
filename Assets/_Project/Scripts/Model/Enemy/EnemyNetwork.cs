@@ -46,7 +46,7 @@ namespace TW
             animator.gameObject.name = "EU MORRI";
             animator.transform.SetParent(null);
             animator.enabled = true;
-            animator.SetBool("isBusy", true);
+            animator.SetBool(Constants.isBusyString, true);
             animator.CrossFade("Dead", 0);
             Destroy(animatorController);
             Invoke(nameof(DisableAnimator), 3);

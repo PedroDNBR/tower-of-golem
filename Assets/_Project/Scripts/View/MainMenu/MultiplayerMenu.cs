@@ -50,7 +50,6 @@ namespace TW
 
         [Header("Lobby data")]
         public CSteamID currentLobbyId;
-        private const string HostAddressKey = "HostAddress";
 
         protected Callback<LobbyCreated_t> LobbyCreated;
         protected Callback<GameLobbyJoinRequested_t> JoinRequest;
@@ -67,8 +66,6 @@ namespace TW
         private Callback<GetTicketForWebApiResponse_t> AuthTicketForWebApiResponseCallback;
         private string ticket;
         private string identity = "unityauthenticationservice";
-
-        private const int MAX_PLAYER_IN_LOBBY = 4;
 
         private bool hasTriedToStartClient = false;
 
@@ -196,7 +193,7 @@ namespace TW
 
             CSteamID steamID = new CSteamID(callback.m_ulSteamIDLobby);
 
-            SteamMatchmaking.SetLobbyData(steamID, HostAddressKey, SteamUser.GetSteamID().ToString());
+            SteamMatchmaking.SetLobbyData(steamID, Constants.HostAddressKey, SteamUser.GetSteamID().ToString());
             SteamMatchmaking.SetLobbyData(steamID, "name", lobbyName);
             if(!String.IsNullOrEmpty(lobbyPassword)) SteamMatchmaking.SetLobbyData(steamID, "password", lobbyPassword);
             SteamMatchmaking.SetLobbyData(steamID, "identifier", "feijaocomarroz");

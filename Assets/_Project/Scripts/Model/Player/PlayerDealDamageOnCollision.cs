@@ -7,7 +7,6 @@ namespace TW
     public class PlayerDealDamageOnCollision : MonoBehaviour
     {
         //private const float damageRadius = .3579978f;
-        private const float damageRadius = .4f;
 
         Rigidbody rigid;
 
@@ -43,7 +42,7 @@ namespace TW
 
             RaycastHit hit;
             int layer = LayerMask.GetMask("Hitbox");
-            if (Physics.SphereCast(transform.position + detectionPositionOffset, damageRadius, Vector3.forward, out hit, damageRadius, layer))
+            if (Physics.SphereCast(transform.position + detectionPositionOffset, Constants.playerDealDamageRadius, Vector3.forward, out hit, Constants.playerDealDamageRadius, layer))
             {
                 if (alreadyDamagedEnemy) return;
                 ShouldReceiveDamage shouldReceiveDamage = hit.collider.GetComponent<ShouldReceiveDamage>();
@@ -71,7 +70,7 @@ namespace TW
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireSphere(transform.position + detectionPositionOffset, damageRadius);
+            Gizmos.DrawWireSphere(transform.position + detectionPositionOffset, Constants.playerDealDamageRadius);
             Debug.DrawRay(transform.position, (transform.position - previousPosition).normalized * 5.0f);
         }
     }

@@ -8,8 +8,6 @@ namespace TW
     {
         protected Animator animator;
 
-        protected const string isBusyString = "isBusy";
-
         protected NavMeshAgent agent;
 
         [HideInInspector]
@@ -42,11 +40,11 @@ namespace TW
             animator.SetFloat("vertical", vertical);
         }
 
-        public bool GetIsBusyBool() => animator.GetBool(isBusyString);
+        public bool GetIsBusyBool() => animator.GetBool(Constants.isBusyString);
 
         public void PlayTargetAnimation(string animationName, bool isBusy)
         {
-            animator.SetBool(isBusyString, isBusy);
+            animator.SetBool(Constants.isBusyString, isBusy);
             animator.CrossFade(animationName, 0);
         }
 
