@@ -10,6 +10,7 @@ namespace TW
         {
             base.OnEnable();
             bossArea = FindObjectOfType<BossArea>();
+            baseAI.enabled = false;
         }
 
         protected override void Start()

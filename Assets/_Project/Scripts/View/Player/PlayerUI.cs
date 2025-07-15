@@ -44,6 +44,8 @@ namespace TW
         [SerializeField]
         private Button quitButton;
 
+        public PlayerController playerController;
+
         public Transform BossHUD { get => bossHUD; }
 
         public TextMeshProUGUI BossNameText { get => bossNameText; }
@@ -114,6 +116,47 @@ namespace TW
             {
                 QuitToMenu();
             }
+        }
+
+        public void SetBossUIInPlayerVisible(bool isVisible)
+        {
+            Debug.Log($"GetComponent<NetworkObject>().IsLocalPlayer {GetComponent<NetworkObject>().IsLocalPlayer}", GetComponent<NetworkObject>());
+            if (!GetComponent<NetworkObject>().IsLocalPlayer) return;
+            Debug.Log($"playerController {playerController}", playerController);
+            Debug.Log($"BossArea.instance {BossArea.instance}", BossArea.instance);
+            Debug.Log($"BossArea.instance.boss {BossArea.instance.boss}");
+            if (playerController == null || BossArea.instance == null || BossArea.instance.boss == null) return;
+            BossArea.instance.boss.EnemyUI.EnemyHealthSlider = playerController.PlayerUI.BossHealthSlider;
+            BossArea.instance.boss.EnemyUI.EnemyHUD = playerController.PlayerUI.BossHUD;
+            BossArea.instance.boss.EnemyUI.EnemyNameText = playerController.PlayerUI.BossNameText;
+            BossArea.instance.boss.EnemyUI.SetEnemyStats(ref BossArea.instance.boss);
+            if (isVisible)
+            {
+                BossArea.instance.boss.SetHealthListener();
+                BossArea.instance.boss.SetHealthValuesInSlider();
+                BossArea.instance.boss.EnemyHealth.InvokeHealthUpdateCallback();
+                EnableEnemyUI();
+            }
+            else
+            {
+                BossArea.instance.boss.UnsetHealthListener();
+                BossArea.instance.boss.EnemyUI.SetEnemyStatsVisible(false);
+            }
+
+            if (LevelManager.instance != null)
+            {
+                if (LevelManager.instance.bossArenaInsideWalls != null) LevelManager.instance.bossArenaInsideWalls.SetActive(isVisible);
+                if (LevelManager.instance.bossArenaOusideWalls != null) LevelManager.instance.bossArenaOusideWalls.SetActive(!isVisible);
+            }
+        }
+
+        private void EnableEnemyUI()
+        {
+            if (BossArea.instance == null) return;
+            if (BossArea.instance.boss.EnemyHealth.health.Value <= 0)
+                Invoke(nameof(EnableEnemyUI), .1f);
+            else
+                BossArea.instance.boss.EnemyUI.SetEnemyStatsVisible(true);
         }
     }
 }

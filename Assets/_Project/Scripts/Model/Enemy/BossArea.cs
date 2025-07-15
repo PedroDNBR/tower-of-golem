@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TW
@@ -8,38 +10,23 @@ namespace TW
         [SerializeField]
         public EnemyController boss;
 
+        [SerializeField]
+        private GameObject bossPrefab;
+        [SerializeField]
+        private Transform spawnPoint;
+
+
         private List<PlayerController> playersInArea = new List<PlayerController>();
 
-        private void SetBossUIInPlayerVisible(ref PlayerController playerController, bool isVisible)
-        {
-            if (playerController == null || boss == null) return;
-            if (!playerController.GetComponentInParent<PlayerNetwork>().IsLocalPlayer) return;
-            boss.EnemyUI.EnemyHealthSlider = playerController.PlayerUI.BossHealthSlider;
-            boss.EnemyUI.EnemyHUD = playerController.PlayerUI.BossHUD;
-            boss.EnemyUI.EnemyNameText = playerController.PlayerUI.BossNameText;
-            boss.EnemyUI.SetEnemyStats(ref boss);
-            Debug.Log($"isVisible {isVisible}");
-            if (isVisible)
-            {
-                boss.SetHealthListener();
-                boss.SetHealthValuesInSlider();
-                boss.EnemyHealth.InvokeHealthUpdateCallback();
-            }
-            else 
-                boss.UnsetHealthListener();
+        public static BossArea instance;
 
-            if (isVisible)
-                EnableEnemyUI();
-            else
-                boss.EnemyUI.SetEnemyStatsVisible(false);
-        }
+        public BossArea() { instance = this; }
 
-        private void EnableEnemyUI()
+        public Action BossSpawned;
+
+        private void OnEnable()
         {
-            if (boss.EnemyHealth.health.Value <= 0)
-                Invoke(nameof(EnableEnemyUI), .1f);
-            else
-                boss.EnemyUI.SetEnemyStatsVisible(true);
+            enabled = NetworkGameManager.Singleton.IsServer;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -50,33 +37,43 @@ namespace TW
             if(!playersInArea.Contains(player))
                 playersInArea.Add(player);
 
-            SetBossUIInPlayerVisible(ref player, true);
-
-            if (!boss.gameObject.activeSelf)
+            if (playersInArea.Count == ((NetworkGameManager)NetworkManager.Singleton).ConnectedClientsIds.Count)
             {
-                boss.gameObject.SetActive(true);
-                boss.enabled = true;
-                boss.BaseAI.enabled = true;
+                Debug.Log((NetworkGameManager)NetworkManager.Singleton);
+                if(((NetworkGameManager)NetworkManager.Singleton).IsServer && boss == null)
+                {
+                    GameObject spawnedBoss = ((NetworkGameManager)NetworkManager.Singleton).SpawnMob(bossPrefab, spawnPoint);
+                    boss = spawnedBoss.GetComponent<EnemyController>();
+                    boss.gameObject.SetActive(true);
+                    boss.enabled = true;
+                    boss.BaseAI.enabled = true;
+                    BossSpawned.Invoke();
+                }
+            } 
+            if (boss != null && boss.gameObject.activeSelf)
+            {
+                player.PlayerUI.SetBossUIInPlayerVisible(true);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
+            if (boss == null) return;
+
             PlayerController player = other.gameObject.GetComponentInParent<PlayerController>();
             if (player == null) return;
 
             if (!playersInArea.Contains(player))
                 playersInArea.Remove(player);
 
-            SetBossUIInPlayerVisible(ref player, false);
+            player.PlayerUI.SetBossUIInPlayerVisible(false);
         }
 
         private void OnDestroy()
         {
             for (int i = 0; i < playersInArea.Count; i++)
             {
-                PlayerController playerController = playersInArea[i];
-                SetBossUIInPlayerVisible(ref playerController, false);
+                playersInArea[i].PlayerUI.SetBossUIInPlayerVisible( false);
             }
             if(boss != null) boss.UnsetHealthListener();
         }

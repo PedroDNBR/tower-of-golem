@@ -32,8 +32,6 @@ namespace TW
                 DialogueMenu.instance.OnDialogStarted += DisableInput;
                 DialogueMenu.instance.OnDialogEnded += SetupPlayerInputs;
             }
-
-
         }
 
         private void SetupPlayerInputs()
@@ -80,6 +78,7 @@ namespace TW
             playerSpell = GetComponent<PlayerSpell>();
             playerHealth = GetComponent<PlayerHealth>();
             playerUI = GetComponentInParent<PlayerUI>();
+            playerUI.playerController = this;
             playerDealDamage = GetComponentInParent<PlayerDealDamageOnCollision>();
             playerSpell.PlayerCamera = playerCamera.PlayerCameraObj;
         }

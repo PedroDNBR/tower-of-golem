@@ -5,7 +5,6 @@ namespace TW
         public override void Init()
         {
             base.Init();
-            gameObject.SetActive(false);
         }
     }
 }

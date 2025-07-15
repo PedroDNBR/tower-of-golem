@@ -23,14 +23,14 @@ namespace TW
             DieServerRpc();
         }
 
-        [ServerRpc]
+        [ServerRpc(RequireOwnership = false)]
         public void DieServerRpc()
         {
             UnsetUI();
             DieClientRpc();
         }
 
-        [ClientRpc]
+        [ClientRpc(RequireOwnership = false)]
         public void DieClientRpc()
         {
             UnsetUI();

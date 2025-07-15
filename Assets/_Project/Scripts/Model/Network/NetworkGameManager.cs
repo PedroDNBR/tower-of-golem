@@ -36,14 +36,16 @@ namespace TW
             }
         }
 
-        public void SpawnMob(GameObject mob, Transform spawnPoint)
+        public GameObject SpawnMob(GameObject mob, Transform spawnPoint)
         {
-            if (!IsServer) return;
+            if (!IsServer) return null;
             GameObject newMob = Instantiate(mob, spawnPoint.position, spawnPoint.rotation);
             NetworkObject networkObject = newMob.GetComponent<NetworkObject>();
             networkObject.Spawn(true);
             AICommander.Instance.allEnemies.Add(newMob.GetComponent<BaseAI>());
             newMob.GetComponent<EnemyHealth>().Dead += () => DespawnMob(networkObject, true);
+
+            return newMob;
         }
 
         public void DespawnMob(NetworkObject network, bool destroy)

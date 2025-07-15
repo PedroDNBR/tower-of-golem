@@ -32,9 +32,14 @@ namespace TW
         [SerializeField]
         PlayerDealDamageOnCollision onCollision;
 
+        [SerializeField]
+        NetworkObject networkObject;
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+
+            networkObject = GetComponent<NetworkObject>();
 
             playerController.enabled = IsOwner;
             playerCamera.enabled = IsOwner;
@@ -54,6 +59,56 @@ namespace TW
                 //playerController.SetComponentsVariables();
                 //playerController.Init();
             }
+
+            BossArea.instance.BossSpawned += () => EnableBossUIServerRpc(true);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void EnableBossUIServerRpc(bool isVisible)
+        {
+            EnableBossUI(isVisible);
+            EnableBossUIClientRpc(isVisible);
+        }
+
+        [ClientRpc(RequireOwnership = false)]
+        private void EnableBossUIClientRpc(bool isVisible)
+        {
+            EnableBossUI(isVisible);
+        }
+
+        private void EnableBossUI(bool isVisible)
+        {
+            Debug.Log($"EnableBossUI IsLocalPlayer: {IsLocalPlayer} isVisible: {isVisible}");
+            if (networkObject.IsLocalPlayer)
+            {
+                if(BossArea.instance.boss == null)
+                {
+                    if (isVisible)
+                        Invoke(nameof(SetBossUIInPlayerVisibleTrue), .2f);
+                    else
+                        Invoke(nameof(SetBossUIInPlayerVisibleFalse), .2f);
+                }
+                else
+                {
+                    playerUI.SetBossUIInPlayerVisible(isVisible);
+                }
+            }
+        }
+
+        private void SetBossUIInPlayerVisibleTrue()
+        {
+            if(BossArea.instance.boss == null)
+                Invoke(nameof(SetBossUIInPlayerVisibleTrue), .2f);
+            else
+                playerUI.SetBossUIInPlayerVisible(true);
+        }
+
+        private void SetBossUIInPlayerVisibleFalse()
+        {
+            if (BossArea.instance.boss == null)
+                Invoke(nameof(SetBossUIInPlayerVisibleFalse), .2f);
+            else
+                playerUI.SetBossUIInPlayerVisible(false);
         }
     }
 }
