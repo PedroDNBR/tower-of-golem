@@ -120,11 +120,7 @@ namespace TW
 
         public void SetBossUIInPlayerVisible(bool isVisible)
         {
-            Debug.Log($"GetComponent<NetworkObject>().IsLocalPlayer {GetComponent<NetworkObject>().IsLocalPlayer}", GetComponent<NetworkObject>());
             if (!GetComponent<NetworkObject>().IsLocalPlayer) return;
-            Debug.Log($"playerController {playerController}", playerController);
-            Debug.Log($"BossArea.instance {BossArea.instance}", BossArea.instance);
-            Debug.Log($"BossArea.instance.boss {BossArea.instance.boss}");
             if (playerController == null || BossArea.instance == null || BossArea.instance.boss == null) return;
             BossArea.instance.boss.EnemyUI.EnemyHealthSlider = playerController.PlayerUI.BossHealthSlider;
             BossArea.instance.boss.EnemyUI.EnemyHUD = playerController.PlayerUI.BossHUD;

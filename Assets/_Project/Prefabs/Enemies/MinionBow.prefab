@@ -167,7 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c373ed5221563e6428cc080b350ad670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkObject: {fileID: 5719805461796859375}
 --- !u!114 &6635706876937829259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +180,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    m_InternalValue: 30
+    m_InternalValue: 1
+  health:
+    m_InternalValue: 0
   type: 0
   hittedAnimNameString: Hitted
   maxDamageUntilStagger: 4

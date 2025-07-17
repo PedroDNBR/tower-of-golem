@@ -29,7 +29,7 @@ namespace TW
             networkGameManager.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
         }
     }
-
+#if UNITY_EDITOR
     [CustomEditor(typeof(FakeLobbyBehaviourLocalTest))]
     public class FakeLobbyBehaviourLocalTestEditor : Editor
     {
@@ -45,4 +45,5 @@ namespace TW
             }
         }
     }
+#endif
 }

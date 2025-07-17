@@ -30,6 +30,7 @@ namespace TW
 
         public void Register(BaseAI knight)
         {
+            if (knight.currentPlayerInsight == null) return;
             if (!engagements.ContainsKey(knight.currentPlayerInsight))
                 engagements[knight.currentPlayerInsight] = new List<BaseAI>();
 
@@ -39,6 +40,7 @@ namespace TW
 
         public void Unregister(Knight knight)
         {
+            if (knight.currentPlayerInsight == null) return;
             if (engagements.ContainsKey(knight.currentPlayerInsight))
             {
                 engagements[knight.currentPlayerInsight].Remove(knight);
@@ -52,7 +54,7 @@ namespace TW
             while (true)
             {
                 yield return new WaitForSeconds(checkInterval);
-                Debug.Log(engagements.Count);
+                //Debug.Log(engagements.Count);
                 foreach (var kvp in engagements)
                     CoordinateAttackersForPlayer(kvp.Key, kvp.Value);
             }

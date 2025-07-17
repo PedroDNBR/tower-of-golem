@@ -15,7 +15,6 @@ namespace TW
         [SerializeField]
         private Transform spawnPoint;
 
-
         private List<PlayerController> playersInArea = new List<PlayerController>();
 
         public static BossArea instance;
@@ -24,9 +23,18 @@ namespace TW
 
         public Action BossSpawned;
 
+        public Vector3 startScale;
+
         private void OnEnable()
         {
             enabled = NetworkGameManager.Singleton.IsServer;
+        }
+
+        private void Start()
+        {
+            startScale = transform.localScale;
+
+            transform.localScale = transform.localScale * .7f;
         }
 
         private void OnTriggerEnter(Collider other)
