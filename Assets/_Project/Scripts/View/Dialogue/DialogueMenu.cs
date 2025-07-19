@@ -27,9 +27,20 @@ namespace TW
     
         public NetworkVariable<int> currentIndex = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
-        private void OnEnable() => OnDialogStarted?.Invoke();
+        private void OnEnable()
+        {
+            OnDialogStarted?.Invoke();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            
+        }
 
-        private void OnDisable() => OnDialogEnded?.Invoke();
+        private void OnDisable()
+        {
+            OnDialogEnded?.Invoke();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
 
         private void Start()
         {

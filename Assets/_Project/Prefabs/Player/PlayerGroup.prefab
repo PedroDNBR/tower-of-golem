@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 202273255927207686}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.61, z: -10}
+  m_LocalRotation: {x: 0.05298712, y: -0, z: -0, w: 0.99859524}
+  m_LocalPosition: {x: 0, y: 3.3, z: -6.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5528388364292791466}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 45117333374666738}
+  m_LocalEulerAnglesHint: {x: 6.075, y: 0, z: 0}
 --- !u!20 &5631482420806600649
 Camera:
   m_ObjectHideFlags: 0
@@ -378,7 +378,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4384250235282263851}
+  - {fileID: 5444603133538359798}
   - {fileID: 7990247634125574194}
   - {fileID: 8134589476144893255}
   - {fileID: 1298090644767928050}
@@ -408,6 +408,7 @@ MonoBehaviour:
   continueButton: {fileID: 6758426108441754692}
   settingsButton: {fileID: 597422022767854906}
   quitButton: {fileID: 1441738112971507252}
+  playerController: {fileID: 0}
 --- !u!114 &219357537928969312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,6 +451,7 @@ MonoBehaviour:
   playerHealth: {fileID: 132112748883767858}
   playerUI: {fileID: 8503447501536061011}
   onCollision: {fileID: 2199053026118640892}
+  networkObject: {fileID: 0}
 --- !u!1 &1097726883313169391
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,6 +820,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8515735844606542034}
+  - {fileID: 8562475015477569160}
   m_Father: {fileID: 5528388364292791466}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2939296059156065298
@@ -948,9 +951,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraHeight: 4.45
   cameraDistance: -9.45
-  cameraTransform: {fileID: 4384250235282263851}
+  cameraHorizontalPivot: {fileID: 5444603133538359798}
+  cameraVerticalPivot: {fileID: 45117333374666738}
   cameraRotation: {x: 17, y: 0, z: 0}
   playerCamera: {fileID: 5631482420806600649}
+  OverrideCameraPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &132112748883767858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -965,6 +970,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth:
     m_InternalValue: 100
+  health:
+    m_InternalValue: 0
   type: 4
 --- !u!114 &2199053026118640892
 MonoBehaviour:
@@ -979,6 +986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageMultiplier: 1.65
+  daamgeColliderPosition: {fileID: 8562475015477569160}
 --- !u!114 &5849677362932171861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1421,6 +1429,38 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3923978949656833310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 45117333374666738}
+  m_Layer: 0
+  m_Name: CameraPivotVertical
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &45117333374666738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3923978949656833310}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4384250235282263851}
+  m_Father: {fileID: 5444603133538359798}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3946617179336022638
 GameObject:
   m_ObjectHideFlags: 0
@@ -2489,6 +2529,37 @@ MonoBehaviour:
   multiplayerMenuTransform: {fileID: 0}
   continueButton: {fileID: 6758426108441754692}
   backButton: {fileID: 6758426108441754692}
+--- !u!1 &7389115414242236062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8562475015477569160}
+  m_Layer: 12
+  m_Name: ColliderDamageOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8562475015477569160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7389115414242236062}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.003, y: 0.016, z: 0.018}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7990247634125574194}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7830914877799402869
 GameObject:
   m_ObjectHideFlags: 0
@@ -2787,6 +2858,38 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &8679239352938778104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5444603133538359798}
+  m_Layer: 0
+  m_Name: CameraPivotHorizontal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5444603133538359798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679239352938778104}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 45117333374666738}
+  m_Father: {fileID: 5528388364292791466}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8940713201172011155
 GameObject:
   m_ObjectHideFlags: 0

@@ -183,7 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b14b3e7893097c41b6195e1d5183e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkObject: {fileID: 4771127446810528360}
 --- !u!54 &7165989981590243208
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -225,10 +224,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth:
     m_InternalValue: 200
+  health:
+    m_InternalValue: 0
   type: 0
   hittedAnimNameString: Hitted
   maxDamageUntilStagger: 20
-  minVelocityToDealDamage: 6
+  minVelocityToDealDamage: 4
   totalVelocity: 0
 --- !u!114 &398862128632295751
 MonoBehaviour:

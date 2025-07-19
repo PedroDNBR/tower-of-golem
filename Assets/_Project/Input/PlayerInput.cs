@@ -207,6 +207,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseMovement"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""82a71676-de6a-4c45-8d56-2c633983af84"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -275,6 +284,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""MouseAim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76ea7191-aacc-41c0-8036-08dbbb765487"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -331,6 +351,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Actions_SpecialSpell = m_Actions.FindAction("SpecialSpell", throwIfNotFound: true);
         m_Actions_AnalogicAim = m_Actions.FindAction("AnalogicAim", throwIfNotFound: true);
         m_Actions_MouseAim = m_Actions.FindAction("MouseAim", throwIfNotFound: true);
+        m_Actions_MouseMovement = m_Actions.FindAction("MouseMovement", throwIfNotFound: true);
         // Settings
         m_Settings = asset.FindActionMap("Settings", throwIfNotFound: true);
         m_Settings_Menu = m_Settings.FindAction("Menu", throwIfNotFound: true);
@@ -461,6 +482,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Actions_SpecialSpell;
     private readonly InputAction m_Actions_AnalogicAim;
     private readonly InputAction m_Actions_MouseAim;
+    private readonly InputAction m_Actions_MouseMovement;
     public struct ActionsActions
     {
         private @PlayerInput m_Wrapper;
@@ -469,6 +491,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @SpecialSpell => m_Wrapper.m_Actions_SpecialSpell;
         public InputAction @AnalogicAim => m_Wrapper.m_Actions_AnalogicAim;
         public InputAction @MouseAim => m_Wrapper.m_Actions_MouseAim;
+        public InputAction @MouseMovement => m_Wrapper.m_Actions_MouseMovement;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -490,6 +513,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MouseAim.started += instance.OnMouseAim;
             @MouseAim.performed += instance.OnMouseAim;
             @MouseAim.canceled += instance.OnMouseAim;
+            @MouseMovement.started += instance.OnMouseMovement;
+            @MouseMovement.performed += instance.OnMouseMovement;
+            @MouseMovement.canceled += instance.OnMouseMovement;
         }
 
         private void UnregisterCallbacks(IActionsActions instance)
@@ -506,6 +532,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MouseAim.started -= instance.OnMouseAim;
             @MouseAim.performed -= instance.OnMouseAim;
             @MouseAim.canceled -= instance.OnMouseAim;
+            @MouseMovement.started -= instance.OnMouseMovement;
+            @MouseMovement.performed -= instance.OnMouseMovement;
+            @MouseMovement.canceled -= instance.OnMouseMovement;
         }
 
         public void RemoveCallbacks(IActionsActions instance)
@@ -581,6 +610,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnSpecialSpell(InputAction.CallbackContext context);
         void OnAnalogicAim(InputAction.CallbackContext context);
         void OnMouseAim(InputAction.CallbackContext context);
+        void OnMouseMovement(InputAction.CallbackContext context);
     }
     public interface ISettingsActions
     {

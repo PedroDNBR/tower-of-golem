@@ -21,6 +21,7 @@ namespace TW
 
         private Vector2 analogicAim;
         private Vector2 mouseAim;
+        private Vector2 mouseMovement;
         private Vector2 lastMouseAim;
 
         public void OnEnable()
@@ -41,12 +42,13 @@ namespace TW
                 playerInput = new PlayerInput();
                 playerInput.Motion.Movement.performed += playerInput => movement = playerInput.ReadValue<Vector2>();
                 playerInput.Motion.Jump.performed += playerInput => playerMovement.Jump();
-                playerInput.Motion.Dash.performed += playerInput => playerMovement.Dash(movement.x, movement.y);
+                playerInput.Motion.Dash.performed += playerInput => playerMovement.Dash(movement.x, movement.y, playerCamera.cameraReference);
                 playerInput.Actions.PrimarySpell.performed += playerInput => playerSpell.ShootInput();
                 playerInput.Actions.SpecialSpell.performed += playerInput => playerSpell.ShootSpecialInput();
                 playerInput.Settings.Menu.performed += playerInput => TogglePauseMenu();
                 playerInput.Actions.AnalogicAim.performed += playerInput => analogicAim = playerInput.ReadValue<Vector2>();
                 playerInput.Actions.MouseAim.performed += playerInput => mouseAim = playerInput.ReadValue<Vector2>();
+                playerInput.Actions.MouseMovement.performed += playerInput => mouseMovement = playerInput.ReadValue<Vector2>();
             }
             playerInput.Enable();
         }
@@ -97,8 +99,9 @@ namespace TW
         {
             if (playerInput == null) return;
             float delta = Time.deltaTime;
-            playerMovement.Movement(movement.x, movement.y, delta);
-        }
+            playerMovement.Movement(movement.x, movement.y, delta, playerCamera.cameraReference);
+            playerCamera.MoveCamera(mouseMovement);
+        }   
 
         bool usingAnalogic = false;
         bool usingMouse = true;
@@ -107,11 +110,12 @@ namespace TW
         {
             if (playerInput == null) return;
             float analogAmout = Mathf.Clamp01(Mathf.Abs(analogicAim.x) + Mathf.Abs(analogicAim.y));
-            if(analogAmout > 0 && !usingAnalogic)
+            if (analogAmout > 0 && !usingAnalogic)
             {
                 usingAnalogic = true;
                 usingMouse = false;
-            } else if (mouseAim != lastMouseAim)
+            }
+            else if (mouseAim != lastMouseAim)
             {
                 usingAnalogic = false;
                 usingMouse = true;

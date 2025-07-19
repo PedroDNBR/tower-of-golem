@@ -84,6 +84,7 @@ namespace TW
             }
 
             pauseMenu.gameObject.SetActive(!pauseMenu.gameObject.activeSelf);
+            ToggleMouseLock();
         }
 
         bool GetPauseMenuIsOpen() => pauseMenu.gameObject.activeSelf;
@@ -92,6 +93,7 @@ namespace TW
         {
             optionsMenu.gameObject.SetActive(false);
             settingsMenu.gameObject.SetActive(true);
+            ToggleMouseLock();
         }
 
         private void ClosePauseMenu()
@@ -99,10 +101,12 @@ namespace TW
             pauseMenu.gameObject.SetActive(false);
             optionsMenu.gameObject.SetActive(true);
             settingsMenu.gameObject.SetActive(false);
+            ToggleMouseLock();
         }
 
         private void QuitToMenu()
         {
+            ToggleMouseLock();
             quitted = true;
             NetworkManager.Singleton.Shutdown();
             if(GameManager.Instance != null) GameManager.Instance.QuitToMainMenuAndDestroyNetworkManager();
@@ -139,11 +143,11 @@ namespace TW
                 BossArea.instance.boss.EnemyUI.SetEnemyStatsVisible(false);
             }
 
-            if (LevelManager.instance != null)
-            {
-                if (LevelManager.instance.bossArenaInsideWalls != null) LevelManager.instance.bossArenaInsideWalls.SetActive(isVisible);
-                if (LevelManager.instance.bossArenaOusideWalls != null) LevelManager.instance.bossArenaOusideWalls.SetActive(!isVisible);
-            }
+            // if (LevelManager.instance != null)
+            // {
+            //     if (LevelManager.instance.bossArenaInsideWalls != null) LevelManager.instance.bossArenaInsideWalls.SetActive(isVisible);
+            //     if (LevelManager.instance.bossArenaOusideWalls != null) LevelManager.instance.bossArenaOusideWalls.SetActive(!isVisible);
+            // }
         }
 
         private void EnableEnemyUI()
@@ -153,6 +157,21 @@ namespace TW
                 Invoke(nameof(EnableEnemyUI), .1f);
             else
                 BossArea.instance.boss.EnemyUI.SetEnemyStatsVisible(true);
+        }
+
+        private void ToggleMouseLock()
+        {
+            Debug.Log("ToggleMouseLock");
+            if(GetPauseMenuIsOpen())
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
     }
 }

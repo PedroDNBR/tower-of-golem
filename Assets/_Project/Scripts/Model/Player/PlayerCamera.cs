@@ -6,8 +6,11 @@ namespace TW
     {
         [SerializeField] private float cameraHeight = 8.9f;
         [SerializeField] private float cameraDistance = -18.9f;
-        [SerializeField] private Transform cameraTransform;
+        [SerializeField] private Transform cameraHorizontalPivot;
+        [SerializeField] private Transform cameraVerticalPivot;
         [SerializeField] private Vector3 cameraRotation;
+
+        public Transform cameraReference { get => cameraHorizontalPivot; }
 
         [SerializeField] private Camera playerCamera;
         public Camera PlayerCameraObj { get => playerCamera; set => playerCamera = value; }
@@ -16,27 +19,47 @@ namespace TW
 
         private void Start()
         {
-            if (cameraTransform == null)
+            if (cameraHorizontalPivot == null)
                 return;
 
-            cameraTransform.eulerAngles = cameraRotation;
-            Vector3 newCameraPosition = new Vector3(transform.position.x, transform.position.y + cameraHeight, transform.position.z + cameraDistance);
-            cameraTransform.position = newCameraPosition;
+            //cameraTransform.eulerAngles = cameraRotation;
+            //Vector3 newCameraPosition = new Vector3(transform.position.x, transform.position.y + cameraHeight, transform.position.z + cameraDistance);
+            //cameraTransform.position = newCameraPosition;
+
+            cameraHorizontalPivot.position = transform.position;
 
         }
 
         private void LateUpdate()
         {
-            if (cameraTransform == null)
+            if (cameraHorizontalPivot == null)
                 return;
 
-            Vector3 newCameraPosition;
-            if (OverrideCameraPosition == Vector3.zero)
-                newCameraPosition = new Vector3(transform.position.x, transform.position.y + cameraHeight, transform.position.z + cameraDistance);
-            else
-                newCameraPosition = OverrideCameraPosition;
+            //Vector3 newCameraPosition;
+            //if (OverrideCameraPosition == Vector3.zero)
+            //    newCameraPosition = new Vector3(transform.position.x, transform.position.y + cameraHeight, transform.position.z + cameraDistance);
+            //else
+            //    newCameraPosition = OverrideCameraPosition;
 
-            cameraTransform.position = Vector3.Lerp(cameraTransform.position, newCameraPosition, Time.deltaTime * 10);
+            cameraHorizontalPivot.position = Vector3.Lerp(cameraHorizontalPivot.position, transform.position, Time.deltaTime * 10);
+
+
+        }
+
+        float xRotation;
+
+        internal void MoveCamera(Vector2 mouseAim)
+        {
+            //var lookDirection = mouseAim;
+            //var mouse = lookDirection * Time.deltaTime * 5;
+
+            //cameraTransform.Rotate(Vector3.up * mouse.x);
+
+            //this.xRotation -= mouse.y;
+
+            //cameraTransform.transform.localRotation = Quaternion.Euler(xRotation, cameraTransform.transform.localRotation.y, 0);
+            cameraHorizontalPivot.eulerAngles -= new Vector3(0, -mouseAim.x, 0) * Time.deltaTime * 10;
+            cameraVerticalPivot.eulerAngles -= new Vector3(mouseAim.y, 0, 0) * Time.deltaTime * 10;
         }
     }
 }

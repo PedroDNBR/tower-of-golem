@@ -56,12 +56,20 @@ namespace TW
             CalculateDashTimer();
         }
 
-        public void Movement(float horizontal, float vertical, float delta)
+        public void Movement(float horizontal, float vertical, float delta, Transform reference)
         {
             if (horizontal == 0 && vertical == 0) return;
             if (!isGrounded.Value) return;
-            Vector3 velocity = new Vector3(vertical, 0, -horizontal);
-            rigid.AddTorque(velocity * speed.Value * delta * 10);
+            Vector3 camRight = reference.right;
+            Vector3 camForward = reference.forward;
+            camForward.y = 0; // Evita movimentos verticais
+            camForward.Normalize();
+
+            // Cria o vetor de direção combinando input com orientação da câmera
+            Vector3 moveDir = (camRight * vertical + camForward * -horizontal).normalized;
+
+            // Aplica torque com base nessa direção
+            rigid.AddTorque(moveDir * speed.Value * delta * 10);
         }
 
         public void Jump()
@@ -79,11 +87,19 @@ namespace TW
             dashTimerCount.Value -= dashCost.Value;
         }
 
-        public void Dash(float horizontal, float vertical)
+        public void Dash(float horizontal, float vertical, Transform reference)
         {
             if (dashTimerCount.Value < dashCost.Value) return;
-            Vector3 dashVelocity = new Vector3(horizontal, 0, vertical);
-            rigid.AddForce(dashVelocity * dash.Value, ForceMode.Impulse);
+            Vector3 camRight = reference.right;
+            Vector3 camForward = reference.forward;
+            camForward.y = 0; // Evita movimentos verticais
+            camForward.Normalize();
+
+            // Cria o vetor de direção combinando input com orientação da câmera
+            Vector3 moveDir = (camForward * vertical + camRight * horizontal).normalized;
+
+            // Aplica torque com base nessa direção
+            rigid.AddForce(moveDir * dash.Value, ForceMode.Impulse);
             ConsumeStaminaServerRpc();
         }
 

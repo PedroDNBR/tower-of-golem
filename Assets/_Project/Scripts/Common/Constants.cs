@@ -9,7 +9,7 @@ namespace TW
         public const int backingOffMaxAttempts = 5;
 
         // Damage Colliders
-        public const float playerDealDamageRadius = .4f;
+        public const float playerDealDamageRadius = .42f;
 
         // Multiplayer
         public const string HostAddressKey = "HostAddress";

@@ -180,13 +180,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    m_InternalValue: 1
+    m_InternalValue: 15
   health:
     m_InternalValue: 0
   type: 0
   hittedAnimNameString: Hitted
   maxDamageUntilStagger: 4
-  minVelocityToDealDamage: 3.5
+  minVelocityToDealDamage: 2
   totalVelocity: 0
 --- !u!54 &7572506362016256058
 Rigidbody:

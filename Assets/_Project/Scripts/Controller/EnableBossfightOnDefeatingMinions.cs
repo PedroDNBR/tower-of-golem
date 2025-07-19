@@ -17,14 +17,11 @@ namespace TW
 
         private void SetListeners()
         {
-            Debug.Log($"IsServer {IsServer}");
             if (IsServer)
             {
-                Debug.Log($"AICommander.Instance.allEnemies.Count {AICommander.Instance.allEnemies.Count}");
                 for (int i = 0; i < AICommander.Instance.allEnemies.Count; i++)
                 {
                     AICommander.Instance.allEnemies[i].enemyController.EnemyHealth.Dead += MinionDied;
-                    Debug.Log($"add listener {AICommander.Instance.allEnemies[i]}");
                 }
             }
 
