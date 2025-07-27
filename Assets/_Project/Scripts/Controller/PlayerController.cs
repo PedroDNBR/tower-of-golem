@@ -124,6 +124,8 @@ namespace TW
                 playerSpell.AimToPosition();
 
             lastMouseAim = mouseAim;
+
+            playerCamera.MoveCamera(mouseAim);
         }
     }
 }
