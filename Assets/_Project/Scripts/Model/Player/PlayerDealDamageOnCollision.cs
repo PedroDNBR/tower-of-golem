@@ -4,7 +4,7 @@ using UnityEngine;
 namespace TW
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerDealDamageOnCollision : MonoBehaviour
+    public class PlayerDealDamageOnCollision : NetworkBehaviour
     {
         //private const float damageRadius = .3579978f;
 
@@ -17,7 +17,8 @@ namespace TW
 
         public Elements Type { set => type = value; }
 
-        private float totalVelocity = 0;
+        // private float totalVelocity = 0;
+        public NetworkVariable<float> totalVelocity = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         private Vector3 previousPosition;
 
@@ -32,47 +33,90 @@ namespace TW
 
         private void FixedUpdate()
         {
-            if (!NetworkManager.Singleton.IsServer) return;
-            totalVelocity = ((transform.position - previousPosition) / Time.deltaTime).magnitude;
+            if (!IsLocalPlayer) return;
+            totalVelocity.Value = ((transform.position - previousPosition) / Time.deltaTime).magnitude;
             previousPosition = transform.position;
 
-            if (!NetworkManager.Singleton.IsServer) return;
+            //RaycastHit hit;
+            //int layer = LayerMask.GetMask("Hitbox");
+            //if (Physics.SphereCast(
+            //    transform.position + detectionPositionOffset + ((transform.position - previousPosition).normalized * Mathf.Clamp(totalVelocity * .01f, 0, .175f)),
+            //    Constants.playerDealDamageRadius * Mathf.Clamp(totalVelocity * .05f, 1, 1.4f),
+            //    Vector3.forward,
+            //    out hit,
+            //    Constants.playerDealDamageRadius * Mathf.Clamp(totalVelocity * .05f, 1, 1.4f),
+            //    layer)
+            //)
+            //{
+            //    ShouldReceiveDamage shouldReceiveDamage = hit.collider.GetComponent<ShouldReceiveDamage>();
+            //    if (shouldReceiveDamage == null) return;
 
-            if (totalVelocity < 2f) return;
+            //    EnemyHealth enemy = hit.transform.gameObject.GetComponentInParent<EnemyHealth>();
+            //    if (enemy == null) return;
 
-            RaycastHit hit;
-            int layer = LayerMask.GetMask("Hitbox");
-            if (Physics.SphereCast(transform.position + detectionPositionOffset, Constants.playerDealDamageRadius, Vector3.forward, out hit, Constants.playerDealDamageRadius, layer))
-            {
-                if (alreadyDamagedEnemy) return;
-                ShouldReceiveDamage shouldReceiveDamage = hit.collider.GetComponent<ShouldReceiveDamage>();
-                if (shouldReceiveDamage == null) return;
+            //    Debug.Log($"Velocity: {this.totalVelocity}");
 
-                EnemyHealth enemy = hit.transform.gameObject.GetComponentInParent<EnemyHealth>();
-                if (enemy == null) return;
+            //    float totalVelocity = this.totalVelocity - enemy.totalVelocity;
+            //    if (totalVelocity < enemy.minVelocityToDealDamage) return;
+            //    Debug.Log($"DAMAGE CONFIRMED {totalVelocity}", enemy);
 
-                float totalVelocity = this.totalVelocity - enemy.totalVelocity;
-                if (totalVelocity < enemy.minVelocityToDealDamage) return;
+            //    enemy.TakeDamage(type, totalVelocity * damageMultiplier, gameObject);
 
-                enemy.TakeDamage(type, totalVelocity * damageMultiplier, gameObject);
+            //    Vector3 moveDir;
+            //    moveDir = rigid.transform.position - enemy.transform.position;
+            //    rigid.AddForce(moveDir.normalized * (totalVelocity * .1f), ForceMode.Impulse);
 
-                //Vector3 moveDir;
-                //moveDir = rigid.transform.position - enemy.transform.position;
-                //rigid.AddForce(moveDir.normalized * 5.5f, ForceMode.Impulse);
-
-                alreadyDamagedEnemy = true;
-            } 
-            else
-            {
-                if(alreadyDamagedEnemy) alreadyDamagedEnemy = false;
-            }
+            //}
         }
 
-        private void OnDrawGizmos()
+        private void OnTriggerEnter(Collider other)
         {
-            Gizmos.DrawWireSphere(transform.position + detectionPositionOffset, Constants.playerDealDamageRadius);
-            Debug.DrawRay(transform.position, (transform.position - previousPosition).normalized * 5.0f);
+            if (!IsLocalPlayer) return;
+            ShouldReceiveDamage shouldReceiveDamage = other.GetComponent<ShouldReceiveDamage>();
+            if (shouldReceiveDamage == null) return;
+
+            EnemyHealth enemy = other.transform.gameObject.GetComponentInParent<EnemyHealth>();
+            if (enemy == null) return;
+
+
+            Debug.Log($"Velocity: {this.totalVelocity.Value}");
+
+            float totalVelocity = this.totalVelocity.Value - enemy.totalVelocity;
+
+            NetworkObjectReference networkRef = new NetworkObjectReference(enemy.GetComponent<NetworkObject>());
+
+            ReportCollisionVelocityServerRpc(totalVelocity, networkRef);
+
+            Vector3 moveDir;
+            moveDir = rigid.transform.position - enemy.transform.position;
+            rigid.AddForce(moveDir.normalized * (totalVelocity * .1f), ForceMode.Impulse);
         }
+
+        [ServerRpc]
+        void ReportCollisionVelocityServerRpc(float impactVelocity, NetworkObjectReference enemyHit)
+        {
+            if (!IsServer) return;
+            NetworkObject retrievedObject;
+            if (enemyHit.TryGet(out retrievedObject))
+            {
+                EnemyHealth enemy = retrievedObject.GetComponentInParent<EnemyHealth>();
+                if (enemy == null) return;
+                if (impactVelocity < enemy.minVelocityToDealDamage) return;
+                Debug.Log($"DAMAGE CONFIRMED {impactVelocity}", enemy);
+
+                if (!NetworkManager.Singleton.IsServer) return;
+                enemy.TakeDamage(type, impactVelocity * damageMultiplier, gameObject);
+            }
+            
+        }
+
+        //private void OnDrawGizmos()
+        //{
+        //    Gizmos.DrawWireSphere(
+        //        transform.position + detectionPositionOffset + ((transform.position - previousPosition).normalized * Mathf.Clamp(totalVelocity * .01f, 0, .175f)),
+        //        Constants.playerDealDamageRadius * Mathf.Clamp(totalVelocity * .05f, 1, 1.4f));
+        //    Debug.DrawRay(transform.position, (transform.position - previousPosition).normalized * 5.0f);
+        //}
     }
 }
 

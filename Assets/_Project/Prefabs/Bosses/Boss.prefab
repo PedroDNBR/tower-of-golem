@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8723315128715453079}
   - component: {fileID: 6260290256832285808}
   - component: {fileID: 7165989981590243208}
-  - component: {fileID: 1591770994530753306}
+  - component: {fileID: 8508420855009775993}
   - component: {fileID: 398862128632295751}
   m_Layer: 0
   m_Name: Boss
@@ -145,6 +145,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ed922dbbd281dd04997ab590c935fa1f, type: 2}
   - {fileID: 11400000, guid: 68ad17e5d3757f542b1c6c77dcf78453, type: 2}
   - {fileID: 11400000, guid: c0bc3addf48536e41aa5249f771dcf12, type: 2}
+  - {fileID: 11400000, guid: 8ceaabc453d0ef64b9b76b7126d87194, type: 2}
+  - {fileID: 11400000, guid: 030a422a125c90a4dbe4cafb172948f1, type: 2}
+  - {fileID: 11400000, guid: af851465c56eaea47a19611c74c3bbb3, type: 2}
+  - {fileID: 11400000, guid: d9730e24cc19e81469bc2bc7de80fdd2, type: 2}
+  - {fileID: 11400000, guid: 27b06a6fbc1b7fa46b1bf3a898107b4e, type: 2}
+  - {fileID: 11400000, guid: da4b3ffbc1e99de4db1ab374e2f12d6e, type: 2}
+  - {fileID: 11400000, guid: 83097cffb81f810408b52071dcd48190, type: 2}
+  - {fileID: 11400000, guid: 9f59bda38cc904245be8080e69de6355, type: 2}
+  - {fileID: 11400000, guid: ed7bd4f1246ae5449b159193d6beb8f6, type: 2}
+  - {fileID: 11400000, guid: 172274f52c10d594f96ab2178836b61d, type: 2}
+  - {fileID: 11400000, guid: ba90efb9c76786a459df56215abf31a4, type: 2}
   circlePos: {x: 0, y: 0, z: 0}
   currentPlayerInsight: {fileID: 0}
   currentSnapshot: {fileID: 0}
@@ -183,7 +194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b14b3e7893097c41b6195e1d5183e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkObject: {fileID: 4771127446810528360}
 --- !u!54 &7165989981590243208
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -211,7 +221,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1591770994530753306
+--- !u!114 &8508420855009775993
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -220,11 +230,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3642202449704075208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99a0eeec1c7b20b42aca7ca8fe0281ba, type: 3}
+  m_Script: {fileID: 11500000, guid: ac9b895647aaa9843b2b3d4f630839c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
     m_InternalValue: 200
+  health:
+    m_InternalValue: 0
   type: 0
   hittedAnimNameString: Hitted
   maxDamageUntilStagger: 20

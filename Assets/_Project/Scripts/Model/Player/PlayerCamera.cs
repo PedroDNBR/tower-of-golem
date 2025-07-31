@@ -48,8 +48,8 @@ namespace TW
         //    cameraTransform.position = Vector3.Lerp(cameraTransform.position, newCameraPosition, Time.deltaTime * 10);
         //}
 
-        float radiusX = 0.65f; // raio horizontal da elipse (mais baixo = mais sensível lateral)
-        float radiusY = 0.65f; // raio vertical da elipse
+        float radiusX = 0.75f; // raio horizontal da elipse (mais baixo = mais sensível lateral)
+        float radiusY = 0.75f; // raio vertical da elipse
 
         public void MoveCamera(Vector2 mousePosition)
         {

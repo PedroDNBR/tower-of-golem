@@ -3215,7 +3215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df1fba88dea38e048ae3f8fc0837e3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMinionDeath: 1
+  minMinionDeath: 4
 --- !u!114 &250904258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4163,6 +4163,18 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &511329494 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2439100591169391961, guid: da8f98683416ebe40b7ccc986383195c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3806297233384007503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81da496ba2e19564086b383d6595c459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!64 &514835520
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4693,7 +4705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkGameManager: {fileID: 1269613156}
-  minplayerCount: 1
+  minplayerCount: 2
 --- !u!1 &811566053 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4133703932355585839, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -6544,6 +6556,18 @@ MonoBehaviour:
   mobPrefab: {fileID: 6243426057405665456, guid: 5100d083cba57e24fb864955e93fae6b,
     type: 3}
   spawnPoint: {fileID: 1478844316}
+--- !u!114 &1479845728 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 219357537928969312, guid: da8f98683416ebe40b7ccc986383195c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3806297233384007503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1525384821 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5754060345647867467, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -8396,6 +8420,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5788517018788894113, guid: da8f98683416ebe40b7ccc986383195c,
+        type: 3}
+      propertyPath: networkObject
+      value: 
+      objectReference: {fileID: 1479845728}
+    - target: {fileID: 8503447501536061011, guid: da8f98683416ebe40b7ccc986383195c,
+        type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 511329494}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -23,6 +23,16 @@ namespace TW
 
         protected Vector3 previousPosition;
 
+        protected override void Start()
+        {
+            InitOnHealthChangedAction();
+            if (IsServer)
+            {
+                maxHealth.Value *= (1 + ((NetworkManager.Singleton.ConnectedClientsList.Count - 1) * .1f));
+                health.Value = maxHealth.Value;
+            }
+        }
+
         protected virtual void FixedUpdate()
         {
             if (!NetworkManager.Singleton.IsServer) return;

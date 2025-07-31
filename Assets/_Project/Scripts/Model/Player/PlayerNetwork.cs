@@ -52,7 +52,7 @@ namespace TW
 
             gameObject.name = gameObject.name + " " + NetworkObjectId;
 
-            onCollision.enabled = IsServer;
+            onCollision.enabled = true;
 
             if(IsServer)
             {

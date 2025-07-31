@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d0459faeb10bc44b4d79d70f5968d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 6
   element: 4
   destroyWhenDamage: 0
 --- !u!135 &4150141158837589916
@@ -303,12 +303,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    m_InternalValue: 1
+    m_InternalValue: 15
   health:
     m_InternalValue: 0
   type: 0
   hittedAnimNameString: Hitted
-  maxDamageUntilStagger: 4
+  maxDamageUntilStagger: 4.5
   minVelocityToDealDamage: 3.5
   totalVelocity: 0
 --- !u!54 &1020168008725104680
@@ -515,7 +515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d0459faeb10bc44b4d79d70f5968d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 5
   element: 0
   destroyWhenDamage: 0
 --- !u!1001 &6531364258948209919
