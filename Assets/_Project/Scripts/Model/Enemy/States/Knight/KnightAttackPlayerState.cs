@@ -33,13 +33,14 @@ namespace TW
                 {
                     if(baseAI.currentSnapshot == null)
                     {
-                        Vector3 dir = knight.currentPlayerInsight.transform.position - knight.transform.position;
-                        dir.y = 0;
-                        dir.Normalize();
-                        float angle = Vector2.Angle(knight.transform.position, dir);
-                        float dot = Vector3.Dot(knight.transform.right, dir);
-                        if (dot < 0) angle *= -1;
-                        var snapshot = knight.GetAction(distanceToPlayer, angle);
+                        //Vector3 dir = knight.currentPlayerInsight.transform.position - knight.transform.position;
+                        //dir.y = 0;
+                        //dir.Normalize();
+                        //float angle = Vector2.Angle(knight.transform.position, dir);
+                        //float dot = Vector3.Dot(knight.transform.right, dir);
+                        //if (dot < 0) angle *= -1;
+                        //var snapshot = knight.GetAction(distanceToPlayer, angle);
+                        baseAI.SwitchState(KnightStates.followPlayerState);
                     }
                     if (baseAI.currentSnapshot != null)
                     {

@@ -408,4 +408,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boolName: isBusy
   status: 0
-  resetOnExit: 0
+  resetOnExit: 1

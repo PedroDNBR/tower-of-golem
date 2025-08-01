@@ -29,7 +29,6 @@ namespace TW
                     dir.y = 0;
                     dir.Normalize();
 
-
                     float angle = Vector2.Angle(baseAI.transform.position, dir);
                     baseAI.currentSnapshot = baseAI.GetAction(dist, angle);
 

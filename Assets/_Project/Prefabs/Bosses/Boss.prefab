@@ -50,7 +50,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3642202449704075208}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -334000983
   m_Radius: 1.06
   m_Speed: 3.5
   m_Acceleration: 8
@@ -145,17 +145,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ed922dbbd281dd04997ab590c935fa1f, type: 2}
   - {fileID: 11400000, guid: 68ad17e5d3757f542b1c6c77dcf78453, type: 2}
   - {fileID: 11400000, guid: c0bc3addf48536e41aa5249f771dcf12, type: 2}
-  - {fileID: 11400000, guid: 8ceaabc453d0ef64b9b76b7126d87194, type: 2}
-  - {fileID: 11400000, guid: 030a422a125c90a4dbe4cafb172948f1, type: 2}
-  - {fileID: 11400000, guid: af851465c56eaea47a19611c74c3bbb3, type: 2}
-  - {fileID: 11400000, guid: d9730e24cc19e81469bc2bc7de80fdd2, type: 2}
-  - {fileID: 11400000, guid: 27b06a6fbc1b7fa46b1bf3a898107b4e, type: 2}
-  - {fileID: 11400000, guid: da4b3ffbc1e99de4db1ab374e2f12d6e, type: 2}
-  - {fileID: 11400000, guid: 83097cffb81f810408b52071dcd48190, type: 2}
-  - {fileID: 11400000, guid: 9f59bda38cc904245be8080e69de6355, type: 2}
-  - {fileID: 11400000, guid: ed7bd4f1246ae5449b159193d6beb8f6, type: 2}
-  - {fileID: 11400000, guid: 172274f52c10d594f96ab2178836b61d, type: 2}
-  - {fileID: 11400000, guid: ba90efb9c76786a459df56215abf31a4, type: 2}
   circlePos: {x: 0, y: 0, z: 0}
   currentPlayerInsight: {fileID: 0}
   currentSnapshot: {fileID: 0}

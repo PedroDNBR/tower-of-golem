@@ -25,22 +25,29 @@ namespace TW
                 {
                     if (baseAI.currentSnapshot == null)
                     {
-                        Vector3 dir = baseAI.currentPlayerInsight.transform.position - baseAI.transform.position;
-                        dir.y = 0;
-                        dir.Normalize();
-                        float angle = Vector2.Angle(baseAI.transform.position, dir);
-                        float dot = Vector3.Dot(baseAI.transform.right, dir);
-                        if (dot < 0) angle *= -1;
-                        var snapshot = baseAI.GetAction(distanceToPlayer, angle);
+                        //Vector3 dir = baseAI.currentPlayerInsight.transform.position - baseAI.transform.position;
+                        //dir.y = 0;
+                        //dir.Normalize();
+                        //float angle = Vector2.Angle(baseAI.transform.position, dir);
+                        //float dot = Vector3.Dot(baseAI.transform.right, dir);
+                        //if (dot < 0) angle *= -1;
+                        //var snapshot = baseAI.GetAction(distanceToPlayer, angle);
+                        Debug.Log("AttackPlayerState SwitchState(States.followPlayerState)");
+                        baseAI.SwitchState(States.followPlayerState);
+
                     }
                     if (baseAI.currentSnapshot != null)
                     {
+                        Debug.Log("AttackPlayerState baseAI.currentSnapshot != null");
                         baseAI.enemyController.AnimatorController.PlayTargetAnimation(baseAI.currentSnapshot.anim, true);
                         baseAI.recoveryTimer = baseAI.currentSnapshot.recoveryTime;
                         baseAI.actionFlag = true;
                     }
                 }
+                Debug.Log("AttackPlayerState SwitchState(States.followPlayerState)");
+                baseAI.SwitchState(States.followPlayerState);
             }
+            Debug.Log("AttackPlayerState HandleRotation");
             baseAI.HandleRotation(true);
         }
 

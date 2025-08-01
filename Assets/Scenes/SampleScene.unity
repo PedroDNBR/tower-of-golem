@@ -755,7 +755,7 @@ PrefabInstance:
     - target: {fileID: -1025663018108745142, guid: 37d9fdcdb54a2c248befde8d550761f2,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: -1025663018108745142, guid: 37d9fdcdb54a2c248befde8d550761f2,
         type: 3}
@@ -3215,7 +3215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df1fba88dea38e048ae3f8fc0837e3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMinionDeath: 4
+  minMinionDeath: 1
 --- !u!114 &250904258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3518,6 +3518,7 @@ Transform:
   - {fileID: 1555455995}
   - {fileID: 2066406339}
   - {fileID: 934915987}
+  - {fileID: 1280057359}
   - {fileID: 1221312662}
   - {fileID: 250904255}
   m_Father: {fileID: 0}
@@ -4705,7 +4706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkGameManager: {fileID: 1269613156}
-  minplayerCount: 2
+  minplayerCount: 1
 --- !u!1 &811566053 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4133703932355585839, guid: 37d9fdcdb54a2c248befde8d550761f2,
@@ -5775,7 +5776,7 @@ Transform:
   m_GameObject: {fileID: 1170981637}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -89.5, y: -17.3, z: 18.50434}
+  m_LocalPosition: {x: -89.48, y: -16.94, z: 18.50434}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6013,6 +6014,69 @@ Transform:
   - {fileID: 802484693}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1280057358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1280057359}
+  - component: {fileID: 1280057360}
+  m_Layer: 0
+  m_Name: NavMesh Surface Boss
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1280057359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280057358}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -21.322512, y: 16.09841, z: 4.6019}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 356233025}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1280057360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280057358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: -334000983
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_GenerateLinks: 1
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.2
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 7a6b70a4532876445a955e0126a7a797, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &1293908443
 GameObject:
   m_ObjectHideFlags: 0
@@ -6502,7 +6566,7 @@ Transform:
   m_GameObject: {fileID: 1478479449}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.810923, y: -15.437205, z: 17.744339}
+  m_LocalPosition: {x: 2.5, y: -15.437205, z: 18.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7144,7 +7208,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8999911773206952699, guid: 37d9fdcdb54a2c248befde8d550761f2, type: 3}
 --- !u!1 &1729654674
