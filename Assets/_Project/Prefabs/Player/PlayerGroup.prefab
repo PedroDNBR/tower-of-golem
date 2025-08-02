@@ -963,11 +963,11 @@ MonoBehaviour:
   dashRegen:
     m_InternalValue: 0.5
   groundChecker: {fileID: 0}
-  groundDetectionRayStartPoint: 0.1
-  minimumDistanceNeededToBeginFall: 1
+  groundDetectionRayStartPoint: 0
+  minimumDistanceNeededToBeginFall: 0.45
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 9216
   movementInput: {x: 0, y: 0, z: 0}
 --- !u!114 &5600468618133938786
 MonoBehaviour:
@@ -1025,6 +1025,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageMultiplier: 0.666
+  totalVelocity:
+    m_InternalValue: 0
 --- !u!114 &5849677362932171861
 MonoBehaviour:
   m_ObjectHideFlags: 0
