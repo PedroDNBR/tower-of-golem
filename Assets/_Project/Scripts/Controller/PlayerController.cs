@@ -47,6 +47,7 @@ namespace TW
                 playerInput.Settings.Menu.performed += playerInput => TogglePauseMenu();
                 playerInput.Actions.AnalogicAim.performed += playerInput => analogicAim = playerInput.ReadValue<Vector2>();
                 playerInput.Actions.MouseAim.performed += playerInput => mouseAim = playerInput.ReadValue<Vector2>();
+                playerInput.Actions.ResetCamera.performed += playerInput => playerCamera.ResetCamera();
             }
             playerInput.Enable();
         }

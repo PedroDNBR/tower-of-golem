@@ -51,6 +51,9 @@ namespace TW
         float radiusX = 0.75f; // raio horizontal da elipse (mais baixo = mais sensível lateral)
         float radiusY = 0.75f; // raio vertical da elipse
 
+        float timer = 0;
+        float maxTimer = 5;
+
         public void MoveCamera(Vector2 mousePosition)
         {
             Vector3 newCameraPosition = new Vector3(transform.position.x, transform.position.y + cameraHeight, transform.position.z + cameraDistance);
@@ -67,18 +70,38 @@ namespace TW
             float ellipseEquation = Mathf.Pow(normalized.x / radiusX, 2) + Mathf.Pow(normalized.y / radiusY, 2);
             bool wantsToMove = ellipseEquation > 1f;
 
-            // Checa se o player está fora da zona segura (em world space)
-            Vector3 cameraPos = cameraHolder.localPosition;
+            if (wantsToMove)
+            {
+                // Checa se o player está fora da zona segura (em world space)
+                Vector3 cameraPos = cameraHolder.localPosition;
 
-            Vector3 moveDirection = new Vector3(normalized.x, 0f, normalized.y).normalized;
-            float t = Mathf.Clamp01((ellipseEquation - 1f) * 0.5f);
-            float speed = Mathf.SmoothStep(0f, maxSpeed, t);
-            Vector3 velocity = moveDirection * speed;
-            Vector3 newPosition = cameraPos + velocity * Time.deltaTime;
-            Vector3 lerpPosition = Vector3.Lerp(cameraPos, newPosition, Time.deltaTime * acceleration);
-            lerpPosition.x = Mathf.Clamp(lerpPosition.x, cameraXPositionClamp.x, cameraXPositionClamp.y);
-            lerpPosition.z = Mathf.Clamp(lerpPosition.z, cameraZPositionClamp.x, cameraZPositionClamp.y);
-            cameraHolder.localPosition = lerpPosition;
+                Vector3 moveDirection = new Vector3(normalized.x, 0f, normalized.y).normalized;
+                float t = Mathf.Clamp01((ellipseEquation - 1f) * 0.5f);
+                float speed = Mathf.SmoothStep(0f, maxSpeed, t);
+                Vector3 velocity = moveDirection * speed;
+                Vector3 newPosition = cameraPos + velocity * Time.deltaTime;
+                Vector3 lerpPosition = Vector3.Lerp(cameraPos, newPosition, Time.deltaTime * acceleration);
+                lerpPosition.x = Mathf.Clamp(lerpPosition.x, cameraXPositionClamp.x, cameraXPositionClamp.y);
+                lerpPosition.z = Mathf.Clamp(lerpPosition.z, cameraZPositionClamp.x, cameraZPositionClamp.y);
+                cameraHolder.localPosition = lerpPosition;
+                timer = maxTimer;
+            }
+            else
+            {
+                timer -= Time.deltaTime;
+
+                if(timer <= 0)
+                {
+                    Vector3 cameraPos = cameraHolder.localPosition;
+                    Vector3 lerpPosition = Vector3.Lerp(cameraPos, Vector3.zero, Time.deltaTime * acceleration * .004f);
+                    cameraHolder.localPosition = lerpPosition;
+                }
+            }
+        }
+
+        public void ResetCamera()
+        {
+            cameraHolder.localPosition = Vector3.zero;
         }
     }
 }

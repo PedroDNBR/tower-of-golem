@@ -207,6 +207,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""fce03714-fc53-4479-80f6-8e696c24a588"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -275,6 +284,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""MouseAim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3bd6dc81-da59-4da8-9fe9-8875e7247b16"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""197f6450-1a30-43b1-9bd4-00a5ebe86525"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -331,6 +362,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Actions_SpecialSpell = m_Actions.FindAction("SpecialSpell", throwIfNotFound: true);
         m_Actions_AnalogicAim = m_Actions.FindAction("AnalogicAim", throwIfNotFound: true);
         m_Actions_MouseAim = m_Actions.FindAction("MouseAim", throwIfNotFound: true);
+        m_Actions_ResetCamera = m_Actions.FindAction("ResetCamera", throwIfNotFound: true);
         // Settings
         m_Settings = asset.FindActionMap("Settings", throwIfNotFound: true);
         m_Settings_Menu = m_Settings.FindAction("Menu", throwIfNotFound: true);
@@ -461,6 +493,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Actions_SpecialSpell;
     private readonly InputAction m_Actions_AnalogicAim;
     private readonly InputAction m_Actions_MouseAim;
+    private readonly InputAction m_Actions_ResetCamera;
     public struct ActionsActions
     {
         private @PlayerInput m_Wrapper;
@@ -469,6 +502,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @SpecialSpell => m_Wrapper.m_Actions_SpecialSpell;
         public InputAction @AnalogicAim => m_Wrapper.m_Actions_AnalogicAim;
         public InputAction @MouseAim => m_Wrapper.m_Actions_MouseAim;
+        public InputAction @ResetCamera => m_Wrapper.m_Actions_ResetCamera;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -490,6 +524,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MouseAim.started += instance.OnMouseAim;
             @MouseAim.performed += instance.OnMouseAim;
             @MouseAim.canceled += instance.OnMouseAim;
+            @ResetCamera.started += instance.OnResetCamera;
+            @ResetCamera.performed += instance.OnResetCamera;
+            @ResetCamera.canceled += instance.OnResetCamera;
         }
 
         private void UnregisterCallbacks(IActionsActions instance)
@@ -506,6 +543,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MouseAim.started -= instance.OnMouseAim;
             @MouseAim.performed -= instance.OnMouseAim;
             @MouseAim.canceled -= instance.OnMouseAim;
+            @ResetCamera.started -= instance.OnResetCamera;
+            @ResetCamera.performed -= instance.OnResetCamera;
+            @ResetCamera.canceled -= instance.OnResetCamera;
         }
 
         public void RemoveCallbacks(IActionsActions instance)
@@ -581,6 +621,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnSpecialSpell(InputAction.CallbackContext context);
         void OnAnalogicAim(InputAction.CallbackContext context);
         void OnMouseAim(InputAction.CallbackContext context);
+        void OnResetCamera(InputAction.CallbackContext context);
     }
     public interface ISettingsActions
     {
