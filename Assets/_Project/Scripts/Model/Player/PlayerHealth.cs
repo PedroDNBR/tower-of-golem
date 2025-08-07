@@ -4,6 +4,8 @@ namespace TW
 {
     public class PlayerHealth : BaseHealth
     {
+        public PlayerController playerController;
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
@@ -13,7 +15,8 @@ namespace TW
 
         private void StartDeath()
         {
-            DieServerRpc();
+            //DieServerRpc();
+            Die();
         }
 
         [ClientRpc(RequireOwnership = false)]
@@ -32,6 +35,7 @@ namespace TW
         private void Die()
         {
             InvokeHealthUpdateCallback();
+            playerController.Die();
         }
     }
 }

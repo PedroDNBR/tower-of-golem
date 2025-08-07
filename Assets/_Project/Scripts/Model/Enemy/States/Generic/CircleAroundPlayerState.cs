@@ -38,11 +38,11 @@ namespace TW
 
             time += Time.deltaTime;
 
-            // Calcula o ponto de destino relativo à posição atual do player
+            // Calcula o ponto de destino relativo ï¿½ posiï¿½ï¿½o atual do player
             Vector3 targetPos = baseAI.currentPlayerInsight.transform.position + relativeOffset;
             float distToTarget = Vector3.Distance(baseAI.transform.position, targetPos);
 
-            // Chegou perto da posição? Gera nova posição circular
+            // Chegou perto da posiï¿½ï¿½o? Gera nova posiï¿½ï¿½o circular
             if (distToTarget < baseAI.stoppingDistance + 0.4f)
             {
                 UpdateCircleTarget(baseAI);
@@ -55,7 +55,7 @@ namespace TW
 
         private void UpdateCircleTarget(BaseAI baseAI)
         {
-            // Novo ângulo e raio
+            // Novo ï¿½ngulo e raio
             relativeOffset = baseAI.GetLocationAroundPosition(7f, 10f);
         }
 
@@ -67,7 +67,6 @@ namespace TW
             {
                 baseAI.circlePos = hit.position;
                 baseAI.agent.SetDestination(hit.position);
-                if (baseAI.debugtest) Debug.Log($"[UPDATE] New circle pos: {hit.position}", baseAI);
             }
         }
     }

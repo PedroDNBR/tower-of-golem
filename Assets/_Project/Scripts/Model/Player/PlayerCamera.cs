@@ -6,7 +6,7 @@ namespace TW
     {
         [SerializeField] private float cameraHeight = 8.9f;
         [SerializeField] private float cameraDistance = -18.9f;
-        [SerializeField] private Transform cameraPivot;
+        [SerializeField] public Transform cameraPivot;
         [SerializeField] private Transform cameraHolder;
         [SerializeField] private Transform cameraTransform;
         [SerializeField] private Vector3 cameraRotation;

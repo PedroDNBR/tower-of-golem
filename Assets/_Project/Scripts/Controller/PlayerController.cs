@@ -1,8 +1,10 @@
+using System;
+using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 
 namespace TW
 {
-    [RequireComponent(typeof(PlayerMovement))]
     public class PlayerController : MonoBehaviour
     {
         private PlayerMovement playerMovement;
@@ -12,7 +14,11 @@ namespace TW
         private PlayerUI playerUI;
         private PlayerDealDamageOnCollision playerDealDamage;
 
+        [SerializeField]
+        GameObject playerBody;
+
         public PlayerUI PlayerUI { get => playerUI; }
+        public PlayerHealth PlayerHealth { get => playerHealth; }
 
         [Header("References")]
         public PlayerInput playerInput;
@@ -78,6 +84,7 @@ namespace TW
             playerCamera = GetComponent<PlayerCamera>();
             playerSpell = GetComponent<PlayerSpell>();
             playerHealth = GetComponent<PlayerHealth>();
+            playerHealth.playerController = this;
             playerUI = GetComponentInParent<PlayerUI>();
             playerUI.playerController = this;
             playerDealDamage = GetComponentInParent<PlayerDealDamageOnCollision>();
@@ -127,6 +134,34 @@ namespace TW
             lastMouseAim = mouseAim;
 
             playerCamera.MoveCamera(mouseAim);
+        }
+
+        public void Die()
+        {
+            DisableInput();
+            DieServer();
+        }
+
+        public void DieServer()
+        {
+            if (playerDealDamage != null) playerDealDamage.enabled = false;
+            if (playerMovement != null) playerMovement.enabled = false;
+            if (playerSpell != null) playerSpell.enabled = false;
+            if (playerHealth != null) playerHealth.enabled = false;
+            if (playerUI != null) playerUI.enabled = false;
+            if (playerBody != null) playerBody.SetActive(false);
+            if (playerCamera != null) playerCamera.enabled = false;
+
+            NetworkRigidbody netRb = GetComponent<NetworkRigidbody>();
+            if (netRb != null) netRb.enabled = false;
+
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.velocity = Vector3.zero;
+                rb.isKinematic = true;
+            }
+            enabled = false;
         }
     }
 }

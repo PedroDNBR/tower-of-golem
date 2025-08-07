@@ -81,7 +81,6 @@ namespace TW
         // FSM API
         public void SwitchState(IAIState newState)
         {
-            if(debugtest) Debug.Log($"Exiting {currentState} and Entering {newState}");
             currentState?.Exit(this);
             currentState = newState;
             currentState?.Enter(this);

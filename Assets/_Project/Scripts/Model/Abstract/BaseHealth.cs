@@ -59,6 +59,24 @@ namespace TW
 
         public void InvokeDead()
         {
+            InvokeDeadServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership=false)]
+        private void InvokeDeadServerRpc()
+        {
+            InvokeDeadClientRpc();
+            InvokeDeadLocal();
+        }
+
+        [ClientRpc(RequireOwnership = false)]
+        private void InvokeDeadClientRpc()
+        {
+            InvokeDeadLocal();
+        }
+
+        public void InvokeDeadLocal()
+        {
             Dead?.Invoke();
             Dead = null;
         }

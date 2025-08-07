@@ -27,7 +27,7 @@ namespace TW
 
         private void OnEnable()
         {
-            enabled = NetworkGameManager.Singleton.IsServer;
+            enabled = NetworkManager.Singleton.IsServer;
         }
 
         private void Start()

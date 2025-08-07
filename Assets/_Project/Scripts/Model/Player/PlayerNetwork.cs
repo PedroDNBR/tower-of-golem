@@ -54,11 +54,11 @@ namespace TW
 
             onCollision.enabled = true;
 
-            if(IsServer)
-            {
-                //playerController.SetComponentsVariables();
-                //playerController.Init();
-            }
+            //if(IsServer)
+            //{
+            //    //playerController.SetComponentsVariables();
+            //    //playerController.Init();
+            //}
 
             BossArea.instance.BossSpawned += () => EnableBossUIServerRpc(true);
         }
@@ -109,6 +109,22 @@ namespace TW
                 Invoke(nameof(SetBossUIInPlayerVisibleFalse), .2f);
             else
                 playerUI.SetBossUIInPlayerVisible(false);
+        }
+
+        public void HandlePlayerDestroyAndSpectator()
+        {
+            HandlePlayerDestroyAndSpectatorServerRpc();
+        }
+
+        [ServerRpc]
+        public void HandlePlayerDestroyAndSpectatorServerRpc()
+        {
+            Debug.Log("HandlePlayerDeathAndSpectatorServerRpc");
+            if (!IsServer) return;
+            Debug.Log("HandlePlayerDeathAndSpectatorServerRpc is server");
+            ulong id = networkObject.OwnerClientId;
+            ((NetworkGameManager)NetworkManager.Singleton).SpawnSpectator(id);
+            ((NetworkGameManager)NetworkManager.Singleton).DespawnPlayer(networkObject);
         }
     }
 }

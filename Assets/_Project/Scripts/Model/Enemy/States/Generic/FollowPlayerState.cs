@@ -29,19 +29,15 @@ namespace TW
 
                     float angle = Vector2.Angle(baseAI.transform.position, dir);
                     baseAI.currentSnapshot = baseAI.GetAction(dist, angle);
-                    Debug.Log("FollowPlayerState baseAI.currentSnapshot = baseAI.GetAction(dist, angle)");
-                    Debug.Log(baseAI.currentSnapshot);
-
+                    
                     if (baseAI.currentSnapshot != null)
                     {
-                        Debug.Log("FollowPlayerState SwitchState(States.attackPlayerState)");
                         baseAI.SwitchState(States.attackPlayerState);
                         return;
                     }
 
                 }
             }
-            Debug.Log("FollowPlayerState SetDestination and HandleRotation");
             baseAI.agent.SetDestination(baseAI.currentPlayerInsight.transform.position);
             baseAI.HandleRotation();
         }

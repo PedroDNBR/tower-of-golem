@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    m_InternalValue: 15
+    m_InternalValue: 12
   health:
     m_InternalValue: 0
   type: 0

@@ -7023,6 +7023,8 @@ MonoBehaviour:
   LogLevel: 1
   newPlayerPrefab: {fileID: 552111577364598430, guid: da8f98683416ebe40b7ccc986383195c,
     type: 3}
+  spectatorPrefab: {fileID: 8936496571863065363, guid: 9c774d08577a4874f86a6c0a55a8e733,
+    type: 3}
   dialogue: {fileID: 2565036662877947086, guid: 299988d6ecdd4ff42bb0e33b63ca19b5,
     type: 3}
 --- !u!114 &1296227345
