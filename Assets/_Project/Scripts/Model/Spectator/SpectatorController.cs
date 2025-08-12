@@ -46,7 +46,11 @@ namespace TW
                     var netObj = player.GetComponentInParent<NetworkObject>();
                     if (netObj != null && netObj.OwnerClientId == current)
                     {
+                        if(playerToSpectateTransform != null)
+                            playerToSpectateTransform.GetComponent<BaseHealth>().Dead -= OnPlayerDies;
+
                         playerToSpectateTransform = player.transform;
+                        playerToSpectateTransform.GetComponent<BaseHealth>().Dead += OnPlayerDies;
                         return;
                     }
                 }
@@ -54,6 +58,8 @@ namespace TW
 
             RequestInitialSpectateServerRpc();
         }
+
+        private void OnPlayerDies() => RequestInitialSpectateServerRpc();
 
         [ServerRpc(RequireOwnership = false)]
         private void RequestInitialSpectateServerRpc(ServerRpcParams rpcParams = default)
@@ -98,7 +104,7 @@ namespace TW
         private void SpectatePlayerByOffset(int offset)
         {
             var aliveKeys = ((NetworkGameManager)NetworkManager.Singleton).players
-                .Where(p => p.Value != null && p.Value.GetComponentInChildren<PlayerController>() != null)
+                .Where(p => p.Value != null && p.Value.GetComponentInChildren<PlayerController>() != null && p.Value.GetComponentInChildren<BaseHealth>().health.Value > 0)
                 .Select(p => p.Key)
                 .OrderBy(k => k)
                 .ToList();

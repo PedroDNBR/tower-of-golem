@@ -45,10 +45,16 @@ namespace TW
             base.TakeDamage(damageType, damage, origin);
             damageUntilStagger += damage * DamageMultiplier.table[type][damageType];
 
+
+
             if (health.Value > 0 && damageUntilStagger > maxDamageUntilStagger)
             {
                 enemyController.AnimatorController.PlayTargetAnimation(hittedAnimNameString, true);
                 damageUntilStagger = 0;
+            }
+            else
+            {
+                enemyController.AnimatorController.PlayTargetAnimation("Damage");
             }
         }
     }

@@ -58,7 +58,7 @@ namespace TW
                 networkObject.SpawnAsPlayerObject(client, true);
                 players.Add(client, networkObject);
 
-                if (ConnectedClients.Count > 1) networkObject.GetComponentInChildren<BaseHealth>().Dead += CheckAllPlayersDied;
+                if (ConnectedClients.Count > 1) networkObject.GetComponentInChildren<BaseHealth>().Dead += () => Invoke(nameof(CheckAllPlayersDied), .1f);
             }
         }
 
@@ -140,7 +140,7 @@ namespace TW
             Debug.Log("someone died");
 
             var aliveKeys = players
-                .Where(p => p.Value != null && p.Value.GetComponentInChildren<PlayerController>() != null && p.Value.GetComponentInChildren<PlayerController>().enabled)
+                .Where(p => p.Value != null && !p.Value.IsLocalPlayer && p.Value.GetComponentInChildren<PlayerHealth>() != null && p.Value.GetComponentInChildren<PlayerHealth>().health.Value >= 0)
                 .ToList();
 
             Debug.Log($"{aliveKeys.Count} aliveKeys.Count");

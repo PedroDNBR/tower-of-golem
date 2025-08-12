@@ -38,6 +38,8 @@ namespace TW
                 DialogueMenu.instance.OnDialogStarted += DisableInput;
                 DialogueMenu.instance.OnDialogEnded += SetupPlayerInputs;
             }
+
+            Cursor.lockState = CursorLockMode.Confined;
         }
 
         private void SetupPlayerInputs()
