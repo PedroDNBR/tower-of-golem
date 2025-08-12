@@ -34,6 +34,7 @@ namespace TW
 
         Dictionary<Spell, bool> specialSpellsUsageList = new Dictionary<Spell, bool>();
 
+        private bool canUseSpecial = true;
 
         private float timer = 0f;
 
@@ -116,7 +117,7 @@ namespace TW
 
         public void ShootSpecialInput()
         {
-            if (timer > attackDelay.Value + lastShot.Value)
+            if (canUseSpecial)
             {
                 if (!IsServer)
                 {
@@ -128,8 +129,12 @@ namespace TW
                     ShootSpecial(); // host tamb�m precisa ver o visual
                     ShootSpecialClientRpc(); // envia pra todos os outros clients
                 }
+                canUseSpecial = false;
+                Invoke(nameof(ResetCanUseSpecial), 0.5f);
             }
         }
+
+        private void ResetCanUseSpecial() => canUseSpecial = true;
 
         public void ShootSpecial()
         {
