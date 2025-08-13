@@ -622,7 +622,7 @@ MonoBehaviour:
   minimumDistanceNeededToBeginFall: 0.45
   groundLayer:
     serializedVersion: 2
-    m_Bits: 9216
+    m_Bits: 11264
   movementInput: {x: 0, y: 0, z: 0}
 --- !u!114 &5600468618133938786
 MonoBehaviour:
