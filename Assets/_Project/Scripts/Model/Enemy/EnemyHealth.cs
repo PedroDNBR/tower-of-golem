@@ -45,8 +45,6 @@ namespace TW
             base.TakeDamage(damageType, damage, origin);
             damageUntilStagger += damage * DamageMultiplier.table[type][damageType];
 
-
-
             if (health.Value > 0 && damageUntilStagger > maxDamageUntilStagger)
             {
                 enemyController.AnimatorController.PlayTargetAnimation(hittedAnimNameString, true);
@@ -56,6 +54,12 @@ namespace TW
             {
                 enemyController.AnimatorController.PlayTargetAnimation("Damage");
             }
+        }
+
+        public void TakeDamage(Elements damageType, float damage, PlayerController player)
+        {
+            TakeDamage(damageType, damage, player.gameObject);
+            enemyController.BaseAI.RegisterDamage(player, damage);
         }
     }
 }

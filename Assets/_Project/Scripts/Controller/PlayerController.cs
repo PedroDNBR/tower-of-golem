@@ -85,11 +85,13 @@ namespace TW
             playerMovement = GetComponent<PlayerMovement>();
             playerCamera = GetComponent<PlayerCamera>();
             playerSpell = GetComponent<PlayerSpell>();
+            playerSpell.playerController = this;
             playerHealth = GetComponent<PlayerHealth>();
             playerHealth.playerController = this;
             playerUI = GetComponentInParent<PlayerUI>();
             playerUI.playerController = this;
             playerDealDamage = GetComponentInParent<PlayerDealDamageOnCollision>();
+            playerDealDamage.playerController = this;
             playerSpell.PlayerCamera = playerCamera.PlayerCameraObj;
         }
 

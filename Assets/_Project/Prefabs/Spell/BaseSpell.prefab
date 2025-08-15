@@ -161,6 +161,7 @@ MonoBehaviour:
   damage: 2
   element: 0
   destroyWhenDamage: 1
+  playerController: {fileID: 0}
 --- !u!135 &2700313149897311097
 SphereCollider:
   m_ObjectHideFlags: 0

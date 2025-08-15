@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System;
 using Unity.Netcode;
+using System.Collections.Generic;
 
 namespace TW
 {
@@ -77,6 +78,10 @@ namespace TW
 
         public string currentStateName;
 
+        protected Dictionary<PlayerController, ThreatData> threatTable = new();
+
+        protected float decayRate = .2f;
+
 
         // FSM API
         public void SwitchState(IAIState newState)
@@ -116,6 +121,11 @@ namespace TW
                         return;
                     }
                 }
+            }
+
+            foreach (var kvp in threatTable)
+            {
+                kvp.Value.recentDamage = Mathf.Max(0, kvp.Value.recentDamage - Time.deltaTime * decayRate);
             }
         }
 
@@ -300,6 +310,54 @@ namespace TW
                 if (agent.speed != walkSpeed)
                     agent.speed = walkSpeed;
             }
+        }
+
+        public void RegisterDamage(PlayerController player, float damage)
+        {
+            if (!threatTable.ContainsKey(player))
+                threatTable[player] = new ThreatData();
+
+            var data = threatTable[player];
+            data.totalDamage += damage;
+            data.recentDamage += damage;
+            data.lastDamageTime = Time.time;
+        }
+
+        public PlayerController GetBestTarget()
+        {
+            PlayerController bestTarget = null;
+            float bestScore = float.MinValue;
+
+            foreach (var kvp in threatTable)
+            {
+                var p = kvp.Key;
+                var d = kvp.Value;
+
+
+                if (p == null || p.PlayerHealth.Health <= 0) // <- Checa se é válido
+                    continue;
+
+                float score = d.totalDamage * 1.5f;
+
+                if (Time.time - d.lastDamageTime <= 5f)
+                    score += d.recentDamage * 2f;
+
+                float dist = Vector3.Distance(transform.position, p.transform.position);
+                score += Mathf.Clamp(15f - dist, 0f, 15f); // <- Clamp da distância
+
+                score += UnityEngine.Random.Range(0f, 2f);
+
+                // Debug.Log($"checking if {p} is a good threat {d.totalDamage} {d.recentDamage} {Time.time - d.lastDamageTime <= 5f} {dist}");
+
+
+                if (score > bestScore)
+                {
+                    bestScore = score;
+                    bestTarget = p;
+                }
+            }
+
+            return bestTarget;
         }
 
         protected virtual void OnDrawGizmos()

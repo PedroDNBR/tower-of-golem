@@ -26,9 +26,11 @@ namespace TW
 
         bool alreadyDamagedEnemy = false;
 
+        public PlayerController playerController;
+
         private void Start()
         {
-            rigid = GetComponent<Rigidbody>();  
+            rigid = GetComponent<Rigidbody>();
         }
 
         private void FixedUpdate()
@@ -105,7 +107,7 @@ namespace TW
                 Debug.Log($"DAMAGE CONFIRMED {impactVelocity}", enemy);
 
                 if (!NetworkManager.Singleton.IsServer) return;
-                enemy.TakeDamage(type, impactVelocity * damageMultiplier, gameObject);
+                enemy.TakeDamage(type, impactVelocity * damageMultiplier, playerController);
             }
             
         }

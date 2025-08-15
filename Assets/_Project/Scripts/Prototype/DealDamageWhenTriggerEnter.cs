@@ -15,6 +15,9 @@ namespace TW
         [SerializeField]
         bool destroyWhenDamage = false;
 
+        [HideInInspector]
+        public PlayerController playerController;
+
         protected void OnNetworkSpawn()
         {
             this.enabled = IsServer;
@@ -49,7 +52,13 @@ namespace TW
 
             if(characterBaseHealth == health) return;
 
-            health.TakeDamage(element, damage, gameObject);
+            if (playerController != null && health is EnemyHealth)
+            {
+                Debug.Log("is playerController and is hitting enemy");
+                (health as EnemyHealth).TakeDamage(element, damage, playerController);
+            }
+            else
+                health.TakeDamage(element, damage, gameObject);
 
             if (destroyWhenDamage) Destroy(gameObject);
         }

@@ -15,6 +15,8 @@ namespace TW
 
         private Dictionary<PlayerController, List<BaseAI>> engagements = new();
 
+        private readonly List<BaseAI> activeEnemies = new();
+
         private void Awake()
         {
             if(!NetworkManager.Singleton.IsServer) Destroy(gameObject);
@@ -28,25 +30,16 @@ namespace TW
             StartCoroutine(CoordinateCombatLoop());
         }
 
-        public void Register(BaseAI knight)
+        public void Register(BaseAI ai)
         {
-            if (knight.currentPlayerInsight == null) return;
-            if (!engagements.ContainsKey(knight.currentPlayerInsight))
-                engagements[knight.currentPlayerInsight] = new List<BaseAI>();
-
-            if (!engagements[knight.currentPlayerInsight].Contains(knight))
-                engagements[knight.currentPlayerInsight].Add(knight);
+            if (!activeEnemies.Contains(ai))
+                activeEnemies.Add(ai);
         }
 
-        public void Unregister(Knight knight)
+        public void Unregister(BaseAI ai)
         {
-            if (knight.currentPlayerInsight == null) return;
-            if (engagements.ContainsKey(knight.currentPlayerInsight))
-            {
-                engagements[knight.currentPlayerInsight].Remove(knight);
-                if (engagements[knight.currentPlayerInsight].Count == 0)
-                    engagements.Remove(knight.currentPlayerInsight);
-            }
+            if (activeEnemies.Contains(ai))
+                activeEnemies.Remove(ai);
         }
 
         private IEnumerator CoordinateCombatLoop()
@@ -54,19 +47,42 @@ namespace TW
             while (true)
             {
                 yield return new WaitForSeconds(checkInterval);
+
                 //Debug.Log(engagements.Count);
-                foreach (var kvp in engagements)
-                    CoordinateAttackersForPlayer(kvp.Key, kvp.Value);
+                CoordinateAll();
+            }
+        }
+
+        private void CoordinateAll()
+        {
+            foreach (var ai in activeEnemies)
+            {
+                Debug.Log(ai);
+                if (ai == null) continue;
+
+
+                var bestTarget = ai.GetBestTarget();
+                if (bestTarget != null)
+                    ai.currentPlayerInsight = bestTarget;
+            }
+
+            var groups = activeEnemies
+                .Where(ai => ai != null && ai.currentPlayerInsight != null)
+                .GroupBy(ai => ai.currentPlayerInsight);
+
+            foreach (var group in groups)
+            {
+                CoordinateAttackersForPlayer(group.Key, group.ToList());
             }
         }
 
         private void CoordinateAttackersForPlayer(PlayerController player, List<BaseAI> enemies)
         {
-            Debug.Log(player);
-            Debug.Log(enemies.Count);
             if (player == null || enemies.Count == 0) return;
 
-            List<BaseAI> sorted = enemies.OrderBy(k => Vector3.Distance(k.transform.position, player.transform.position)).ToList();
+            List<BaseAI> sorted = enemies
+                .OrderBy(k => Vector3.Distance(k.transform.position, player.transform.position))
+                .ToList();
 
             for (int i = 0; i < sorted.Count; i++)
             {
@@ -75,14 +91,12 @@ namespace TW
 
                 if (i < maxAttackersPerPlayer)
                 {
-                    if (knight.debugtest) Debug.Log($"Force to switch to {knight.followPlayerState}", knight);
                     if (knight.CurrentState != knight.followPlayerState)
                         knight.SwitchState(knight.followPlayerState);
                 }
                 else
                 {
-                    if (knight.debugtest) Debug.Log($"Force to switch to {States.circleAroundPlayerState}", knight);
-                    if(knight.CurrentState != States.circleAroundPlayerState) 
+                    if (knight.CurrentState != States.circleAroundPlayerState)
                         knight.SwitchState(States.circleAroundPlayerState);
                 }
             }

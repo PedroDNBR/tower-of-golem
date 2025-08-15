@@ -9,7 +9,7 @@ namespace TW
             baseAI.agent.stoppingDistance = baseAI.stoppingDistance;
             if (AICommander.Instance != null)
                 AICommander.Instance.Register(baseAI as Knight);
-    }
+        }
 
         public void Execute(BaseAI baseAI)
         {
@@ -37,15 +37,7 @@ namespace TW
                         baseAI.SwitchState(KnightStates.attackPlayerState);
                         return;
                     }
-
                 }
-            }
-             
-
-            if (dist < baseAI.minAttackDistance)
-            {
-                baseAI.SwitchState(KnightStates.backingOffState);
-                return;
             }
 
             baseAI.agent.SetDestination(baseAI.currentPlayerInsight.transform.position);

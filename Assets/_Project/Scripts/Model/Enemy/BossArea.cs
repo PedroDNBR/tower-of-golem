@@ -81,7 +81,7 @@ namespace TW
         {
             for (int i = 0; i < playersInArea.Count; i++)
             {
-                playersInArea[i].PlayerUI.SetBossUIInPlayerVisible( false);
+                if(playersInArea[i].PlayerUI != null) playersInArea[i].PlayerUI.SetBossUIInPlayerVisible( false);
             }
             if(boss != null) boss.UnsetHealthListener();
         }

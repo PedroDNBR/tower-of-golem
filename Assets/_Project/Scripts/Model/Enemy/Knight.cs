@@ -27,7 +27,7 @@ namespace TW
             };
         }
 
-        protected override void SetFollowPlayerState() => followPlayerState = States.followPlayerState;
+        protected override void SetFollowPlayerState() => followPlayerState = KnightStates.followPlayerState;
 
 
         public BaseAI GetBlockingEnemy()

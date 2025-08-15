@@ -38,6 +38,9 @@ namespace TW
 
         private float timer = 0f;
 
+        [HideInInspector]
+        public PlayerController playerController;
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();  
@@ -167,6 +170,11 @@ namespace TW
                 projectile.Speed = spell.speed;
                 projectile.Gravity = spell.gravity;
             }
+
+            DealDamageWhenTriggerEnter dealDamageWhenTriggerEnter = spellCasted.GetComponent<DealDamageWhenTriggerEnter>();
+            dealDamageWhenTriggerEnter.playerController = playerController;
+
+
         }
 
         private void Update()

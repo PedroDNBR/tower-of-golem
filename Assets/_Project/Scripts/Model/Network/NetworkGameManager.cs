@@ -58,7 +58,7 @@ namespace TW
                 networkObject.SpawnAsPlayerObject(client, true);
                 players.Add(client, networkObject);
 
-                if (ConnectedClients.Count > 1) networkObject.GetComponentInChildren<BaseHealth>().Dead += () => Invoke(nameof(CheckAllPlayersDied), .1f);
+                if (ConnectedClients.Count > 1) networkObject.GetComponentInChildren<BaseHealth>().Dead += () => Invoke(nameof(CheckAllPlayersDied), 1f);
             }
         }
 

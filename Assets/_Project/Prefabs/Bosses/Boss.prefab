@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    m_InternalValue: 200
+    m_InternalValue: 120
   health:
     m_InternalValue: 0
   type: 0
@@ -353,9 +353,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d0459faeb10bc44b4d79d70f5968d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 30
+  damage: 15
   element: 4
   destroyWhenDamage: 0
+  playerController: {fileID: 0}
 --- !u!1001 &5345068666645357953
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -976,9 +977,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d0459faeb10bc44b4d79d70f5968d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 30
+  damage: 20
   element: 0
   destroyWhenDamage: 0
+  playerController: {fileID: 0}
 --- !u!1 &1776487484129085460 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5947608410182036885, guid: cf89f13d9e807364ab8095a7f55ad58c,
