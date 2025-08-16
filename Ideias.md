@@ -127,45 +127,31 @@ O golem, tomado pela insanidade após assassinar muitos seres, esquece seu objet
 
 #### Golem entra na torre - Jogável
 
-1. Golem anda pelo primeiro andar da torre, e se depara com vários seres de pedra, alguns hostis, outros não
+1. Golem anda pelo primeiro andar da torre, e se depara com vários seres de fogo, alguns hostis, outros não
 
-##### Solo
+##### Rotas
 
 ##### Rota boa
-1. Após derrotar os seres hostis, ele avista um ser de gigante de pedra, que se autointitula guardião.
-- O guardião de Pedra conta que a torre está desmoronando, os outros guardiões que mantinham a torre erguida estão em disputa pelo poder da torre
+1. Após derrotar os seres hostis, ele avista um ser de gigante de fogo, que se autointitula guardião.
+- O guardião fica irritado por voce ter invadido seus territórios, iniciando a bossfight
+- Ao derrotar o boss, o jogador adquire o poder da joia de fogo
+- Passa para o próximo andar
+
+2. Ao subir de andar, ele se depara com vários seres de pedra, todos eles são pacíficos
+- Ao chegar na do guardião, o guardião de Pedra conta que a torre está desmoronando, os outros guardiões que mantinham a torre erguida estão em disputa pelo poder da torre
 - Por causa do conflito, os seres que habitam os andares estão perdendo sua essência e se tornando hostis, trazendo mais caos ainda a torre
-- O golem não quis perder seu primeiro e único contato com a torre e outros seres, então decidiu tentar reestabelecer o equilíbrio da torre
-- Irá este mísero golem conseguir derrotar os tão poderosos guardiões que mantém uma torre de pé?
+- O golem não quis perder seu contato com a torre e outros seres, então decidiu tentar reestabelecer o equilíbrio da torre
+- O guardião cede sua joia de pedra para que o golem consiga atingir este objetivo
 - Passa para o próximo andar
 
 ##### Rota ruim
-1. Após derrotar os absolutamente TODOS os seres, ele avista um ser de gigante de pedra, que se autointitula guardião.
+1. Após derrotar os absolutamente TODOS os seres, ele avista um ser de gigante de fogo, que se autointitula guardião.
 - Ele se enfurece pelo fato do jogador ter matado todos os seres, vai para cima do jogador, iniciando a bossfight
-- Ao derrotar o boss, o jogador passa para o próximo andar
-
-##### Coop
-
-##### Rota boa
-1. Após derrotar os seres hostis, ele avista um ser de gigante de pedra, que se autointitula guardião.
-- O guardião de Pedra conta que a torre está desmoronando, os outros guardiões que mantinham a torre erguida estão em disputa pelo poder da torre
-- Por causa do conflito, os seres que habitam os andares estão perdendo sua essência e se tornando hostis, trazendo mais caos ainda a torre
-- O golem não quis perder seu primeiro e único contato com a torre e outros seres, então decidiu tentar reestabelecer o equilíbrio da torre
-- O guardião percebe as essencias de outros golems dentro do golem do jogador, e cria um novo corpo para eles, porém, mais frágil do que o originalmente
-- Irá estes míseros golems conseguir derrotar os tão poderosos guardiões que mantém uma torre de pé?
+- Ao derrotar o boss, o jogador adquire o poder da joia de fogo
 - Passa para o próximo andar
 
-##### Rota ruim
-1. Após derrotar os absolutamente TODOS os seres, ele avista um ser de gigante de pedra, que se autointitula guardião.
-- Ele se enfurece pelo fato do jogador ter matado todos os seres, vai para cima do jogador, iniciando a bossfight
-- Ao derrotar o boss, o jogador adquire o poder da jóia de pedra, e com isso, percebe que pode restaurar o corpo das essências de golems que habitam dentro dele
-- Como o golem recém adquiriu seus poderes, os golems são mais fracos do que o golem formado pelo guardão da rota boa
-
-#### Golem sobe para o segundo andar  - Jogável
-
-1. 
-
-
-
-
+2. Ao subir de andar, ele se depara com vários seres de pedra, todos eles são pacíficos
+- Caso o jogador, ainda sim, decida atacar os seres pacíficos, o guardião de pedra irá revidar e iniciar uma bossfight, onde os seres e o boss lutarão juntos
+- Ao derrotar o boss, o jogador adquire o poder da joia de pedra
+- Passa para o próximo andar
 
