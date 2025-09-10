@@ -57,7 +57,6 @@ namespace TW
         {
             foreach (var ai in activeEnemies)
             {
-                Debug.Log(ai);
                 if (ai == null) continue;
 
 

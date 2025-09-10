@@ -3215,7 +3215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df1fba88dea38e048ae3f8fc0837e3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMinionDeath: 5
+  minMinionDeath: 1
 --- !u!114 &250904258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8281,7 +8281,7 @@ PrefabInstance:
     - target: {fileID: 7982349141218042646, guid: 446a626d77e1c52459ec113258789ca2,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

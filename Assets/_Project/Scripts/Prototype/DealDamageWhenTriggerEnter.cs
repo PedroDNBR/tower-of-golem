@@ -18,9 +18,10 @@ namespace TW
         [HideInInspector]
         public PlayerController playerController;
 
-        protected void OnNetworkSpawn()
+        public override void OnNetworkSpawn()
         {
-            this.enabled = IsServer;
+            base.OnNetworkSpawn();
+            // this.enabled = IsServer;
         }
 
         private void Start()
@@ -37,30 +38,36 @@ namespace TW
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!NetworkManager.Singleton.IsServer) return;
-            ShouldReceiveDamage shouldReceiveDamage = other.GetComponent<ShouldReceiveDamage>();
-            if (shouldReceiveDamage == null) return;
-
-            BaseHealth health = other.GetComponent<BaseHealth>();
-            if(health == null)
-                health = other.GetComponentInChildren<BaseHealth>();
-
-            if (health == null)
-                health = other.GetComponentInParent<BaseHealth>();
-
-            if (health == null) return;
-
-            if(characterBaseHealth == health) return;
-
-            if (playerController != null && health is EnemyHealth)
+            try
             {
-                Debug.Log("is playerController and is hitting enemy");
-                (health as EnemyHealth).TakeDamage(element, damage, playerController);
-            }
-            else
-                health.TakeDamage(element, damage, gameObject);
+                if (NetworkManager.Singleton != null && !NetworkManager.Singleton.IsServer) return;
 
-            if (destroyWhenDamage) Destroy(gameObject);
+                ShouldReceiveDamage shouldReceiveDamage = other.GetComponent<ShouldReceiveDamage>();
+                if (shouldReceiveDamage == null) return;
+
+                BaseHealth health = other.GetComponent<BaseHealth>();
+                if (health == null)
+                    health = other.GetComponentInChildren<BaseHealth>();
+
+                if (health == null)
+                    health = other.GetComponentInParent<BaseHealth>();
+
+                if (health == null) return;
+
+                if (characterBaseHealth == health) return;
+
+                if (playerController != null && health is EnemyHealth)
+                {
+                    Debug.Log("is playerController and is hitting enemy");
+                    (health as EnemyHealth).TakeDamage(element, damage, playerController);
+                }
+                else
+                    health.TakeDamage(element, damage, gameObject);
+            }
+            finally
+            {
+                if (destroyWhenDamage) Destroy(gameObject);
+            }
         }
     }
 }

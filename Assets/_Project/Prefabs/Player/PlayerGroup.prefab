@@ -606,11 +606,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed:
-    m_InternalValue: 38
+    m_InternalValue: 52
   jump:
-    m_InternalValue: 4
+    m_InternalValue: 5.5
   dash:
-    m_InternalValue: 4.8
+    m_InternalValue: 6.6
   dashTime:
     m_InternalValue: 1.3
   dashCost:
@@ -683,6 +683,7 @@ MonoBehaviour:
   damageMultiplier: 0.666
   totalVelocity:
     m_InternalValue: 0
+  playerController: {fileID: 0}
 --- !u!114 &5849677362932171861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,6 +711,7 @@ MonoBehaviour:
     m_InternalValue: 1.5
   lastShot:
     m_InternalValue: 0
+  playerController: {fileID: 0}
 --- !u!135 &1032130902557192982
 SphereCollider:
   m_ObjectHideFlags: 0

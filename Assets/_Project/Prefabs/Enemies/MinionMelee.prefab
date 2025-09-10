@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5416c745d4712be4a9ef9c749868ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugTarget: {fileID: 0}
 --- !u!1 &5574460314262345115
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,6 +93,7 @@ MonoBehaviour:
   damage: 6
   element: 4
   destroyWhenDamage: 0
+  playerController: {fileID: 0}
 --- !u!135 &4150141158837589916
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -518,6 +520,7 @@ MonoBehaviour:
   damage: 5
   element: 0
   destroyWhenDamage: 0
+  playerController: {fileID: 0}
 --- !u!1001 &6531364258948209919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1005,7 +1008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackAttackDataList:
   - attackName: ThrowMagic
-    attackPrefab: {fileID: 5294890440175974610, guid: 84541bdce1226814789c57a20e24e074,
+    attackPrefab: {fileID: 4209747041792890355, guid: 9ea27cfc91adf744a8d8f83113a7863a,
       type: 3}
     origin: {fileID: 5231865688753884742}
 --- !u!4 &6714489143792450324 stripped
