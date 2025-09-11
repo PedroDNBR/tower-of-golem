@@ -13,10 +13,10 @@ namespace TW
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("COLIDIU");
-            Debug.Log(projectile);
             if (projectile == null) return;
             Invoke(nameof(StopProjectile), 0.01f);
+
+            transform.parent = other.transform;
             
         }
 

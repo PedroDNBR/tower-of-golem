@@ -16,6 +16,8 @@ namespace TW
 
         private Dictionary<string, AttackInstanceData> attacks = new Dictionary<string, AttackInstanceData>();
 
+        private ProjectileTracker projectileTracker;
+
         private void Awake()
         {
             for (int i = 0; i < attackAttackDataList.Count; i++)
@@ -25,6 +27,8 @@ namespace TW
                 attackInstanceData.origin = attackAttackDataList[i].origin;
                 attacks.Add(attackAttackDataList[i].attackName, attackInstanceData);
             }
+
+            projectileTracker = GetComponent<ProjectileTracker>();
         }
 
         public void SpawnAttack(string name)
@@ -38,6 +42,8 @@ namespace TW
         {
             attacks[name].origin.gameObject.SetActive(true);
             GameObject damageOnEnterObj = Instantiate(attacks[name].attackPrefab, attacks[name].origin.position, attacks[name].origin.rotation);
+            if (damageOnEnterObj.GetComponent<AddToTrackedProjectiles>() != null)
+                if (projectileTracker != null) damageOnEnterObj.GetComponent<AddToTrackedProjectiles>().AddToTracker(projectileTracker);
             if (!IsServer) return;
             if (damageOnEnterObj.GetComponent<DealDamageWhenTriggerEnter>() != null)
                 damageOnEnterObj.GetComponent<DealDamageWhenTriggerEnter>().CharacterBaseHealth = originHealth;

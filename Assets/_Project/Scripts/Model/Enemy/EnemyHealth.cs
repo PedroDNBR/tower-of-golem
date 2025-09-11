@@ -35,7 +35,7 @@ namespace TW
 
         protected virtual void FixedUpdate()
         {
-            if (!NetworkManager.Singleton.IsServer) return;
+            if (NetworkManager.Singleton != null && !NetworkManager.Singleton.IsServer) return;
             totalVelocity = ((transform.position - previousPosition) / Time.deltaTime).magnitude;
             previousPosition = transform.position;
         }
