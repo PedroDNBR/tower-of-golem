@@ -25098,7 +25098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &952939397
 Transform:
   m_ObjectHideFlags: 0
@@ -25150,7 +25150,7 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 9216
-  spawnParticle: {fileID: 7063661158082822491, guid: 91dfa385bae46894a85a1438a2708a4e,
+  spawnParticle: {fileID: 7063661158082822491, guid: 175266831ae168f489b7151717a57058,
     type: 3}
   spawnInterval: 0.002
 --- !u!54 &952939400
