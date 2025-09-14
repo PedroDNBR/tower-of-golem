@@ -22,7 +22,6 @@ namespace TW
                 yield return new WaitForSeconds(3f);
 
                 var bestTarget = GetBestTarget();
-                Debug.Log($"BOSS best target is {bestTarget}");
                 if (bestTarget != null)
                     currentPlayerInsight = bestTarget;
             }

@@ -645,8 +645,8 @@ MonoBehaviour:
   playerCamera: {fileID: 5631482420806600649}
   edgeThresholdX: 0.2
   edgeThresholdY: 0.2
-  maxSpeed: 110
-  acceleration: 25
+  maxSpeed: 120
+  acceleration: 40
   OverrideCameraPosition: {x: 0, y: 0, z: 0}
   cameraXPositionClamp: {x: -5, y: 5}
   cameraZPositionClamp: {x: -15, y: 5}
@@ -2922,7 +2922,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4429724988469936802, guid: a89ff7b6e5fdd724081bfc65de652c79,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8332211551417565949}
   m_SourcePrefab: {fileID: 100100000, guid: a89ff7b6e5fdd724081bfc65de652c79, type: 3}
 --- !u!1 &202273255927207686 stripped
 GameObject:
@@ -2930,6 +2934,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4591161555557963172}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8332211551417565949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202273255927207686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14ba2a719ce8a404da3547e87441f94c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraToShake: {fileID: 5631482420806600649}
 --- !u!4 &1042553525057326993 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3585131335022926389, guid: a89ff7b6e5fdd724081bfc65de652c79,

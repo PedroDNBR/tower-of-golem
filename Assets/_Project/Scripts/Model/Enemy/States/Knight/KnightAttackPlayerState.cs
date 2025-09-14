@@ -27,9 +27,9 @@ namespace TW
                 return;
             }
 
-            if (!knight.isBusy)
+            if (!knight.enemyController.AnimatorController.GetIsBusyBool())
             {
-                if (!knight.actionFlag)
+                if (!knight.actionFlag && baseAI.recoveryTimer <= 0)
                 {
                     if(baseAI.currentSnapshot == null)
                     {
@@ -49,6 +49,7 @@ namespace TW
                         knight.actionFlag = true;
                     }
                 }
+                baseAI.SwitchState(KnightStates.followPlayerState);
             }
             knight.HandleRotation(true);
         }

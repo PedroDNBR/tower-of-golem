@@ -16,9 +16,6 @@ namespace TW
 
             if (baseAI.currentPlayerInsight != null)
             {
-                Debug.Log("Player found");
-                Debug.Log($"SwitchState({baseAI.followPlayerState})");
-
                 baseAI.SwitchState(baseAI.followPlayerState);
                 return;
             }

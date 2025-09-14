@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using System;
 using Unity.Netcode;
 using System.Collections.Generic;
+using System.Buffers.Text;
 
 namespace TW
 {
@@ -57,8 +58,6 @@ namespace TW
 
         public NavMeshAgent agent;
 
-        public bool isBusy = false;
-
         public bool actionFlag = false;
 
         public float recoveryTimer;
@@ -86,6 +85,7 @@ namespace TW
         // FSM API
         public void SwitchState(IAIState newState)
         {
+            Debug.Log($"SwitchState from {currentState} to {newState}");
             currentState?.Exit(this);
             currentState = newState;
             currentState?.Enter(this);
@@ -109,19 +109,6 @@ namespace TW
             UpdateAnimation();
             SetSpeedBasedOnIfIsBusy();
             currentState?.Execute(this);
-            if (!isBusy)
-            {
-                if (actionFlag && recoveryTimer > 0)
-                {
-                    recoveryTimer -= Time.deltaTime;
-                    if (recoveryTimer <= 0)
-                    {
-                        actionFlag = false;
-                        SwitchState(followPlayerState);
-                        return;
-                    }
-                }
-            }
 
             foreach (var kvp in threatTable)
             {
@@ -131,7 +118,6 @@ namespace TW
 
         public virtual void UpdateAnimation()
         {
-            isBusy = enemyController.AnimatorController.GetIsBusyBool();
             Vector3 velocity = agent.velocity;
 
             velocity.y = 0;
@@ -278,6 +264,7 @@ namespace TW
                 }
 
                 Quaternion targetRot = Quaternion.LookRotation(dir);
+                Debug.Log("ROTACIONANDO ENQUANTO ATACA (teoricamente)");
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSpeed);
             }
             else
@@ -300,7 +287,7 @@ namespace TW
 
         public void SetSpeedBasedOnIfIsBusy()
         {
-            if (isBusy)
+            if (enemyController.AnimatorController.GetIsBusyBool())
             {
                 if (agent.speed != 0)
                     agent.speed = 0;

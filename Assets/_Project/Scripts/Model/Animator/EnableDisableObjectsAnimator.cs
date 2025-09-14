@@ -26,7 +26,7 @@ namespace TW
 
         private void SetGameObjects(string name, bool isEnabled)
         {
-            //if (!NetworkManager.Singleton.IsServer) return;
+            if (!NetworkManager.Singleton.IsServer) return;
             string[] objectNames = name.Split(",");
             for (int i = 0; i < objectNames.Length; i++)
                 objects[objectNames[i]].SetActive(isEnabled);

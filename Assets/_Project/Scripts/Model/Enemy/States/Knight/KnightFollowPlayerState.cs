@@ -21,7 +21,7 @@ namespace TW
 
             float dist = Vector3.Distance(baseAI.transform.position, baseAI.currentPlayerInsight.transform.position);
 
-            if (!baseAI.isBusy)
+            if (!baseAI.enemyController.AnimatorController.GetIsBusyBool())
             {
                 if (!baseAI.actionFlag)
                 {
@@ -35,6 +35,16 @@ namespace TW
                     if(baseAI.currentSnapshot != null)
                     {
                         baseAI.SwitchState(KnightStates.attackPlayerState);
+                        return;
+                    }
+                }
+                if (baseAI.actionFlag && baseAI.recoveryTimer > 0)
+                {
+                    baseAI.recoveryTimer -= Time.deltaTime;
+                    if (baseAI.recoveryTimer <= 0)
+                    {
+                        baseAI.actionFlag = false;
+                        baseAI.SwitchState(KnightStates.followPlayerState);
                         return;
                     }
                 }
