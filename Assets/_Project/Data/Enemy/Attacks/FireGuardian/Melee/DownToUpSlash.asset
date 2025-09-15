@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: DownToUpSlash
   m_EditorClassIdentifier: 
   anim: DownToUpSlash
-  score: 2
-  recoveryTime: 0.5
+  score: 3
+  recoveryTime: 0.25
   minDist: 0.5
   maxDist: 6
   minAngle: -35

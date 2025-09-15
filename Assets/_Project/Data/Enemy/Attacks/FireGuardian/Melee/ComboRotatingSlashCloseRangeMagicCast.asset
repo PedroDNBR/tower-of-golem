@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: ComboRotatingSlashCloseRangeMagicCast
   score: 2
-  recoveryTime: 4
-  minDist: 0.5
-  maxDist: 5
+  recoveryTime: 2
+  minDist: 0.2
+  maxDist: 4
   minAngle: -50
   maxAngle: 50

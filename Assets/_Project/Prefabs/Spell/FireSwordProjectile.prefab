@@ -4900,7 +4900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6df79db9a9419e469e899cf3cd186ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 60
+  speed: 75
   gravity: 5
 --- !u!114 &5430816084764731281
 MonoBehaviour:
@@ -5111,7 +5111,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7477184591522972927, guid: e1c51f60e8e38344b8983eee468a879e, type: 3}
 --- !u!1 &4517375035397875265

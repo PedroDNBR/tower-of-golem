@@ -27,9 +27,10 @@ namespace TW
                     dir.y = 0;
                     dir.Normalize();
 
-                    float angle = Vector2.Angle(baseAI.transform.position, dir);
+                    float angle = Vector2.Angle(baseAI.transform.forward, dir);
                     baseAI.currentSnapshot = baseAI.GetAction(dist, angle);
                     
+                    Debug.Log(baseAI.currentSnapshot);
                     if (baseAI.currentSnapshot != null)
                     {
                         baseAI.SwitchState(States.attackPlayerState);
@@ -43,7 +44,6 @@ namespace TW
                     if (baseAI.recoveryTimer <= 0)
                     {
                         baseAI.actionFlag = false;
-                        return;
                     }
                 }
             }

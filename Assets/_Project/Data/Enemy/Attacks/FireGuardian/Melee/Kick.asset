@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Kick
   m_EditorClassIdentifier: 
   anim: Kick
-  score: 7
-  recoveryTime: 1.5
+  score: 8
+  recoveryTime: 0.75
   minDist: 0
   maxDist: 4
   minAngle: -35

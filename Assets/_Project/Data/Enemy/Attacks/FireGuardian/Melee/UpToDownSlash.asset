@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: UpToDownSlash
   score: 6
-  recoveryTime: 2.2
-  minDist: 3
-  maxDist: 8
+  recoveryTime: 1.1
+  minDist: 4
+  maxDist: 7
   minAngle: -35
   maxAngle: 35

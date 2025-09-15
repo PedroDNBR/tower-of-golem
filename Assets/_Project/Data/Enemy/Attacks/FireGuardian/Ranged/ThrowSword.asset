@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f02fe36c7110ce5489e681ddb7d5dd34, type: 3}
-  m_Name: RotatingSlashCloseRange
+  m_Name: ThrowSword
   m_EditorClassIdentifier: 
-  anim: RotatingSlashCloseRange
-  score: 4
-  recoveryTime: 0.25
-  minDist: 0.2
-  maxDist: 2
-  minAngle: -50
-  maxAngle: 50
+  anim: ThrowSword
+  score: 3
+  recoveryTime: 1.8
+  minDist: 8
+  maxDist: 20
+  minAngle: -35
+  maxAngle: 35

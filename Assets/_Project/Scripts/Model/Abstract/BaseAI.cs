@@ -85,7 +85,6 @@ namespace TW
         // FSM API
         public void SwitchState(IAIState newState)
         {
-            Debug.Log($"SwitchState from {currentState} to {newState}");
             currentState?.Exit(this);
             currentState = newState;
             currentState?.Enter(this);
@@ -220,12 +219,14 @@ namespace TW
             for (int i = 0; i < actionSnapshots.Length; i++)
             {
                 ActionSnapshot a = actionSnapshots[i];
-
                 if (distance <= a.maxDist && distance >= a.minDist)
+                {
                     if (angle <= a.maxAngle && angle >= a.minAngle)
+                    {
                         maxScore += a.score;
+                    }
+                }
             }
-
             int ran = UnityEngine.Random.Range(0, maxScore + 1);
             int temp = 0;
 
@@ -237,10 +238,16 @@ namespace TW
                     continue;
 
                 if (distance <= a.maxDist && distance >= a.minDist)
+                {
                     if (angle <= a.maxAngle && angle >= a.minAngle)
+                    {
                         temp += a.score;
-                if (temp > ran)
-                    return a;
+                        if (temp > ran)
+                        {
+                            return a;
+                        }
+                    }
+                }
             }
             return null;
         }
@@ -264,7 +271,6 @@ namespace TW
                 }
 
                 Quaternion targetRot = Quaternion.LookRotation(dir);
-                Debug.Log("ROTACIONANDO ENQUANTO ATACA (teoricamente)");
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSpeed);
             }
             else

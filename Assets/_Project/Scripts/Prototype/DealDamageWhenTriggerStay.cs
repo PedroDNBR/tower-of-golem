@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TW
 {
-    public class DealDamageWhenTriggerEnter : MonoBehaviour
+    public class DealDamageWhenTriggerStay : MonoBehaviour
     {
         [SerializeField] private float damage;
         [SerializeField] private Elements element;
@@ -12,11 +12,11 @@ namespace TW
 
         public BaseHealth CharacterBaseHealth { set => characterBaseHealth = value; get => characterBaseHealth; }
 
-        [SerializeField]
-        bool destroyWhenDamage = false;
-
         [HideInInspector]
         public PlayerController playerController;
+
+        [SerializeField] float damageInterval = .2f;
+        private float nextDamageTime = 0f;
 
         public void OnEnable()
         {
@@ -35,12 +35,12 @@ namespace TW
                 characterBaseHealth = GetComponent<BaseHealth>();
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
-            try
-            {
-                if (NetworkManager.Singleton != null && !NetworkManager.Singleton.IsServer) return;
+            if (NetworkManager.Singleton != null && !NetworkManager.Singleton.IsServer) return;
 
+            if (Time.time >= nextDamageTime)
+            {
                 ShouldReceiveDamage shouldReceiveDamage = other.GetComponent<ShouldReceiveDamage>();
                 if (shouldReceiveDamage == null) return;
 
@@ -61,10 +61,8 @@ namespace TW
                 }
                 else
                     health.TakeDamage(element, damage, gameObject);
-            }
-            finally
-            {
-                if (destroyWhenDamage) Destroy(gameObject);
+
+                nextDamageTime = Time.time + damageInterval;
             }
         }
     }

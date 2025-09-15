@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: HeavyStep
   m_EditorClassIdentifier: 
   anim: HeavyStep
-  score: 10
-  recoveryTime: 1
+  score: 9
+  recoveryTime: 0.5
   minDist: 0
   maxDist: 4
   minAngle: -35
