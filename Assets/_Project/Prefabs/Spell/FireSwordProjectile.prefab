@@ -4930,6 +4930,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b28bd4ffe2b5f642a2cf4b4a1cbdd97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  origin: {fileID: 0}
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!65 &7841506268244926398
 BoxCollider:
   m_ObjectHideFlags: 0
