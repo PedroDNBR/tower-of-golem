@@ -4914,10 +4914,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d0459faeb10bc44b4d79d70f5968d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDamageOrigin: 0
   damage: 20
   element: 0
   destroyWhenDamage: 0
   playerController: {fileID: 0}
+  spawnDamageTriggersWhenDestroyed: []
 --- !u!114 &6851840462199314506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4934,6 +4936,7 @@ MonoBehaviour:
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 4096
+  delayToStop: 0.01
 --- !u!65 &7841506268244926398
 BoxCollider:
   m_ObjectHideFlags: 0

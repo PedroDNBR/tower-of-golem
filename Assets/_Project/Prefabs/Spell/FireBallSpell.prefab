@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6419704694602124264}
   - component: {fileID: 4951326283660058349}
   - component: {fileID: -8750700118684735140}
-  - component: {fileID: 8542526254567179435}
   m_Layer: 12
   m_Name: FireBallSpell
   m_TagString: Untagged
@@ -66,6 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 6
+  objectToDestroy: {fileID: 0}
 --- !u!114 &6419704694602124264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,10 +78,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d0459faeb10bc44b4d79d70f5968d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDamageOrigin: 0
   damage: 10
   element: 0
   destroyWhenDamage: 1
   playerController: {fileID: 0}
+  spawnDamageTriggersWhenDestroyed:
+  - {fileID: 5376808074059555709, guid: fc374de88e3fcc64e8815e1c51eb7197, type: 3}
 --- !u!135 &4951326283660058349
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -130,23 +133,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8542526254567179435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4209747041792890355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee7c2ad69e2367343bd135414c9d848e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objects:
-  - objectToSpawn: {fileID: 5179078497967194014, guid: fc374de88e3fcc64e8815e1c51eb7197,
-      type: 3}
-    offsetPosition: {x: 0, y: 0, z: 0}
-    offsetRotation: {x: 0.008802022, y: 0.008649721, z: 0.008649721, w: 0.9998864}
 --- !u!1 &5803848907781791906
 GameObject:
   m_ObjectHideFlags: 0

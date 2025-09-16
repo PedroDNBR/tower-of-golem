@@ -172,8 +172,14 @@ namespace TW
             }
 
             DealDamageWhenTriggerEnter dealDamageWhenTriggerEnter = spellCasted.GetComponent<DealDamageWhenTriggerEnter>();
-            dealDamageWhenTriggerEnter.playerController = playerController;
+            if(dealDamageWhenTriggerEnter == null) dealDamageWhenTriggerEnter = spellCasted.GetComponentInChildren<DealDamageWhenTriggerEnter>();
+            if(dealDamageWhenTriggerEnter == null) dealDamageWhenTriggerEnter = spellCasted.GetComponentInParent<DealDamageWhenTriggerEnter>();
+            if (dealDamageWhenTriggerEnter != null) dealDamageWhenTriggerEnter.playerController = playerController;
 
+            DealDamageWhenTriggerStay dealDamageWhenTriggerStay = spellCasted.GetComponent<DealDamageWhenTriggerStay>();
+            if (dealDamageWhenTriggerStay == null) dealDamageWhenTriggerStay = spellCasted.GetComponentInChildren<DealDamageWhenTriggerStay>();
+            if (dealDamageWhenTriggerStay == null) dealDamageWhenTriggerStay = spellCasted.GetComponentInParent<DealDamageWhenTriggerStay>();
+            if (dealDamageWhenTriggerStay != null) dealDamageWhenTriggerStay.playerController = playerController;
 
         }
 

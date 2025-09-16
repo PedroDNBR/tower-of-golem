@@ -7,6 +7,9 @@ namespace TW
         [SerializeField]
         float timer = 2f;
 
-        private void Start() => Destroy(gameObject, timer);
+        [SerializeField]
+        MonoBehaviour objectToDestroy;
+
+        private void Start() => Destroy(objectToDestroy == null ? gameObject : objectToDestroy, timer);
     }
 }

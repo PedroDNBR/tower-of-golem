@@ -7,6 +7,8 @@ namespace TW
         Projectile projectile;
         public Transform origin;
         public LayerMask ignoreLayer;
+        [SerializeField]
+        public float delayToStop = 0.01f;
 
         void OnEnable()
         {
@@ -29,7 +31,10 @@ namespace TW
             if (other.transform.root == origin) return;
             if (((1 << other.gameObject.layer) & ignoreLayer.value) == 0) return;
             if (projectile == null) return;
-            Invoke(nameof(StopProjectile), 0.01f);
+            if (delayToStop >= 0)
+                Invoke(nameof(StopProjectile), delayToStop);
+            else
+                StopProjectile();
 
             transform.parent = other.transform;
             Rigidbody rigid = GetComponent<Rigidbody>();

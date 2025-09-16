@@ -45,8 +45,16 @@ namespace TW
             if (damageOnEnterObj.GetComponent<AddToTrackedProjectiles>() != null)
                 if (projectileTracker != null) damageOnEnterObj.GetComponent<AddToTrackedProjectiles>().AddToTracker(projectileTracker);
             if (!IsServer) return;
-            if (damageOnEnterObj.GetComponent<DealDamageWhenTriggerEnter>() != null)
-                damageOnEnterObj.GetComponent<DealDamageWhenTriggerEnter>().CharacterBaseHealth = originHealth;
+
+            DealDamageWhenTriggerEnter dealDamageWhenTriggerEnter = damageOnEnterObj.GetComponent<DealDamageWhenTriggerEnter>();
+            if (dealDamageWhenTriggerEnter == null) dealDamageWhenTriggerEnter = damageOnEnterObj.GetComponentInChildren<DealDamageWhenTriggerEnter>();
+            if (dealDamageWhenTriggerEnter == null) dealDamageWhenTriggerEnter = damageOnEnterObj.GetComponentInParent<DealDamageWhenTriggerEnter>();
+            if (dealDamageWhenTriggerEnter != null) dealDamageWhenTriggerEnter.CharacterBaseHealth = originHealth;
+
+            DealDamageWhenTriggerStay dealDamageWhenTriggerStay = damageOnEnterObj.GetComponent<DealDamageWhenTriggerStay>();
+            if (dealDamageWhenTriggerStay == null) dealDamageWhenTriggerStay = damageOnEnterObj.GetComponentInChildren<DealDamageWhenTriggerStay>();
+            if (dealDamageWhenTriggerStay == null) dealDamageWhenTriggerStay = damageOnEnterObj.GetComponentInParent<DealDamageWhenTriggerStay>();
+            if (dealDamageWhenTriggerStay != null) dealDamageWhenTriggerStay.CharacterBaseHealth = originHealth;
         }
 
         [ServerRpc]

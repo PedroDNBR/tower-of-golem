@@ -30,7 +30,6 @@ namespace TW
                     float angle = Vector2.Angle(baseAI.transform.forward, dir);
                     baseAI.currentSnapshot = baseAI.GetAction(dist, angle);
                     
-                    Debug.Log(baseAI.currentSnapshot);
                     if (baseAI.currentSnapshot != null)
                     {
                         baseAI.SwitchState(States.attackPlayerState);
