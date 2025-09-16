@@ -16,6 +16,9 @@ namespace TW
         [SerializeField]
         protected bool destroyWhenDamage = false;
 
+        [SerializeField]
+        protected bool ignoreOrigin = false;
+
         [HideInInspector]
         public PlayerController playerController;
 
@@ -43,7 +46,8 @@ namespace TW
         {
             if (NetworkManager.Singleton != null && !NetworkManager.Singleton.IsServer) return;
 
-            if (characterBaseHealth == null && playerController == null) return;
+            if(!ignoreOrigin)
+                if (characterBaseHealth == null && playerController == null) return;
 
             ShouldReceiveDamage shouldReceiveDamage = other.GetComponent<ShouldReceiveDamage>();
             if (shouldReceiveDamage == null) return;

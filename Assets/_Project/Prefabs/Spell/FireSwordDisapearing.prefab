@@ -4896,6 +4896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 2
+  objectToDestroy: {fileID: 0}
 --- !u!1 &3315916850939459095
 GameObject:
   m_ObjectHideFlags: 0
@@ -24339,9 +24340,9 @@ GameObject:
   - component: {fileID: 8668671703870232618}
   - component: {fileID: 6803332579945036975}
   - component: {fileID: 495319488116939146}
+  - component: {fileID: 7959347647827789348}
   - component: {fileID: 2127689106937280001}
   - component: {fileID: 4610389420889263879}
-  - component: {fileID: 7959347647827789348}
   m_Layer: 12
   m_Name: SwordMesh
   m_TagString: Untagged
@@ -24437,35 +24438,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7477184591522972927, guid: e1c51f60e8e38344b8983eee468a879e, type: 3}
---- !u!114 &2127689106937280001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6241433750660270502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffb3af5b870d13f4082b8f951f0e6fa9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timer: 0.1
---- !u!114 &4610389420889263879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6241433750660270502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fff83bb2baf14814490d4234ce925478, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 4
-  element: 0
-  playerController: {fileID: 0}
-  damageInterval: 0.01
 --- !u!65 &7959347647827789348
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24487,6 +24459,40 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0022537743, y: 0.006956339, z: 0.02858095}
   m_Center: {x: -0.000014966354, y: 0.00014863849, z: 0.019619392}
+--- !u!114 &2127689106937280001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6241433750660270502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffb3af5b870d13f4082b8f951f0e6fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 0.1
+  objectToDestroy: {fileID: 0}
+--- !u!114 &4610389420889263879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6241433750660270502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff83bb2baf14814490d4234ce925478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canDamageOrigin: 1
+  damage: 4
+  element: 0
+  destroyWhenDamage: 0
+  ignoreOrigin: 1
+  playerController: {fileID: 0}
+  spawnDamageTriggersWhenDestroyed: []
+  damageInterval: 0.01
 --- !u!1 &7093674215674937654
 GameObject:
   m_ObjectHideFlags: 0
