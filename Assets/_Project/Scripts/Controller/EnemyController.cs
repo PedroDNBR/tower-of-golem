@@ -12,6 +12,8 @@ namespace TW
         protected EnemyAttackSpawner enemyAttackSpawner;
         protected EnemyNetwork enemyNetwork;
         protected EnemyAttackEnableColliders enemyAttackEnableColliders;
+        protected SwitchStateAnimator switchStateAnimator;
+        protected ChangeHealthValuesAnimator changeHealthValuesAnimator;
 
         public BaseAI BaseAI { get => baseAI; }
         public EnemyHealth EnemyHealth { get => enemyHealth; }
@@ -19,6 +21,8 @@ namespace TW
         public AnimatorController AnimatorController { get => animatorController; }
         public EnemyAttackEnableColliders EnemyAttackEnableColliders { get => enemyAttackEnableColliders; }
         public EnemyAttackSpawner EnemyAttackSpawner { get => enemyAttackSpawner; }
+        public SwitchStateAnimator SwitchStateAnimator { get => switchStateAnimator; }
+        public ChangeHealthValuesAnimator ChangeHealthValuesAnimator { get => changeHealthValuesAnimator; }
 
         protected virtual void OnEnable()
         {
@@ -29,6 +33,8 @@ namespace TW
             animatorController = GetComponentInChildren<AnimatorController>();
             enemyAttackEnableColliders = GetComponentInChildren<EnemyAttackEnableColliders>();
             enemyAttackSpawner = GetComponentInChildren<EnemyAttackSpawner>();
+            switchStateAnimator = GetComponentInChildren<SwitchStateAnimator>();
+            changeHealthValuesAnimator = GetComponentInChildren<ChangeHealthValuesAnimator>();
 
             if (DialogueMenu.instance != null)
             {
@@ -56,7 +62,14 @@ namespace TW
             animatorController.Agent = baseAI.Agent;
             animatorController.Init();
 
-            if(enemyAttackSpawner != null)
+            if(switchStateAnimator != null)
+                switchStateAnimator.EnemyController = this;
+
+            if (changeHealthValuesAnimator != null)
+                changeHealthValuesAnimator.enemyHealth = enemyHealth;
+
+
+            if (enemyAttackSpawner != null)
             {
                 enemyAttackSpawner.OriginHealth = enemyHealth;
             }

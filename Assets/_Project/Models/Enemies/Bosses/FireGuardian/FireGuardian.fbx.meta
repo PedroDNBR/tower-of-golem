@@ -161,6 +161,20 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.54507333
+        functionName: CannotBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6121594
+        functionName: CanBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -239,6 +253,20 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.23060814
+        functionName: CannotBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.41509488
+        functionName: CanBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -312,6 +340,20 @@ ModelImporter:
         messageOptions: 0
       - time: 0.40882364
         functionName: CanRotate
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.39413044
+        functionName: CannotBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6645701
+        functionName: CanBeStaggered
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -397,6 +439,20 @@ ModelImporter:
         messageOptions: 0
       - time: 0.23235278
         functionName: CanRotate
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.16981141
+        functionName: CannotBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.51362675
+        functionName: CanBeStaggered
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -515,6 +571,20 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.249476
+        functionName: CannotBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6540881
+        functionName: CanBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -609,6 +679,20 @@ ModelImporter:
         messageOptions: 0
       - time: 0.27647036
         functionName: CanRotate
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.17400451
+        functionName: CannotBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.4465407
+        functionName: CanBeStaggered
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -713,6 +797,20 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.16561843
+        functionName: CannotBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.48008373
+        functionName: CanBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -742,6 +840,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.37227964
+        functionName: SwitchAIState
+        data: unarmedState
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.379937
         functionName: ShakeCamera
         data: 
@@ -808,6 +913,34 @@ ModelImporter:
       - time: 0.90985906
         functionName: DisableGameObject
         data: SwordFireRaise
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.3605871
+        functionName: CannotBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.4591197
+        functionName: CanBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.7484277
+        functionName: CannotBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.92452806
+        functionName: CanBeStaggered
+        data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -1145,7 +1278,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.11087329
+        functionName: DisableAll
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.85509044
+        functionName: DisableAll
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1313,6 +1460,229 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/ArmIkLeft
+        weight: 0
+      - path: Armature.001/ArmIkLeft/ArmIkLeft_end
+        weight: 0
+      - path: Armature.001/ArmIkRight
+        weight: 0
+      - path: Armature.001/ArmIkRight/ArmIkRight_end
+        weight: 0
+      - path: Armature.001/ElbowArmRight
+        weight: 0
+      - path: Armature.001/ElbowArmRight/ElbowArmRight_end
+        weight: 0
+      - path: Armature.001/ElbowIkLeft
+        weight: 0
+      - path: Armature.001/ElbowIkLeft/ElbowIkLeft_end
+        weight: 0
+      - path: Armature.001/KneeIkRight
+        weight: 0
+      - path: Armature.001/KneeIkRight/KneeIkRight_end
+        weight: 0
+      - path: Armature.001/LegIkLeft
+        weight: 0
+      - path: Armature.001/LegIkLeft/LegIkLeft_end
+        weight: 0
+      - path: Armature.001/LegIkRight
+        weight: 0
+      - path: Armature.001/LegIkRight/LegIkRight_end
+        weight: 0
+      - path: Armature.001/Root
+        weight: 1
+      - path: Armature.001/Root/Hips
+        weight: 1
+      - path: Armature.001/Root/Hips/HipsLeft
+        weight: 1
+      - path: Armature.001/Root/Hips/HipsLeft/UpperLegLeft
+        weight: 1
+      - path: Armature.001/Root/Hips/HipsLeft/UpperLegLeft/LowerLegLeft
+        weight: 1
+      - path: Armature.001/Root/Hips/HipsLeft/UpperLegLeft/LowerLegLeft/FootLeft
+        weight: 1
+      - path: Armature.001/Root/Hips/HipsLeft/UpperLegLeft/LowerLegLeft/FootLeft/ToesLeft
+        weight: 1
+      - path: Armature.001/Root/Hips/HipsLeft/UpperLegLeft/LowerLegLeft/FootLeft/ToesLeft/ToesLeft_end
+        weight: 0
+      - path: Armature.001/Root/Hips/HipsRight
+        weight: 1
+      - path: Armature.001/Root/Hips/HipsRight/UpperLegRight
+        weight: 1
+      - path: Armature.001/Root/Hips/HipsRight/UpperLegRight/LowerLegRight
+        weight: 1
+      - path: Armature.001/Root/Hips/HipsRight/UpperLegRight/LowerLegRight/FootRight
+        weight: 1
+      - path: Armature.001/Root/Hips/HipsRight/UpperLegRight/LowerLegRight/FootRight/ToesRight
+        weight: 1
+      - path: Armature.001/Root/Hips/HipsRight/UpperLegRight/LowerLegRight/FootRight/ToesRight/ToesRight_end
+        weight: 0
+      - path: Armature.001/Root/Hips/Spine1
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderLeft
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderLeft/UpperArmLeft
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderLeft/UpperArmLeft/LowerArmLeft
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderLeft/UpperArmLeft/LowerArmLeft/HandLeft
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderLeft/UpperArmLeft/LowerArmLeft/HandLeft/FingerLeft0
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderLeft/UpperArmLeft/LowerArmLeft/HandLeft/FingerLeft0/FingerLeft1
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderLeft/UpperArmLeft/LowerArmLeft/HandLeft/FingerLeft0/FingerLeft1/FingerLeft2
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderLeft/UpperArmLeft/LowerArmLeft/HandLeft/FingerLeft0/FingerLeft1/FingerLeft2/FingerLeft2_end
+        weight: 0
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderLeft/UpperArmLeft/LowerArmLeft/HandLeft/ThumbLeft0
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderLeft/UpperArmLeft/LowerArmLeft/HandLeft/ThumbLeft0/ThumbLeft1
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderLeft/UpperArmLeft/LowerArmLeft/HandLeft/ThumbLeft0/ThumbLeft1/ThumbLeft2
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderLeft/UpperArmLeft/LowerArmLeft/HandLeft/ThumbLeft0/ThumbLeft1/ThumbLeft2/ThumbLeft2_end
+        weight: 0
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight/LowerArmRight
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight/LowerArmRight/HandRight
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight/LowerArmRight/HandRight/Armature.002
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight/LowerArmRight/HandRight/Armature.002/Sword
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight/LowerArmRight/HandRight/Armature.002/Sword/Blade
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight/LowerArmRight/HandRight/Armature.002/Sword/Blade/Blade_end
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight/LowerArmRight/HandRight/FingerRight0
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight/LowerArmRight/HandRight/FingerRight0/FingerRight1
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight/LowerArmRight/HandRight/FingerRight0/FingerRight1/FingerRight2
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight/LowerArmRight/HandRight/FingerRight0/FingerRight1/FingerRight2/FingerRight2_end
+        weight: 0
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight/LowerArmRight/HandRight/ThumbRight0
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight/LowerArmRight/HandRight/ThumbRight0/ThumbRight1
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight/LowerArmRight/HandRight/ThumbRight0/ThumbRight1/ThumbRight2
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/ShoulderRight/UpperArmRight/LowerArmRight/HandRight/ThumbRight0/ThumbRight1/ThumbRight2/ThumbRight2_end
+        weight: 0
+      - path: Armature.001/Root/Hips/Spine1/Spine2/Spine3
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/Spine3/Spine4
+        weight: 1
+      - path: Armature.001/Root/Hips/Spine1/Spine2/Spine3/Spine4/Spine4_end
+        weight: 0
+      - path: Armature.001/Root/KneeIkLeft
+        weight: 0
+      - path: Armature.001/Root/KneeIkLeft/KneeIkLeft_end
+        weight: 0
+      - path: Armature.001/Root/RightHandSocket
+        weight: 0
+      - path: Armature.001/Root/RightHandSocket/RightHandSocket_end
+        weight: 0
+      - path: BaseSwordRigged
+        weight: 0
+      - path: Cube.001
+        weight: 0
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 10
+    - serializedVersion: 16
+      name: RecoverWeapon
+      takeName: Scene
+      internalID: 5336171071401514536
+      firstFrame: 915
+      lastFrame: 968
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.3901725
+        functionName: CannotBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.42557707
+        functionName: DestroyTrackedProjectile
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.44636145
+        functionName: ShakeCamera
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.45716915
+        functionName: EnableGameObject
+        data: SwordFireRaise
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.47216436
+        functionName: EnableGameObject
+        data: SwordMesh
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.4764562
+        functionName: EnableGameObject
+        data: SwordArmature
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.56273663
+        functionName: DisableGameObject
+        data: SwordFireRaise
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.59958094
+        functionName: CanBeStaggered
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

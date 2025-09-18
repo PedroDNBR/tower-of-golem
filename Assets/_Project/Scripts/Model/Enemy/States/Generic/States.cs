@@ -6,5 +6,6 @@ namespace TW
         public static readonly RoamingState roamingState = new RoamingState();
         public static readonly FollowPlayerState followPlayerState = new FollowPlayerState();
         public static readonly CircleAroundPlayerState circleAroundPlayerState = new CircleAroundPlayerState();
+        public static readonly UnarmedState unarmedState = new UnarmedState();
     }
 }

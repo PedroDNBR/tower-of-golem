@@ -36,6 +36,13 @@ namespace TW
             for (int i = 0; i < colliders.Count; i++)
                 Destroy(colliders[i].collider.gameObject);
         }
+
+        public void DisableAll()
+        {
+            Debug.Log("DISABLE EnemyAttackEnableColliders");
+            foreach (var item in damageColliders)
+                DisableDamageColliders(item.Key);
+        }
     }
 
     [Serializable]

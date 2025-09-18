@@ -3,7 +3,6 @@ using UnityEngine.AI;
 using System;
 using Unity.Netcode;
 using System.Collections.Generic;
-using System.Buffers.Text;
 
 namespace TW
 {
@@ -83,7 +82,7 @@ namespace TW
 
 
         // FSM API
-        public void SwitchState(IAIState newState)
+        public virtual void SwitchState(IAIState newState)
         {
             currentState?.Exit(this);
             currentState = newState;
@@ -364,5 +363,7 @@ namespace TW
             //Gizmos.color = Color.red;
             //Gizmos.DrawWireSphere(transform.position, maxSightRangeRadius);
         }
+
+        
     }
 }

@@ -1,10 +1,14 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TW
 {
     public class Boss : BaseAI
     {
+        [SerializeField]
+        public List<Transform> weaponsTransform;
+
         public override void Init()
         {
             base.Init();
@@ -13,6 +17,14 @@ namespace TW
         private void Start()
         {
             StartCoroutine(DrawPlayerToAttack());
+        }
+
+        public override void SwitchState(IAIState newState)
+        {
+            base.SwitchState(newState);
+
+            if (AreAllWeaponsAreDisabled() && currentState != States.unarmedState)
+                SwitchState(States.unarmedState);
         }
 
         private IEnumerator DrawPlayerToAttack()
@@ -25,6 +37,17 @@ namespace TW
                 if (bestTarget != null)
                     currentPlayerInsight = bestTarget;
             }
+        }
+
+        public bool AreAllWeaponsAreDisabled()
+        {
+            foreach (var item in weaponsTransform)
+            {
+                if (item.gameObject.activeSelf)
+                    return false;
+            }
+
+            return true;
         }
     }
 }

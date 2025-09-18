@@ -12,12 +12,16 @@ namespace TW
         private List<GameObjectName> gameObjects = new List<GameObjectName>();
 
         Dictionary<string, GameObject> objects = new Dictionary<string, GameObject>();
+        Dictionary<string, bool> objectsShouldNotDisable = new Dictionary<string, bool>();
 
         private void Start()
         {
             //if (!NetworkManager.Singleton.IsServer) return;
             for (int i = 0; i < gameObjects.Count; i++)
+            {
                 objects.Add(gameObjects[i].colliderName, gameObjects[i].gObject);
+                objectsShouldNotDisable.Add(gameObjects[i].colliderName, gameObjects[i].shouldNotDisable);
+            }
         }
 
         public void EnableGameObject(string name) => SetGameObjects(name, true);
@@ -38,11 +42,22 @@ namespace TW
                 Destroy(gameObjects[i].gObject);
         }
 
+        public void DisableAll()
+        {
+            Debug.Log("DISABLE EnableDisableObjectsAnimator");
+            foreach (var item in objects)
+            {
+                if(!objectsShouldNotDisable[item.Key])
+                    DisableGameObject(item.Key);
+            }
+        }
+
         [Serializable]
         class GameObjectName
         {
             public string colliderName;
             public GameObject gObject;
+            public bool shouldNotDisable = false;
         }
     }
 }

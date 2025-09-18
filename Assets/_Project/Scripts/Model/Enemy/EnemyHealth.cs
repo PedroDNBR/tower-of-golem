@@ -23,6 +23,8 @@ namespace TW
 
         protected Vector3 previousPosition;
 
+        public bool canBeStaggerd = true;
+
         protected override void Start()
         {
             InitOnHealthChangedAction();
@@ -45,7 +47,7 @@ namespace TW
             base.TakeDamage(damageType, damage, origin);
             damageUntilStagger += damage * DamageMultiplier.table[type][damageType];
 
-            if (health.Value > 0 && damageUntilStagger > maxDamageUntilStagger)
+            if (health.Value > 0 && damageUntilStagger > maxDamageUntilStagger && canBeStaggerd)
             {
                 enemyController.AnimatorController.PlayTargetAnimation(hittedAnimNameString, true);
                 damageUntilStagger = 0;

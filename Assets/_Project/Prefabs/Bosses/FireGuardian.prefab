@@ -10042,9 +10042,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fff83bb2baf14814490d4234ce925478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDamageOrigin: 1
   damage: 2
   element: 0
+  destroyWhenDamage: 0
+  ignoreOrigin: 0
   playerController: {fileID: 0}
+  spawnDamageTriggersWhenDestroyed: []
   damageInterval: 0.1
 --- !u!1 &3023884574389839291
 GameObject:
@@ -34621,10 +34625,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d0459faeb10bc44b4d79d70f5968d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDamageOrigin: 1
   damage: 15
   element: 4
   destroyWhenDamage: 0
+  ignoreOrigin: 0
   playerController: {fileID: 0}
+  spawnDamageTriggersWhenDestroyed: []
 --- !u!1 &5100843007079931135
 GameObject:
   m_ObjectHideFlags: 0
@@ -34786,6 +34793,8 @@ MonoBehaviour:
   recoveryTimer: 0
   debugtest: 0
   currentStateName: 
+  weaponsTransform:
+  - {fileID: 7357001451229596064}
 --- !u!114 &7397377744791487462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34861,6 +34870,7 @@ MonoBehaviour:
   maxDamageUntilStagger: 20
   minVelocityToDealDamage: 6
   totalVelocity: 0
+  canBeStaggerd: 1
 --- !u!114 &319526150511421499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39787,10 +39797,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d0459faeb10bc44b4d79d70f5968d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDamageOrigin: 1
   damage: 30
   element: 0
   destroyWhenDamage: 0
+  ignoreOrigin: 0
   playerController: {fileID: 0}
+  spawnDamageTriggersWhenDestroyed: []
 --- !u!1 &7627155887173923798
 GameObject:
   m_ObjectHideFlags: 0
@@ -39857,10 +39870,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d0459faeb10bc44b4d79d70f5968d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDamageOrigin: 1
   damage: 20
   element: 4
   destroyWhenDamage: 0
+  ignoreOrigin: 0
   playerController: {fileID: 0}
+  spawnDamageTriggersWhenDestroyed: []
 --- !u!1 &7968885565230055000
 GameObject:
   m_ObjectHideFlags: 0
@@ -49992,6 +50008,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6350309131082715295}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e1c51f60e8e38344b8983eee468a879e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4011509075696203725}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e1c51f60e8e38344b8983eee468a879e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7204434609988044656}
     - targetCorrespondingSourceObject: {fileID: -2012979773451228606, guid: e1c51f60e8e38344b8983eee468a879e,
         type: 3}
       insertIndex: -1
@@ -50362,24 +50386,34 @@ MonoBehaviour:
   gameObjects:
   - colliderName: SwordArmature
     gObject: {fileID: 4690384515206408014}
+    shouldNotDisable: 1
   - colliderName: SwordMesh
     gObject: {fileID: 8676277560062689646}
+    shouldNotDisable: 1
   - colliderName: FireSpell
     gObject: {fileID: 8282044245976248399}
+    shouldNotDisable: 0
   - colliderName: SwordFireRaise
     gObject: {fileID: 4487243121451771384}
+    shouldNotDisable: 0
   - colliderName: FireWaveSpell
     gObject: {fileID: 1116496445409750102}
+    shouldNotDisable: 0
   - colliderName: SwordDragParticle
     gObject: {fileID: 2175073661757969664}
+    shouldNotDisable: 0
   - colliderName: SwordImpactParticle
     gObject: {fileID: 4494678742984952275}
+    shouldNotDisable: 0
   - colliderName: SwordDeimpactParticle
     gObject: {fileID: 9189401628789601399}
+    shouldNotDisable: 0
   - colliderName: FootImpactParticle
     gObject: {fileID: 1061321154197947002}
+    shouldNotDisable: 0
   - colliderName: FootDragParticle
     gObject: {fileID: 3023884574389839291}
+    shouldNotDisable: 0
 --- !u!114 &3562776527774440500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50457,6 +50491,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackedProjectile: {fileID: 0}
+--- !u!114 &4011509075696203725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2155572407942354691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ab44d4de91e5114bb6ee9d1e6986a30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7204434609988044656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2155572407942354691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b436d06487dd64eaf8269d7d493136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHealth: {fileID: 0}
 --- !u!1 &3203198769294438506 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4801043696218285512, guid: e1c51f60e8e38344b8983eee468a879e,
@@ -50916,6 +50975,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd429e7acae97ff4d804f0fa56a7ab40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &7357001451229596064 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8588955655331013618, guid: e1c51f60e8e38344b8983eee468a879e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1237162232052492882}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8447413633043922960 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2012979773451228606, guid: e1c51f60e8e38344b8983eee468a879e,

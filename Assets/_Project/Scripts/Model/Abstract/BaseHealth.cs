@@ -41,9 +41,6 @@ namespace TW
         public virtual void TakeDamage(Elements damageType, float damage, GameObject origin)
         {
             if (!IsServer) return;
-            Debug.Log(gameObject.transform.root.gameObject);
-            Debug.Log(origin.transform.root.gameObject);
-            Debug.Log(Time.frameCount);
             if (objectsThatDamaged.Contains(origin.transform.root.gameObject)) return;
 
             objectsThatDamaged.Add(origin.transform.root.gameObject);
