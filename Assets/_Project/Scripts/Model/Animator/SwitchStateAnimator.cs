@@ -23,11 +23,9 @@ namespace TW
             {
                 object value = field.GetValue(null);
                 enemyController.BaseAI.SwitchState(value as IAIState);
-                Debug.Log($"Estado encontrado: {value}");
             }
             else
             {
-                Debug.LogWarning($"Nenhum estado encontrado com o nome '{state}'");
             }
         }
     }

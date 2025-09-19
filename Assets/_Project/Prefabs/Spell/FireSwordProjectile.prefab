@@ -4918,6 +4918,7 @@ MonoBehaviour:
   damage: 20
   element: 0
   destroyWhenDamage: 0
+  ignoreOrigin: 0
   playerController: {fileID: 0}
   spawnDamageTriggersWhenDestroyed: []
 --- !u!114 &6851840462199314506

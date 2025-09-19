@@ -78,7 +78,6 @@ namespace TW
 
         private void EnableBossUI(bool isVisible)
         {
-            Debug.Log($"EnableBossUI IsLocalPlayer: {IsLocalPlayer} isVisible: {isVisible}");
             if (networkObject.IsLocalPlayer)
             {
                 if(BossArea.instance.boss == null)

@@ -17,19 +17,25 @@ namespace TW
             if (damageWhenTriggerEnter != null)
                 if (damageWhenTriggerEnter.CharacterBaseHealth != null)
                     origin = damageWhenTriggerEnter.CharacterBaseHealth.transform.root;
+
+            Debug.Log(projectile);
+            Debug.Log(damageWhenTriggerEnter);
+            Debug.Log(origin);
+            Debug.Log("OnEnable --------------------------------------------------------");
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if(origin == null)
+            if (origin == null)
             {
                 DealDamageWhenTriggerEnter damageWhenTriggerEnter = GetComponent<DealDamageWhenTriggerEnter>();
                 if (damageWhenTriggerEnter != null)
                     origin = damageWhenTriggerEnter.CharacterBaseHealth.transform.root;
+
             }
 
             if (other.transform.root == origin) return;
-            if (((1 << other.gameObject.layer) & ignoreLayer.value) == 0) return;
+            if (((1 << other.gameObject.layer) & ignoreLayer.value) != 0) return;
             if (projectile == null) return;
             if (delayToStop >= 0)
                 Invoke(nameof(StopProjectile), delayToStop);
@@ -44,6 +50,7 @@ namespace TW
 
         private void StopProjectile()
         {
+            Debug.Log("StopProjectile");
             projectile.Speed = 0;
             projectile.Gravity = 0;
             Destroy(projectile);

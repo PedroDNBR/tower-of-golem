@@ -35,7 +35,6 @@ namespace TW
 
             if(currentDeadMinions == minMinionDeath)
             {
-                Debug.Log("Server Starts boss area");
                 EnableBossfightServerRpc();
             }
         }
@@ -55,7 +54,6 @@ namespace TW
 
         private async void EnableBossfight()
         {
-            Debug.Log("Client Starts boss area");
             BossArea.instance.gameObject.SetActive(true);
             //LevelManager.instance.bossArenaLeftDoor.SetActive(false);
             //LevelManager.instance.bossArenaRightDoor.SetActive(false);
