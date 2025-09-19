@@ -34783,6 +34783,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6c971d98b76ba7441a9dba39799f49e1, type: 2}
   - {fileID: 11400000, guid: 593a5b6701d697f41ba0a98f6bb73c87, type: 2}
   - {fileID: 11400000, guid: 6ffd5773f65766d4a8e3d0d3584b7b9c, type: 2}
+  - {fileID: 11400000, guid: d9c41a6af54f61b48adcc6e2b823256e, type: 2}
+  - {fileID: 11400000, guid: 0ada0a617cad3914387342aa1c16ff90, type: 2}
   circlePos: {x: 0, y: 0, z: 0}
   currentPlayerInsight: {fileID: 0}
   currentSnapshot: {fileID: 0}
