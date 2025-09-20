@@ -4921,6 +4921,9 @@ MonoBehaviour:
   ignoreOrigin: 0
   playerController: {fileID: 0}
   spawnDamageTriggersWhenDestroyed: []
+  destroyThisTriggerDetector: 1
+  triggerColliders:
+  - {fileID: 7841506268244926398}
 --- !u!114 &6851840462199314506
 MonoBehaviour:
   m_ObjectHideFlags: 0

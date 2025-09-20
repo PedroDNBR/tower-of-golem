@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ThrowSword
   m_EditorClassIdentifier: 
   anim: ThrowSword
-  score: 3
+  score: 9999
   recoveryTime: 1.8
-  minDist: 8
+  minDist: 0
   maxDist: 20
   minAngle: -35
   maxAngle: 35

@@ -81,8 +81,6 @@ namespace TW
             if (enemy == null) return;
 
 
-            Debug.Log($"Velocity: {this.totalVelocity.Value}");
-
             float totalVelocity = this.totalVelocity.Value - enemy.totalVelocity;
 
             NetworkObjectReference networkRef = new NetworkObjectReference(enemy.GetComponent<NetworkObject>());
@@ -104,7 +102,6 @@ namespace TW
                 EnemyHealth enemy = retrievedObject.GetComponentInParent<EnemyHealth>();
                 if (enemy == null) return;
                 if (impactVelocity < enemy.minVelocityToDealDamage) return;
-                Debug.Log($"DAMAGE CONFIRMED {impactVelocity}", enemy);
 
                 if (!NetworkManager.Singleton.IsServer) return;
                 enemy.TakeDamage(type, impactVelocity * damageMultiplier, playerController);

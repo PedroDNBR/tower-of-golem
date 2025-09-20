@@ -27,7 +27,7 @@ namespace TW
                 {
                     {
                         Elements.Fire,
-                        1.0f
+                        0f
                     },
                     {
                         Elements.Water,

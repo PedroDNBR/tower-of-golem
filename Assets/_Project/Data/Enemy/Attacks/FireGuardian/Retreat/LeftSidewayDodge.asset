@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LeftSidewayDodge
   m_EditorClassIdentifier: 
   anim: LeftSidewayDodge
-  score: 7
+  score: 4
   recoveryTime: 0.2
   minDist: 0
   maxDist: 8

@@ -62,14 +62,20 @@ namespace TW
             if (health == null) return;
 
             if (!canDamageOrigin)
+            {
                 if (characterBaseHealth == health) return;
+            }
 
             if (playerController != null && health is EnemyHealth)
             {
                 (health as EnemyHealth).TakeDamage(element, damage, playerController);
             }
             else
+            {
+                if (health is EnemyHealth) Debug.Log($"DEU DANO EM {health}");
+                if (health is EnemyHealth) Debug.Log($"{characterBaseHealth} == {health}");
                 health.TakeDamage(element, damage, gameObject);
+            }
         }
 
         protected virtual void OnDestroy()
