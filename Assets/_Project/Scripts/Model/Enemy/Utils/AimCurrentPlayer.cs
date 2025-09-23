@@ -20,7 +20,19 @@ namespace TW
             enemyController ??= GetComponentInParent<EnemyController>();
 
             if (enemyController.BaseAI.currentPlayerInsight != null)
-                transform.LookAt(enemyController.BaseAI.currentPlayerInsight.transform.position);
+            {
+                Vector3 direction = transform.root.position - enemyController.BaseAI.currentPlayerInsight.transform.position;
+
+                Vector3 target = transform.root.transform.position + transform.root.transform.forward * 20;
+
+                float angle = Vector3.SignedAngle(-transform.root.forward, direction, transform.root.up);
+                if (angle < 45 && angle > -45)
+                {
+                    target = enemyController.BaseAI.currentPlayerInsight.transform.position;
+                }
+
+                transform.LookAt(target);
+            }
         }
 
         private void LateUpdate() => gameObject.SetActive(false);
