@@ -43,8 +43,6 @@ namespace TW
             if (!IsServer) return;
             if (objectsThatDamaged.Contains(origin.transform.root.gameObject)) return;
 
-            if (this is EnemyHealth) Debug.Log($"TOMEI DANO AQUI CARAIO FDP QUE ME ACERTOU FOI: {origin}");
-
             objectsThatDamaged.Add(origin.transform.root.gameObject);
 
             float damageMultiplier = DamageMultiplier.table[type][damageType];

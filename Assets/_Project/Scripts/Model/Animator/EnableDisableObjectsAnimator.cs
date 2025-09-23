@@ -44,7 +44,6 @@ namespace TW
 
         public void DisableAll()
         {
-            Debug.Log("DISABLE EnableDisableObjectsAnimator");
             foreach (var item in objects)
             {
                 if(!objectsShouldNotDisable[item.Key])

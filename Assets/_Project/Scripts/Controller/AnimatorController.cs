@@ -19,6 +19,10 @@ namespace TW
 
         public Animator Animator { get => animator; }
 
+        private void OnEnable()
+        {
+            animator = GetComponent<Animator>();
+        }
 
         public void Init()
         {
@@ -38,6 +42,12 @@ namespace TW
             if (!IsServer) return;
             animator.SetFloat("horizontal", horizontal);
             animator.SetFloat("vertical", vertical);
+        }
+
+        public void SetRotationValue(float rotation)
+        {
+            if (!IsServer) return;
+            animator.SetFloat("rotating", rotation);
         }
 
         public bool GetIsBusyBool() => animator.GetBool(Constants.isBusyString);

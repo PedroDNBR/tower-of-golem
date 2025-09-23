@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 5
+  objectToDestroy: {fileID: 0}
 --- !u!114 &2075711199443117031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,9 +159,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d0459faeb10bc44b4d79d70f5968d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
-  element: 0
+  canDamageOrigin: 1
+  damage: 999
+  element: 4
   destroyWhenDamage: 1
+  ignoreOrigin: 0
+  playerController: {fileID: 0}
+  spawnDamageTriggersWhenDestroyed: []
+  destroyThisTriggerDetector: 0
+  triggerColliders: []
 --- !u!135 &7849262459854868519
 SphereCollider:
   m_ObjectHideFlags: 0

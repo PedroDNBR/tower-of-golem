@@ -18,10 +18,6 @@ namespace TW
                 if (damageWhenTriggerEnter.CharacterBaseHealth != null)
                     origin = damageWhenTriggerEnter.CharacterBaseHealth.transform.root;
 
-            Debug.Log(projectile);
-            Debug.Log(damageWhenTriggerEnter);
-            Debug.Log(origin);
-            Debug.Log("OnEnable --------------------------------------------------------");
         }
 
         private void OnTriggerEnter(Collider other)
