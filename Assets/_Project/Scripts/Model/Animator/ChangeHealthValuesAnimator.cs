@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TW
@@ -6,8 +7,16 @@ namespace TW
     {
         public EnemyHealth enemyHealth;
 
-        public void CanBeStaggered() => enemyHealth.canBeStaggerd = true;
+        public void CanBeStaggered()
+        {
+            if (NetworkManager.Singleton.IsServer)
+                enemyHealth.canBeStaggerd = true;
+        }
 
-        public void CannotBeStaggered() => enemyHealth.canBeStaggerd = false;
+        public void CannotBeStaggered()
+        {
+            if (NetworkManager.Singleton.IsServer)
+                enemyHealth.canBeStaggerd = false;
+        }
     }
 }

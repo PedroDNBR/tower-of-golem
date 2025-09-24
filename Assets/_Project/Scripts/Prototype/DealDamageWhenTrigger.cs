@@ -50,6 +50,7 @@ namespace TW
                 if (characterBaseHealth == null && playerController == null) return;
 
             ShouldReceiveDamage shouldReceiveDamage = other.GetComponent<ShouldReceiveDamage>();
+            Debug.Log(shouldReceiveDamage);
             if (shouldReceiveDamage == null) return;
 
             BaseHealth health = other.GetComponent<BaseHealth>();
@@ -58,6 +59,8 @@ namespace TW
 
             if (health == null)
                 health = other.GetComponentInParent<BaseHealth>();
+
+            Debug.Log(health);
 
             if (health == null) return;
 
@@ -72,7 +75,7 @@ namespace TW
             }
             else
             {
-                if (health is EnemyHealth) Debug.Log($"DEU DANO EM {health}");
+                if (health is EnemyHealth) Debug.Log($"DEU DANO EM {health} {damage}");
                 if (health is EnemyHealth) Debug.Log($"{characterBaseHealth} == {health}");
                 health.TakeDamage(element, damage, gameObject);
             }
@@ -85,24 +88,14 @@ namespace TW
             for (int i = 0; i < spawnDamageTriggersWhenDestroyed.Count; ++i)
             {
                 var trigger = Instantiate(spawnDamageTriggersWhenDestroyed[i].gameObject, transform.position, transform.rotation);
-                DealDamageWhenTriggerEnter dealDamageWhenTriggerEnter = trigger.GetComponent<DealDamageWhenTriggerEnter>();
-                if (dealDamageWhenTriggerEnter != null)
+                DealDamageWhenTrigger dealDamageWhenTrigger = trigger.GetComponent<DealDamageWhenTrigger>();
+                if (dealDamageWhenTrigger != null)
                 {
                     if (CharacterBaseHealth != null)
-                        dealDamageWhenTriggerEnter.CharacterBaseHealth = CharacterBaseHealth;
+                        dealDamageWhenTrigger.CharacterBaseHealth = CharacterBaseHealth;
                     if (playerController != null)
-                        dealDamageWhenTriggerEnter.playerController = playerController;
+                        dealDamageWhenTrigger.playerController = playerController;
                 }
-
-                DealDamageWhenTriggerStay dealDamageWhenTriggerStay = trigger.GetComponent<DealDamageWhenTriggerStay>();
-                if (dealDamageWhenTriggerStay != null)
-                {
-                    if (CharacterBaseHealth != null)
-                        dealDamageWhenTriggerStay.CharacterBaseHealth = CharacterBaseHealth;
-                    if (playerController != null)
-                        dealDamageWhenTriggerStay.playerController = playerController;
-                }
-                
             }
         }
     }

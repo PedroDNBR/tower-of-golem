@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
 
@@ -16,7 +15,7 @@ namespace TW
 
         private void Start()
         {
-            //if (!NetworkManager.Singleton.IsServer) return;
+            // if (!NetworkManager.Singleton.IsServer) return;
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 objects.Add(gameObjects[i].colliderName, gameObjects[i].gObject);
@@ -30,7 +29,7 @@ namespace TW
 
         private void SetGameObjects(string name, bool isEnabled)
         {
-            if (!NetworkManager.Singleton.IsServer) return;
+            // if (!NetworkManager.Singleton.IsServer) return;
             string[] objectNames = name.Split(",");
             for (int i = 0; i < objectNames.Length; i++)
                 objects[objectNames[i]].SetActive(isEnabled);

@@ -138,8 +138,6 @@ namespace TW
             Vector3 direction = transform.position - target;
             float angle = Vector3.SignedAngle(-transform.forward, direction, transform.up); // Angle around Y-axis
             float normalizedAngle = angle / 180f; // Scales angle from -180 to 180 to -1 to 1
-            Debug.Log(angle);
-            Debug.Log(normalizedAngle);
 
             enemyController.AnimatorController.SetRotationValue(normalizedAngle);
         }

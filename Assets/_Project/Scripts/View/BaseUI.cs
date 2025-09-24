@@ -78,8 +78,6 @@ namespace TW
 
         protected void QuitWhenServerDisconnects(ulong id)
         {
-            Debug.Log($"Player quitted {id}");
-            Debug.Log($"{id} == 0");
             if ((id == 0 || id == NetworkManager.Singleton.LocalClientId) && !quitted)
             {
                 QuitToMenu();

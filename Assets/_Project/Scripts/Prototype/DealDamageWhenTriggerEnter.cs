@@ -13,14 +13,20 @@ namespace TW
         private void OnTriggerEnter(Collider other)
         {
             HandleDamage(other);
-            if (destroyWhenDamage) Destroy(gameObject);
             if (destroyThisTriggerDetector)
             {
-                Destroy(this);
-                for (int i = 0; i < triggerColliders.Count; i++)
-                {
-                    Destroy(triggerColliders[i]);
-                }
+                Invoke(nameof(DestroyThisTriggerDetector), .1f);
+            }
+            if (destroyWhenDamage) Destroy(gameObject);
+
+        }
+
+        private void DestroyThisTriggerDetector()
+        {
+            Destroy(this);
+            for (int i = 0; i < triggerColliders.Count; i++)
+            {
+                Destroy(triggerColliders[i]);
             }
         }
     }

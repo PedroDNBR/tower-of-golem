@@ -155,7 +155,7 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 0.5662651
-        functionName: Shoot
+        functionName: SpawnAttack
         data: ThrowFireBallSpell
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -819,63 +819,63 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 0.523871
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.5434786
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.57209194
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.60250247
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.6294786
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.6630139
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.6948516
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.7252621
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.7512075
-        functionName: Shoot
+      - time: 0.7531606
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -932,7 +932,7 @@ ModelImporter:
         intParameter: 1
         messageOptions: 0
       - time: 0.38804096
-        functionName: Shoot
+        functionName: SpawnAttack
         data: ThrowFireSword
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -2102,133 +2102,133 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 0.22696678
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.25558013
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.28599066
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.31296676
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.34650207
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.37833977
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.40875027
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.4346719
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.46429646
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.4958457
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.52678525
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.5571958
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.58311737
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.6127852
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.64319575
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.6767311
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.70587707
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.7344904
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.7649009
-        functionName: Shoot
+        functionName: SpawnAttack
         data: FireWaveStepBack
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

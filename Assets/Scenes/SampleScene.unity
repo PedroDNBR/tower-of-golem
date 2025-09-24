@@ -8412,7 +8412,7 @@ PrefabInstance:
     - target: {fileID: 8545501779266697398, guid: 446a626d77e1c52459ec113258789ca2,
         type: 3}
       propertyPath: minplayerCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

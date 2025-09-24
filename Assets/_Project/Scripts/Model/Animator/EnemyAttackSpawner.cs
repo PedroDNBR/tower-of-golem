@@ -35,32 +35,35 @@ namespace TW
         {
             if (!IsServer) return;
 
+            attacks[name].origin.gameObject.SetActive(true);
             ShootServerRpc(name, attacks[name].origin.position, attacks[name].origin.rotation);
         }
 
-        private void Shoot(string name)
+        private void Shoot(string name, Vector3 position, Quaternion rotation)
         {
             attacks[name].origin.gameObject.SetActive(true);
-            GameObject damageOnEnterObj = Instantiate(attacks[name].attackPrefab, attacks[name].origin.position, attacks[name].origin.rotation);
+            GameObject damageOnEnterObj = Instantiate(attacks[name].attackPrefab, position, rotation);
             if (damageOnEnterObj.GetComponent<AddToTrackedProjectiles>() != null)
                 if (projectileTracker != null) damageOnEnterObj.GetComponent<AddToTrackedProjectiles>().AddToTracker(projectileTracker);
+            
             if (!IsServer) return;
 
-            DealDamageWhenTriggerEnter dealDamageWhenTriggerEnter = damageOnEnterObj.GetComponent<DealDamageWhenTriggerEnter>();
-            if (dealDamageWhenTriggerEnter == null) dealDamageWhenTriggerEnter = damageOnEnterObj.GetComponentInChildren<DealDamageWhenTriggerEnter>();
-            if (dealDamageWhenTriggerEnter == null) dealDamageWhenTriggerEnter = damageOnEnterObj.GetComponentInParent<DealDamageWhenTriggerEnter>();
-            if (dealDamageWhenTriggerEnter != null) dealDamageWhenTriggerEnter.CharacterBaseHealth = originHealth;
+            DealDamageWhenTrigger dealDamageWhenTrigger = damageOnEnterObj.GetComponent<DealDamageWhenTrigger>();
+            if (dealDamageWhenTrigger == null) dealDamageWhenTrigger = damageOnEnterObj.GetComponentInChildren<DealDamageWhenTrigger>();
+            if (dealDamageWhenTrigger == null) dealDamageWhenTrigger = damageOnEnterObj.GetComponentInParent<DealDamageWhenTrigger>();
+            if (dealDamageWhenTrigger != null) dealDamageWhenTrigger.CharacterBaseHealth = originHealth;
 
-            DealDamageWhenTriggerStay dealDamageWhenTriggerStay = damageOnEnterObj.GetComponent<DealDamageWhenTriggerStay>();
-            if (dealDamageWhenTriggerStay == null) dealDamageWhenTriggerStay = damageOnEnterObj.GetComponentInChildren<DealDamageWhenTriggerStay>();
-            if (dealDamageWhenTriggerStay == null) dealDamageWhenTriggerStay = damageOnEnterObj.GetComponentInParent<DealDamageWhenTriggerStay>();
-            if (dealDamageWhenTriggerStay != null) dealDamageWhenTriggerStay.CharacterBaseHealth = originHealth;
+            StopProjectileWhenCollide stopProjectileWhenCollide = damageOnEnterObj.GetComponent<StopProjectileWhenCollide>();
+            if (stopProjectileWhenCollide == null) stopProjectileWhenCollide = damageOnEnterObj.GetComponentInChildren<StopProjectileWhenCollide>();
+            if (stopProjectileWhenCollide == null) stopProjectileWhenCollide = damageOnEnterObj.GetComponentInParent<StopProjectileWhenCollide>();
+            if (stopProjectileWhenCollide != null) stopProjectileWhenCollide.origin = transform.root;
+
         }
 
         [ServerRpc]
         public void ShootServerRpc(string name, Vector3 position, Quaternion rotation)
         {
-            Shoot(name);
+            Shoot(name, position, rotation);
             ShootClientRpc(name, position, rotation);
         }
 
@@ -69,7 +72,14 @@ namespace TW
         {
             if (IsServer || IsLocalPlayer) return;
             attacks[name].origin.gameObject.SetActive(true);
-            Instantiate(attacks[name].attackPrefab, position, rotation);
+            GameObject damageOnEnterObj = Instantiate(attacks[name].attackPrefab, position, rotation);
+            if (damageOnEnterObj.GetComponent<AddToTrackedProjectiles>() != null)
+                if (projectileTracker != null) damageOnEnterObj.GetComponent<AddToTrackedProjectiles>().AddToTracker(projectileTracker);
+            
+            StopProjectileWhenCollide stopProjectileWhenCollide = damageOnEnterObj.GetComponent<StopProjectileWhenCollide>();
+            if (stopProjectileWhenCollide == null) stopProjectileWhenCollide = damageOnEnterObj.GetComponentInChildren<StopProjectileWhenCollide>();
+            if (stopProjectileWhenCollide == null) stopProjectileWhenCollide = damageOnEnterObj.GetComponentInParent<StopProjectileWhenCollide>();
+            if (stopProjectileWhenCollide != null) stopProjectileWhenCollide.origin = transform.root;
         }
     }
 

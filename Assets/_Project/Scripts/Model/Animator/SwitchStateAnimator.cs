@@ -22,7 +22,8 @@ namespace TW
             if (field != null)
             {
                 object value = field.GetValue(null);
-                enemyController.BaseAI.SwitchState(value as IAIState);
+                if(NetworkGameManager.Singleton.IsServer)
+                    enemyController.BaseAI.SwitchState(value as IAIState);
             }
             else
             {

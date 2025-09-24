@@ -4939,8 +4939,10 @@ MonoBehaviour:
   origin: {fileID: 0}
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 4096
-  delayToStop: 0.01
+    m_Bits: 11264
+  delayToStop: 0.02
+  centerDetection: {x: 0, y: 0, z: 1.6234498}
+  extentDetection: {x: 0.35, y: 1, z: 3.98}
 --- !u!65 &7841506268244926398
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4960,7 +4962,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.280627, y: 1, z: 3.9747047}
+  m_Size: {x: 0.35, y: 1, z: 3.98}
   m_Center: {x: 0, y: 0, z: 1.6234498}
 --- !u!54 &2074757134306469176
 Rigidbody:
