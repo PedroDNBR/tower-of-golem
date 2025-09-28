@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canDamageOrigin: 1
-  damage: 20
+  damage: 2
   element: 4
   destroyWhenDamage: 1
   ignoreOrigin: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ThrowSpell
   m_EditorClassIdentifier: 
   anim: ThrowSpell
-  score: 5
+  score: 4
   recoveryTime: 2.4
   minDist: 4
   maxDist: 12
