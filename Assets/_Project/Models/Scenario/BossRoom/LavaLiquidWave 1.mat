@@ -118,7 +118,7 @@ Material:
     - _Surface: 0
     - _WaterScrollSpeed: 1
     - _WaveHeight: 79.6
-    - _WaveSpeed: 0.004
+    - _WaveSpeed: 0.08
     - _WaveStrenght: 3
     - _WorkflowMode: 1
     - _ZWrite: 1

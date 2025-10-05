@@ -15,7 +15,15 @@ namespace TW
 
         public GameObject bossArenaLeftDoor;
         public GameObject bossArenaRightDoor;
-       
+
+        [Header("Left Door")]
+        public float leftDoorClosedRotation = 180;
+        public float leftDoorOpenRotation = -60;
+
+        [Header("Right Door")]
+        public float doorClosedRotation = 180;
+        public float doorOpenRotation = -300;
+
         private void Start()
         {
             if(IsServer)
@@ -25,8 +33,8 @@ namespace TW
 
         public async Task OpenDoorsLerp(float lerpTime)
         {
-            Vector3 leftRotation = new Vector3(-90, 0, 60);
-            Vector3 rightRotation = new Vector3(-90, 0, 300);
+            Vector3 leftRotation = new Vector3(-90, 0, leftDoorOpenRotation);
+            Vector3 rightRotation = new Vector3(-90, 0, doorOpenRotation);
 
             await LerpDoors(leftRotation, rightRotation, lerpTime);
         }
@@ -34,8 +42,8 @@ namespace TW
         public async Task CloseDoorsLerp(float lerpTime)
         {
             BossArea.instance.transform.localScale = BossArea.instance.startScale;
-            Vector3 leftRotation = new Vector3(-90, 0, 180);
-            Vector3 rightRotation = new Vector3(-90, 0, 180);
+            Vector3 leftRotation = new Vector3(-90, 0, leftDoorClosedRotation);
+            Vector3 rightRotation = new Vector3(-90, 0, doorClosedRotation);
 
             await LerpDoors(leftRotation, rightRotation, lerpTime);
         }

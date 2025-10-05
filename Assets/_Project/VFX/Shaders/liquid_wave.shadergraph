@@ -1307,8 +1307,8 @@
     "m_ObjectId": "1d2d4bf3ef534b4aaebbcc5e6a194efe",
     "m_Title": "Vertex Displacement",
     "m_Position": {
-        "x": 10.0,
-        "y": 10.0
+        "x": -2475.0,
+        "y": -363.9999694824219
     }
 }
 
@@ -1630,10 +1630,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1766.0001220703125,
-            "y": -141.9999542236328,
+            "x": -1784.0,
+            "y": -142.00001525878907,
             "width": 126.0,
-            "height": 117.99998474121094
+            "height": 117.99999237060547
         }
     },
     "m_Slots": [
