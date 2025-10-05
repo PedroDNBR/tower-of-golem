@@ -34,20 +34,6 @@ namespace TW
             cameraPivot.position = newCameraPosition;
         }
 
-        //private void LateUpdate()
-        //{
-        //    if (cameraTransform == null)
-        //        return;
-
-        //    Vector3 newCameraPosition;
-        //    if (OverrideCameraPosition == Vector3.zero)
-        //        newCameraPosition = new Vector3(transform.position.x, transform.position.y + cameraHeight, transform.position.z + cameraDistance);
-        //    else
-        //        newCameraPosition = OverrideCameraPosition;
-
-        //    cameraTransform.position = Vector3.Lerp(cameraTransform.position, newCameraPosition, Time.deltaTime * 10);
-        //}
-
         float radiusX = 0.75f; // raio horizontal da elipse (mais baixo = mais sensível lateral)
         float radiusY = 0.75f; // raio vertical da elipse
 
@@ -97,6 +83,16 @@ namespace TW
                     cameraHolder.localPosition = lerpPosition;
                 }
             }
+            if (LevelManager.instance != null)
+            {
+                Vector3 clampPosition = cameraHolder.position;
+                clampPosition.x = Mathf.Clamp(clampPosition.x, LevelManager.instance.cameraClamp.x, LevelManager.instance.cameraClamp.y);
+                clampPosition.y = Mathf.Clamp(clampPosition.y, 0.5f, 40);
+
+                cameraHolder.position = clampPosition;
+            }
+            
+
         }
 
         public void ResetCamera()

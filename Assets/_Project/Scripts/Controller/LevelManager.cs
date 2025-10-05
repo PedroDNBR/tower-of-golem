@@ -24,6 +24,10 @@ namespace TW
         public float doorClosedRotation = 180;
         public float doorOpenRotation = -300;
 
+        public MeshRenderer scenarioLimit;
+        public Vector2 cameraClamp;
+
+
         private void Start()
         {
             if(IsServer)
