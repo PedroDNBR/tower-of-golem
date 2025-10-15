@@ -8,8 +8,9 @@ namespace TW
 {
     public abstract class BaseAI : NetworkBehaviour
     {
+
         [SerializeField]
-        public string enemyName = "Enemy test";
+        public string aiName = "AI test";
 
         [SerializeField]
         public float maxAttackDistance = 20;
@@ -61,7 +62,7 @@ namespace TW
 
         public float recoveryTimer;
 
-        public string EnemyName { get => enemyName; }
+        public string EnemyName { get => aiName; }
 
         public EnemyController EnemyController { set => enemyController = value; }
         public NavMeshAgent Agent { get => agent; }
@@ -80,8 +81,6 @@ namespace TW
 
         protected float decayRate = .2f;
 
-
-        // FSM API
         public virtual void SwitchState(IAIState newState)
         {
             currentState?.Exit(this);
@@ -194,7 +193,6 @@ namespace TW
 
                 if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, walkRadius, NavMesh.AllAreas))
                 {
-                    // check if path is valid within navmesh
                     if (agent.CalculatePath(hit.position, path) && path.status == NavMeshPathStatus.PathComplete)
                     {
                         finalPosition = hit.position;
@@ -208,14 +206,12 @@ namespace TW
 
         public Vector3 GetLocationAroundPosition(float min = 1.1f, float max = 1.6f)
         {
-            // Gera um offset fixo em torno do jogador (aleat�rio dentro de um arco)
             float angle = UnityEngine.Random.Range(-170f, 170f);
             float radius = UnityEngine.Random.Range(min, max);
 
             Quaternion rotation = Quaternion.Euler(0, angle, 0);
             Vector3 relativeOffset = rotation * Vector3.forward * radius;
 
-            // fallback
             return relativeOffset;
         }
 
@@ -346,9 +342,6 @@ namespace TW
 
                 score += UnityEngine.Random.Range(0f, 2f);
 
-                // Debug.Log($"checking if {p} is a good threat {d.totalDamage} {d.recentDamage} {Time.time - d.lastDamageTime <= 5f} {dist}");
-
-
                 if (score > bestScore)
                 {
                     bestScore = score;
@@ -358,19 +351,5 @@ namespace TW
 
             return bestTarget;
         }
-
-        protected virtual void OnDrawGizmos()
-        {
-            //Gizmos.color = Color.green;
-            //Gizmos.DrawWireSphere(transform.position, minSightRangeRadius);
-
-            //Gizmos.color = Color.yellow;
-            //Gizmos.DrawWireSphere(transform.position, medSightRangeRadius);
-
-            //Gizmos.color = Color.red;
-            //Gizmos.DrawWireSphere(transform.position, maxSightRangeRadius);
-        }
-
-        
     }
 }

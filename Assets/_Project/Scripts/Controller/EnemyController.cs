@@ -81,10 +81,10 @@ namespace TW
         }
 
         public void SetHealthListener() =>
-            enemyHealth.HealthChanged += enemyUI.HealthValueToSliderValue;
+            enemyHealth.onHealthChanged += enemyUI.HealthValueToSliderValue;
 
         public void UnsetHealthListener() =>
-            enemyHealth.HealthChanged -= enemyUI.HealthValueToSliderValue;
+            enemyHealth.onHealthChanged -= enemyUI.HealthValueToSliderValue;
 
         //protected virtual void Die()
         //{

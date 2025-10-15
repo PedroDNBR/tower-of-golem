@@ -58,7 +58,7 @@ namespace TW
                 networkObject.SpawnAsPlayerObject(client, true);
                 players.Add(client, networkObject);
 
-                if (ConnectedClients.Count > 1) networkObject.GetComponentInChildren<BaseHealth>().Dead += () => Invoke(nameof(CheckAllPlayersDied), 1f);
+                if (ConnectedClients.Count > 1) networkObject.GetComponentInChildren<BaseHealth>().onDeath += () => Invoke(nameof(CheckAllPlayersDied), 1f);
             }
         }
 
@@ -89,7 +89,7 @@ namespace TW
             NetworkObject networkObject = newMob.GetComponent<NetworkObject>();
             networkObject.Spawn(true);
             mobs.Add(networkObject.NetworkObjectId, networkObject);
-            newMob.GetComponent<EnemyHealth>().Dead += () => DespawnMob(networkObject, true);
+            newMob.GetComponent<EnemyHealth>().onDeath += () => DespawnMob(networkObject, true);
 
             return newMob;
         }

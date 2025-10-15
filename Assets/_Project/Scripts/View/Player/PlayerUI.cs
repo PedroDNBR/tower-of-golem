@@ -38,7 +38,7 @@ namespace TW
         protected override void Start()
         {
             base.Start();
-            playerController.PlayerHealth.Dead += () => deathScreen.gameObject.SetActive(true);
+            playerController.PlayerHealth.onDeath += () => deathScreen.gameObject.SetActive(true);
         }
 
         public void HealthValueToSliderValue(float current, float max)

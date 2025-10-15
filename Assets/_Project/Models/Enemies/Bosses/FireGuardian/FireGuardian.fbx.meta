@@ -58,7 +58,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
+      name: FireGuardianIdle
       takeName: Scene
       internalID: -623603649343465320
       firstFrame: 20
@@ -87,7 +87,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Walk
+      name: FireGuardianWalk
       takeName: Scene
       internalID: -1609281748187839663
       firstFrame: 160
@@ -116,7 +116,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: ThrowSpell
+      name: GuardianThrowSpell
       takeName: Scene
       internalID: 723096430288179899
       firstFrame: 300
@@ -180,7 +180,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: HeavyStep
+      name: GuardianHeavyStep
       takeName: Scene
       internalID: 1963079803359675471
       firstFrame: 370
@@ -272,7 +272,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: Kick
+      name: GuardianKick
       takeName: Scene
       internalID: -626948583029366203
       firstFrame: 410
@@ -364,7 +364,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: RotatingSlashCloseRange
+      name: GuardianRotatingSlashCloseRange
       takeName: Scene
       internalID: -8206857311389296499
       firstFrame: 480
@@ -477,7 +477,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: UpToDownSlash
+      name: GuardianUpToDownSlash
       takeName: Scene
       internalID: -4885119122951247324
       firstFrame: 570
@@ -604,7 +604,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: DownToUpDlash
+      name: GuardianDownToUpDlash
       takeName: Scene
       internalID: -4807389317913785953
       firstFrame: 660
@@ -717,7 +717,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: ComboRotatingSlashCloseRangeMagicCast
+      name: GuardianComboRotatingSlashCloseRangeMagicCast
       takeName: Scene
       internalID: -3206263651483497662
       firstFrame: 740
@@ -893,7 +893,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: ThrowSword
+      name: GuardianThrowSword
       takeName: Scene
       internalID: 7896679309779607623
       firstFrame: 830
@@ -1165,7 +1165,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: StepBack
+      name: GuardianStepBack
       takeName: Scene
       internalID: -3545652582204683642
       firstFrame: 1030
@@ -1332,7 +1332,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: Stunned
+      name: GuardianStaggered
       takeName: Scene
       internalID: -7653847362332097697
       firstFrame: 990
@@ -1513,7 +1513,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: Hitted
+      name: GuardianDamaged
       takeName: Scene
       internalID: 8195394017938382407
       firstFrame: 990
@@ -1680,7 +1680,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: RecoverWeapon
+      name: GuardianRecoverWeapon
       takeName: Scene
       internalID: 5336171071401514536
       firstFrame: 915
@@ -1903,7 +1903,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: SidewayDodge
+      name: GuardianSidewayDodge
       takeName: Scene
       internalID: 5703688115460763318
       firstFrame: 1080
@@ -2070,7 +2070,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: StepBackAndThrowFlames
+      name: GuardianStepBackAndThrowFlames
       takeName: Scene
       internalID: 6651284380104590841
       firstFrame: 1120
@@ -2384,7 +2384,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: LeftRotate45
+      name: GuardianLeftRotate45
       takeName: Scene
       internalID: 837255572769927147
       firstFrame: 1200
@@ -2551,7 +2551,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 10
     - serializedVersion: 16
-      name: RightRotate45
+      name: GuardianRightRotate45
       takeName: Scene
       internalID: -7705964590769475085
       firstFrame: 1250

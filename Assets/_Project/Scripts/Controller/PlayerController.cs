@@ -98,7 +98,7 @@ namespace TW
         public void Start()
         {
             playerMovement.StaminaChanged += playerUI.StaminaTimeToSliderValue;
-            playerHealth.HealthChanged += playerUI.HealthValueToSliderValue;
+            playerHealth.onHealthChanged += playerUI.HealthValueToSliderValue;
 
             playerMovement.Init();
 

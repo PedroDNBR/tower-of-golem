@@ -10,7 +10,7 @@ namespace TW
         {
             base.OnNetworkSpawn();
 
-            Dead += StartDeath;
+            onDeath += StartDeath;
         }
 
         private void StartDeath()

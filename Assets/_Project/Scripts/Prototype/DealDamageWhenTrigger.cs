@@ -45,7 +45,6 @@ namespace TW
         protected virtual void HandleDamage(Collider other)
         {
             if (NetworkManager.Singleton != null && !NetworkManager.Singleton.IsServer) return;
-            Debug.Log("Not null and i am the server");
 
             if (!ignoreOrigin)
                 if (characterBaseHealth == null && playerController == null) return;
@@ -54,7 +53,6 @@ namespace TW
             //if (shouldReceiveDamage == null) shouldReceiveDamage = other.GetComponentInChildren<ShouldReceiveDamage>();
             //if (shouldReceiveDamage == null) shouldReceiveDamage = other.GetComponentInParent<ShouldReceiveDamage>();
 
-            Debug.Log(shouldReceiveDamage);
             if (shouldReceiveDamage == null) return;
 
             BaseHealth health = other.GetComponent<BaseHealth>();
@@ -64,8 +62,6 @@ namespace TW
             if (health == null)
                 health = other.GetComponentInParent<BaseHealth>();
 
-            Debug.Log(health);
-
             if (health == null) return;
 
             if (!canDamageOrigin)
@@ -73,15 +69,12 @@ namespace TW
                 if (characterBaseHealth == health) return;
             }
 
-            Debug.Log("DEAL THE DAMGE NOW");
             if (playerController != null && health is EnemyHealth)
             {
                 (health as EnemyHealth).TakeDamage(element, damage, playerController);
             }
             else
             {
-                if (health is EnemyHealth) Debug.Log($"DEU DANO EM {health} {damage}");
-                if (health is EnemyHealth) Debug.Log($"{characterBaseHealth} == {health}");
                 health.TakeDamage(element, damage, gameObject);
             }
         }

@@ -16,14 +16,14 @@ namespace TW
         protected Elements type;
 
         // current / max
-        public event Action<float, float> HealthChanged;
+        public event Action<float, float> onHealthChanged;
 
         public Elements Type { get => type; }
 
         public float Health { get => health.Value; }
         public float MaxHealth { get => maxHealth.Value; }
 
-        public event Action Dead;
+        public event Action onDeath;
 
         protected List<GameObject> objectsThatDamaged = new List<GameObject>();
 
@@ -35,7 +35,7 @@ namespace TW
 
         public void InitOnHealthChangedAction()
         {
-            health.OnValueChanged += (float old, float current) => HealthChanged?.Invoke(health.Value, maxHealth.Value);
+            health.OnValueChanged += (float old, float current) => onHealthChanged?.Invoke(health.Value, maxHealth.Value);
         }
 
         public virtual void TakeDamage(Elements damageType, float damage, GameObject origin)
@@ -46,6 +46,8 @@ namespace TW
             objectsThatDamaged.Add(origin.transform.root.gameObject);
 
             float damageMultiplier = DamageMultiplier.table[type][damageType];
+            float totalDamage = damage * damageMultiplier;
+            if (totalDamage <= 0) return;
             health.Value -= damage * damageMultiplier;
 
             if (health.Value <= 0) InvokeDead();
@@ -77,10 +79,10 @@ namespace TW
 
         public void InvokeDeadLocal()
         {
-            Dead?.Invoke();
-            Dead = null;
+            onDeath?.Invoke();
+            onDeath = null;
         }
 
-        public void InvokeHealthUpdateCallback() => HealthChanged?.Invoke(health.Value, maxHealth.Value);
+        public void InvokeHealthUpdateCallback() => onHealthChanged?.Invoke(health.Value, maxHealth.Value);
     }
 }

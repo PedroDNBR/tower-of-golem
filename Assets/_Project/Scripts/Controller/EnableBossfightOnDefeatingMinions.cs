@@ -22,7 +22,7 @@ namespace TW
                 NetworkGameManager networkGameManager = (NetworkGameManager)NetworkManager.Singleton;
                 foreach (var item in networkGameManager.mobs)
                 {
-                    networkGameManager.mobs[item.Key].GetComponent<EnemyController>().EnemyHealth.Dead += MinionDied;
+                    networkGameManager.mobs[item.Key].GetComponent<EnemyController>().EnemyHealth.onDeath += MinionDied;
                 }
             }
 

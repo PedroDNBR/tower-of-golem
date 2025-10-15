@@ -10,7 +10,7 @@ namespace TW
 
         protected NavMeshAgent agent;
 
-        //[HideInInspector]
+        [HideInInspector]
         public bool canRotate = true;
         [HideInInspector]
         public bool isBusy;

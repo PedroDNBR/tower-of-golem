@@ -47,10 +47,10 @@ namespace TW
                     if (netObj != null && netObj.OwnerClientId == current)
                     {
                         if(playerToSpectateTransform != null)
-                            playerToSpectateTransform.GetComponent<BaseHealth>().Dead -= OnPlayerDies;
+                            playerToSpectateTransform.GetComponent<BaseHealth>().onDeath -= OnPlayerDies;
 
                         playerToSpectateTransform = player.transform;
-                        playerToSpectateTransform.GetComponent<BaseHealth>().Dead += OnPlayerDies;
+                        playerToSpectateTransform.GetComponent<BaseHealth>().onDeath += OnPlayerDies;
                         return;
                     }
                 }
