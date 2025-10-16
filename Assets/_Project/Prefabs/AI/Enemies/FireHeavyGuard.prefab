@@ -923,6 +923,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8581604597163423349}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 79a3dc6e187ed7349947bba33519aff5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3553550808919106341}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 79a3dc6e187ed7349947bba33519aff5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6557186696067176697}
     - targetCorrespondingSourceObject: {fileID: -5226385045790190259, guid: 79a3dc6e187ed7349947bba33519aff5,
         type: 3}
       insertIndex: -1
@@ -1363,7 +1371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TransitionStateInfoList: []
-  m_Animator: {fileID: 0}
+  m_Animator: {fileID: 7108682820638780512}
 --- !u!114 &8224162278579989155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,6 +1394,9 @@ MonoBehaviour:
   - colliderName: FootImpactParticles
     gObject: {fileID: 2196591717307935267}
     shouldNotDisable: 0
+  - colliderName: AxeDragParticles
+    gObject: {fileID: 710459483580117725}
+    shouldNotDisable: 0
 --- !u!114 &8581604597163423349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1403,6 +1414,41 @@ MonoBehaviour:
     collider: {fileID: 657542246588925625}
   - colliderName: Trample
     collider: {fileID: 3425456536495939843}
+--- !u!114 &3553550808919106341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4543253671912484000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 089a007e236a2774d9d140392a4fd40c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraShakeInfos:
+  - strength: 0.35
+    shakeTime: 0.3
+    shakeVelocity: 20
+  - strength: 0.25
+    shakeTime: 0.25
+    shakeVelocity: 20
+  - strength: 0.3
+    shakeTime: 0.75
+    shakeVelocity: 20
+--- !u!114 &6557186696067176697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4543253671912484000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b436d06487dd64eaf8269d7d493136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHealth: {fileID: 0}
 --- !u!1 &4649008308078146727 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -916182795950332586, guid: 79a3dc6e187ed7349947bba33519aff5,
@@ -1531,6 +1577,12 @@ MonoBehaviour:
 --- !u!4 &6634705019792264272 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1162282860877439583, guid: 79a3dc6e187ed7349947bba33519aff5,
+    type: 3}
+  m_PrefabInstance: {fileID: 3732790253398266353}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7108682820638780512 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 79a3dc6e187ed7349947bba33519aff5,
     type: 3}
   m_PrefabInstance: {fileID: 3732790253398266353}
   m_PrefabAsset: {fileID: 0}

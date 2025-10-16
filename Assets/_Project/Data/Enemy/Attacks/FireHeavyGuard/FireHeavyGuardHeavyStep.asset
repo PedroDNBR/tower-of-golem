@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FireHeavyGuardHeavyStep
   m_EditorClassIdentifier: 
   anim: FireHeavyGuardHeavyStep
-  score: 8
+  score: 5
   recoveryTime: 2.4
   minDist: 0
   maxDist: 3

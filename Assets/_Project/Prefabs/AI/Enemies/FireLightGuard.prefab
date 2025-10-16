@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1975653409
+  GlobalObjectIdHash: 3133677328
   InScenePlacedSourceGlobalObjectIdHash: 3201126509
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -764,6 +764,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 12370100654248410}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 398f123c3ca7bd549a4a886aefde7dc5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4065788320025161589}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 398f123c3ca7bd549a4a886aefde7dc5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1061319670838303941}
     - targetCorrespondingSourceObject: {fileID: -8345732363775644954, guid: 398f123c3ca7bd549a4a886aefde7dc5,
         type: 3}
       insertIndex: -1
@@ -1133,6 +1141,41 @@ MonoBehaviour:
     attackPrefab: {fileID: 4209747041792890355, guid: 29b1ac4413fb54841b0d2a584806baa0,
       type: 3}
     origin: {fileID: 4888205612320031077}
+--- !u!114 &4065788320025161589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6709966070573678494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b436d06487dd64eaf8269d7d493136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHealth: {fileID: 0}
+--- !u!114 &1061319670838303941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6709966070573678494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 089a007e236a2774d9d140392a4fd40c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraShakeInfos:
+  - strength: 0.3
+    shakeTime: 0.3
+    shakeVelocity: 20
+  - strength: 0.2
+    shakeTime: 0.25
+    shakeVelocity: 20
+  - strength: 0.25
+    shakeTime: 0.75
+    shakeVelocity: 20
 --- !u!1 &6760240716058676477 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8354515563959693774, guid: 398f123c3ca7bd549a4a886aefde7dc5,

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: FireHeavyGuardUpToDownSlash
   m_EditorClassIdentifier: 
   anim: FireHeavyGuardUpToDownSlash
-  score: 7
+  score: 5
   recoveryTime: 1.8
-  minDist: 0
-  maxDist: 6
+  minDist: 3
+  maxDist: 5
   minAngle: -35
   maxAngle: 35
