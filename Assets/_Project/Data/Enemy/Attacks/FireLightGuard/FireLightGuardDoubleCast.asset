@@ -16,6 +16,6 @@ MonoBehaviour:
   score: 8
   recoveryTime: 2.4
   minDist: 4
-  maxDist: 12
+  maxDist: 20
   minAngle: -35
   maxAngle: 35
