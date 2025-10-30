@@ -57,6 +57,7 @@ namespace TW
         public void PlayTargetAnimation(string animationName, bool isBusy)
         {
             animator.SetBool(Constants.isBusyString, isBusy);
+            Debug.Log(animationName);
             animator.CrossFade(animationName, 0);
         }
 

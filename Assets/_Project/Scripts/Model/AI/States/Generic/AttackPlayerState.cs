@@ -30,7 +30,7 @@ namespace TW
                     //float dot = Vector3.Dot(baseAI.transform.right, dir);
                     //if (dot < 0) angle *= -1;
                     //var snapshot = baseAI.GetAction(distanceToPlayer, angle);
-                    baseAI.SwitchState(States.followPlayerState);
+                    baseAI.SwitchState(baseAI.followPlayerState);
                 }
                 if (!baseAI.actionFlag && baseAI.recoveryTimer <= 0)
                 {

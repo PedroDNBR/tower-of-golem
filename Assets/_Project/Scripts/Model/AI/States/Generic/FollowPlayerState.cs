@@ -4,16 +4,16 @@ namespace TW
 {
     public class FollowPlayerState : IAIState
     {
-        public void Enter(BaseAI baseAI)
+        public virtual void Enter(BaseAI baseAI)
         {
             baseAI.agent.stoppingDistance = baseAI.stoppingDistance;
         }
 
-        public void Execute(BaseAI baseAI)
+        public virtual void Execute(BaseAI baseAI)
         {
             if (baseAI.currentPlayerInsight == null)
             {
-                baseAI.SwitchState(States.roamingState);
+                baseAI.SwitchState(States.enemyRoamingState);
                 return;
             }
 
@@ -50,6 +50,6 @@ namespace TW
             baseAI.HandleRotation();
         }
 
-        public void Exit(BaseAI baseAI) { }
+        public virtual void Exit(BaseAI baseAI) { }
     }
 }

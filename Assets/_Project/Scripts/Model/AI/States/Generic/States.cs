@@ -8,5 +8,7 @@ namespace TW
         public static readonly FollowPlayerState followPlayerState = new FollowPlayerState();
         public static readonly CircleAroundPlayerState circleAroundPlayerState = new CircleAroundPlayerState();
         public static readonly UnarmedState unarmedState = new UnarmedState();
+
+        public static readonly DogChasePlayerState dogChasePlayerState = new DogChasePlayerState();
     }
 }
