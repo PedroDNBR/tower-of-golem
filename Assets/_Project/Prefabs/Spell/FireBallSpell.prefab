@@ -82,9 +82,13 @@ MonoBehaviour:
   damage: 10
   element: 0
   destroyWhenDamage: 1
+  ignoreOrigin: 0
   playerController: {fileID: 0}
   spawnDamageTriggersWhenDestroyed:
   - {fileID: 5376808074059555709, guid: fc374de88e3fcc64e8815e1c51eb7197, type: 3}
+  destroyThisTriggerDetector: 0
+  destroyGameObjectWhenCollide: 1
+  triggerColliders: []
 --- !u!135 &4951326283660058349
 SphereCollider:
   m_ObjectHideFlags: 0
