@@ -44386,7 +44386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde786cc6606a3c4fb581419af71f248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyName: Enemy test
+  aiName: AI test
   maxAttackDistance: 20
   minAttackDistance: 2
   stoppingDistance: 0
@@ -44495,7 +44495,8 @@ MonoBehaviour:
   health:
     m_InternalValue: 0
   type: 0
-  hittedAnimNameString: Hitted
+  staggeredAnimNameString: Staggered
+  damagedAnimNameString: Damaged
   maxDamageUntilStagger: 20
   minVelocityToDealDamage: 6
   totalVelocity: 0
@@ -55284,16 +55285,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackAttackDataList:
   - attackName: ThrowFireBallSpell
-    attackPrefab: {fileID: 4209747041792890355, guid: 9ea27cfc91adf744a8d8f83113a7863a,
-      type: 3}
+    attackId: FireBallProjectile
     origin: {fileID: 4764991979246238946}
   - attackName: ThrowFireSword
-    attackPrefab: {fileID: 1988693056009061098, guid: 52385c5d453700f429548b82e9f64ce9,
-      type: 3}
+    attackId: FireSwordProjectile
     origin: {fileID: 3190880170708793986}
   - attackName: FireWaveStepBack
-    attackPrefab: {fileID: 8799260770230056043, guid: 3686cec48403d174e95775153e2b739f,
-      type: 3}
+    attackId: FireWaveProjectile
     origin: {fileID: 5437601337154796305}
 --- !u!114 &3317249717591251328
 MonoBehaviour:

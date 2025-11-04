@@ -163,7 +163,11 @@ namespace TW
 
         public void InstantiateSpell(Spell spell)
         {
-            GameObject spellCasted = Instantiate(spell.prefab, spellcaster.position, spellcaster.rotation);
+            GameObject spellCasted = ObjectPool.instance.InstantiateSpell(
+                spell.spellId,
+                spellcaster.position,
+                spellcaster.rotation
+            );
             Projectile projectile = spellCasted.GetComponent<Projectile>();
             if (projectile != null)
             {
@@ -180,7 +184,6 @@ namespace TW
             if (dealDamageWhenTriggerStay == null) dealDamageWhenTriggerStay = spellCasted.GetComponentInChildren<DealDamageWhenTriggerStay>();
             if (dealDamageWhenTriggerStay == null) dealDamageWhenTriggerStay = spellCasted.GetComponentInParent<DealDamageWhenTriggerStay>();
             if (dealDamageWhenTriggerStay != null) dealDamageWhenTriggerStay.playerController = playerController;
-
         }
 
         private void Update()

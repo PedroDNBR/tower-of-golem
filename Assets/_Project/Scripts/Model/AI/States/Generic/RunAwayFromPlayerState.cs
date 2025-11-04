@@ -47,7 +47,6 @@ namespace TW
         public void Execute(BaseAI baseAI)
         {
             float distToTarget = Vector3.Distance(baseAI.transform.position, baseAI.agent.destination);
-            Debug.Log($"{distToTarget} < {baseAI.stoppingDistance + 0.5f}");
             if (distToTarget < baseAI.stoppingDistance + 0.5f)
             {
                 baseAI.SwitchState(States.roamingState);

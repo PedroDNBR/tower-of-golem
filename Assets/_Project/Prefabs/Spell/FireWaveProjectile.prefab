@@ -129,6 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0.6
   objectToDestroy: {fileID: 0}
+  usePool: 1
 --- !u!114 &1973411719817682234
 MonoBehaviour:
   m_ObjectHideFlags: 0

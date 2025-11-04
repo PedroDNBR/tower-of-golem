@@ -23,7 +23,7 @@ namespace TW
             for (int i = 0; i < attackAttackDataList.Count; i++)
             {
                 AttackInstanceData attackInstanceData = new AttackInstanceData();
-                attackInstanceData.attackPrefab = attackAttackDataList[i].attackPrefab;
+                attackInstanceData.attackId = attackAttackDataList[i].attackId;
                 attackInstanceData.origin = attackAttackDataList[i].origin;
                 attacks.Add(attackAttackDataList[i].attackName, attackInstanceData);
             }
@@ -42,7 +42,7 @@ namespace TW
         private void Shoot(string name, Vector3 position, Quaternion rotation)
         {
             attacks[name].origin.gameObject.SetActive(true);
-            GameObject damageOnEnterObj = Instantiate(attacks[name].attackPrefab, position, rotation);
+            GameObject damageOnEnterObj = ObjectPool.instance.InstantiateSpell(attacks[name].attackId, position, rotation);
             if (damageOnEnterObj.GetComponent<AddToTrackedProjectiles>() != null)
                 if (projectileTracker != null) damageOnEnterObj.GetComponent<AddToTrackedProjectiles>().AddToTracker(projectileTracker);
             
@@ -72,7 +72,7 @@ namespace TW
         {
             if (IsServer || IsLocalPlayer) return;
             attacks[name].origin.gameObject.SetActive(true);
-            GameObject damageOnEnterObj = Instantiate(attacks[name].attackPrefab, position, rotation);
+            GameObject damageOnEnterObj = ObjectPool.instance.InstantiateSpell(attacks[name].attackId, position, rotation);
             if (damageOnEnterObj.GetComponent<AddToTrackedProjectiles>() != null)
                 if (projectileTracker != null) damageOnEnterObj.GetComponent<AddToTrackedProjectiles>().AddToTracker(projectileTracker);
             
@@ -87,14 +87,14 @@ namespace TW
     class AttackData
     {
         public string attackName;
-        public GameObject attackPrefab;
+        public string attackId;
         public Transform origin;
     }
 
     [Serializable]
     class AttackInstanceData
     {
-        public GameObject attackPrefab;
+        public string attackId;
         public Transform origin;
     }
 }

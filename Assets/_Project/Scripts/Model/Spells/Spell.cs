@@ -10,6 +10,6 @@ namespace TW
         public float range;
         public float speed;
         public float gravity;
-        public GameObject prefab;
+        public string spellId;
     }
 }

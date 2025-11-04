@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6419704694602124264}
   - component: {fileID: 4951326283660058349}
   - component: {fileID: -8750700118684735140}
+  - component: {fileID: 401746689352285438}
   m_Layer: 12
   m_Name: FireBallSpell
   m_TagString: Untagged
@@ -66,6 +67,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 6
   objectToDestroy: {fileID: 0}
+  usePool: 1
 --- !u!114 &6419704694602124264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,7 +89,6 @@ MonoBehaviour:
   spawnDamageTriggersWhenDestroyed:
   - {fileID: 5376808074059555709, guid: fc374de88e3fcc64e8815e1c51eb7197, type: 3}
   destroyThisTriggerDetector: 0
-  destroyGameObjectWhenCollide: 1
   triggerColliders: []
 --- !u!135 &4951326283660058349
 SphereCollider:
@@ -137,6 +138,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &401746689352285438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4209747041792890355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b9d909210d4c5f44aeba6d10fa6c1b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 9216
 --- !u!1 &5803848907781791906
 GameObject:
   m_ObjectHideFlags: 0

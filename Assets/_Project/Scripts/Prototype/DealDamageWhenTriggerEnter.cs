@@ -9,25 +9,37 @@ namespace TW
         protected bool destroyThisTriggerDetector = false;
 
         [SerializeField]
-        List<Collider> triggerColliders = new List<Collider>(); 
+        List<Collider> triggerColliders = new List<Collider>();
+
+        protected override void Start()
+        {
+            base.Start();
+            for (int i = 0; i < triggerColliders.Count; i++)
+            {
+                triggerColliders[i].enabled = true;
+            }
+            this.enabled = true;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            HandleDamage(other);
-            if (destroyThisTriggerDetector)
+            if (HandleDamage(other))
             {
-                Invoke(nameof(DestroyThisTriggerDetector), .1f);
+                if (destroyThisTriggerDetector)
+                {
+                    Invoke(nameof(DestroyThisTriggerDetector), .1f);
+                }
+                if (destroyWhenDamage) onDestroyObject?.Invoke();
             }
-            if (destroyWhenDamage) Destroy(gameObject);
-
         }
 
         private void DestroyThisTriggerDetector()
         {
-            Destroy(this);
             for (int i = 0; i < triggerColliders.Count; i++)
             {
-                Destroy(triggerColliders[i]);
+                triggerColliders[i].enabled = false;
             }
+            this.enabled = false;
         }
     }
 }

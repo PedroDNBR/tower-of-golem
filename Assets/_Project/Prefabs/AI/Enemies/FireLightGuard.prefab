@@ -1178,16 +1178,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackAttackDataList:
   - attackName: FireBallSpell
-    attackPrefab: {fileID: 4209747041792890355, guid: 9ea27cfc91adf744a8d8f83113a7863a,
-      type: 3}
+    attackId: FireBallProjectile
     origin: {fileID: 4888205612320031077}
   - attackName: FireBallSmallSpell
-    attackPrefab: {fileID: 4209747041792890355, guid: 29b1ac4413fb54841b0d2a584806baa0,
-      type: 3}
+    attackId: FireBallSmallProjectile
     origin: {fileID: 4888205612320031077}
   - attackName: FireWaveProjectile
-    attackPrefab: {fileID: 8799260770230056043, guid: 3686cec48403d174e95775153e2b739f,
-      type: 3}
+    attackId: FireWaveProjectile
     origin: {fileID: 2332888026069395380}
 --- !u!114 &4065788320025161589
 MonoBehaviour:

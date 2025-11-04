@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 namespace TW
 {
     public class DealDamageWhenTrigger : MonoBehaviour
@@ -25,6 +27,8 @@ namespace TW
         [SerializeField]
         protected List<DealDamageWhenTrigger> spawnDamageTriggersWhenDestroyed;
 
+        public Action onDestroyObject;
+
         public virtual void OnEnable()
         {
             this.enabled = NetworkManager.Singleton == null ? true : NetworkManager.Singleton.IsServer;
@@ -42,18 +46,18 @@ namespace TW
                 characterBaseHealth = GetComponent<BaseHealth>();
         }
 
-        protected virtual void HandleDamage(Collider other)
+        protected virtual bool HandleDamage(Collider other)
         {
-            if (NetworkManager.Singleton != null && !NetworkManager.Singleton.IsServer) return;
+            if (NetworkManager.Singleton != null && !NetworkManager.Singleton.IsServer) return false;
 
             if (!ignoreOrigin)
-                if (characterBaseHealth == null && playerController == null) return;
+                if (characterBaseHealth == null && playerController == null) return false;
 
             ShouldReceiveDamage shouldReceiveDamage = other.GetComponent<ShouldReceiveDamage>();
             //if (shouldReceiveDamage == null) shouldReceiveDamage = other.GetComponentInChildren<ShouldReceiveDamage>();
             //if (shouldReceiveDamage == null) shouldReceiveDamage = other.GetComponentInParent<ShouldReceiveDamage>();
 
-            if (shouldReceiveDamage == null) return;
+            if (shouldReceiveDamage == null) return false;
 
             BaseHealth health = other.GetComponent<BaseHealth>();
             if (health == null)
@@ -62,11 +66,11 @@ namespace TW
             if (health == null)
                 health = other.GetComponentInParent<BaseHealth>();
 
-            if (health == null) return;
+            if (health == null) return false;
 
             if (!canDamageOrigin)
             {
-                if (characterBaseHealth == health) return;
+                if (characterBaseHealth == health) return false;
             }
 
             if (playerController != null && health is EnemyHealth)
@@ -77,9 +81,11 @@ namespace TW
             {
                 health.TakeDamage(element, damage, gameObject);
             }
+
+            return true;
         }
 
-        protected virtual void OnDestroy()
+        public virtual void OnDisable()
         {
             if (spawnDamageTriggersWhenDestroyed.Count <= 0) return;
 
