@@ -42,9 +42,9 @@ namespace TW
         private void Shoot(string name, Vector3 position, Quaternion rotation)
         {
             attacks[name].origin.gameObject.SetActive(true);
-            GameObject damageOnEnterObj = ObjectPool.instance.InstantiateSpell(attacks[name].attackId, position, rotation);
+            PoolObject damageOnEnterObj = ObjectPoolController.instance.InstantiateSpell(attacks[name].attackId, position, rotation);
             if (damageOnEnterObj.GetComponent<AddToTrackedProjectiles>() != null)
-                if (projectileTracker != null) damageOnEnterObj.GetComponent<AddToTrackedProjectiles>().AddToTracker(projectileTracker);
+                if (projectileTracker != null) damageOnEnterObj.GetComponent<AddToTrackedProjectiles>().AddToTracker(projectileTracker, attacks[name].attackId);
             
             if (!IsServer) return;
 
@@ -72,9 +72,9 @@ namespace TW
         {
             if (IsServer || IsLocalPlayer) return;
             attacks[name].origin.gameObject.SetActive(true);
-            GameObject damageOnEnterObj = ObjectPool.instance.InstantiateSpell(attacks[name].attackId, position, rotation);
+            PoolObject damageOnEnterObj = ObjectPoolController.instance.InstantiateSpell(attacks[name].attackId, position, rotation);
             if (damageOnEnterObj.GetComponent<AddToTrackedProjectiles>() != null)
-                if (projectileTracker != null) damageOnEnterObj.GetComponent<AddToTrackedProjectiles>().AddToTracker(projectileTracker);
+                if (projectileTracker != null) damageOnEnterObj.GetComponent<AddToTrackedProjectiles>().AddToTracker(projectileTracker, attacks[name].attackId);
             
             StopProjectileWhenCollide stopProjectileWhenCollide = damageOnEnterObj.GetComponent<StopProjectileWhenCollide>();
             if (stopProjectileWhenCollide == null) stopProjectileWhenCollide = damageOnEnterObj.GetComponentInChildren<StopProjectileWhenCollide>();

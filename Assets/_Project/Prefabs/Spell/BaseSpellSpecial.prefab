@@ -92,10 +92,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3018159891628078073}
+  - component: {fileID: 7849262459854868519}
   - component: {fileID: 2841571923832450251}
   - component: {fileID: 4565758342344205420}
   - component: {fileID: 2075711199443117031}
-  - component: {fileID: 7849262459854868519}
+  - component: {fileID: -6300040976045314640}
   m_Layer: 12
   m_Name: BaseSpellSpecial
   m_TagString: Untagged
@@ -119,6 +120,27 @@ Transform:
   - {fileID: 1680192297482005500}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &7849262459854868519
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5294890440175974610}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2841571923832450251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 5
   objectToDestroy: {fileID: 0}
+  poolObject: {fileID: -6300040976045314640}
 --- !u!114 &2075711199443117031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,26 +189,18 @@ MonoBehaviour:
   ignoreOrigin: 0
   playerController: {fileID: 0}
   spawnDamageTriggersWhenDestroyed: []
+  poolObject: {fileID: -6300040976045314640}
   destroyThisTriggerDetector: 0
   triggerColliders: []
---- !u!135 &7849262459854868519
-SphereCollider:
+--- !u!114 &-6300040976045314640
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5294890440175974610}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab5a137c0e9afce499e2c079c4610b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

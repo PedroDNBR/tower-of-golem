@@ -6,7 +6,7 @@ namespace TW
     {
         public LayerMask layer;
 
-        public GameObject spawnParticle;
+        public string particleName;
 
         private ContactPoint contactPoint;
 
@@ -23,7 +23,7 @@ namespace TW
             if (((1 << other.gameObject.layer) & layer.value) != 0)
             {
                 Vector3 hitPoint = contactPoint.point;
-                Instantiate(spawnParticle, hitPoint, Quaternion.identity);
+                ObjectPoolController.instance.InstantiateParticle(particleName, hitPoint, Quaternion.identity);
             }
         }
     }

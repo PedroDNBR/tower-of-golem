@@ -11,14 +11,13 @@ namespace TW
         [SerializeField]
         List<Collider> triggerColliders = new List<Collider>();
 
-        protected override void Start()
+        public override void OnEnable()
         {
-            base.Start();
+            base.OnEnable();
             for (int i = 0; i < triggerColliders.Count; i++)
             {
                 triggerColliders[i].enabled = true;
             }
-            this.enabled = true;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -29,7 +28,7 @@ namespace TW
                 {
                     Invoke(nameof(DestroyThisTriggerDetector), .1f);
                 }
-                if (destroyWhenDamage) onDestroyObject?.Invoke();
+                if (destroyWhenDamage) poolObject.ReturnToPool();
             }
         }
 

@@ -4858,6 +4858,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6149410364181119371}
   - component: {fileID: 5095082183899202451}
+  - component: {fileID: 6947349228940766477}
   m_Layer: 12
   m_Name: FireSwordDisapearing
   m_TagString: Untagged
@@ -4897,6 +4898,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 2
   objectToDestroy: {fileID: 0}
+  poolObject: {fileID: 6947349228940766477}
+--- !u!114 &6947349228940766477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823414355236783488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab5a137c0e9afce499e2c079c4610b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3315916850939459095
 GameObject:
   m_ObjectHideFlags: 0
@@ -24473,6 +24487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0.1
   objectToDestroy: {fileID: 0}
+  poolObject: {fileID: 0}
 --- !u!114 &4610389420889263879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24492,6 +24507,7 @@ MonoBehaviour:
   ignoreOrigin: 1
   playerController: {fileID: 0}
   spawnDamageTriggersWhenDestroyed: []
+  poolObject: {fileID: 0}
   damageInterval: 0.01
 --- !u!1 &7093674215674937654
 GameObject:

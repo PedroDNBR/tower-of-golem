@@ -1,15 +1,14 @@
-using System;
 using System.Collections;
+using TW;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class DestroyOnContact : MonoBehaviour
 {
     public LayerMask mask;
 
-    public Action onDestroyObject;
-
     public Coroutine destroyCoroutine;
+
+    public PoolObject poolObject;
 
     private void OnEnable()
     {
@@ -29,6 +28,6 @@ public class DestroyOnContact : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         destroyCoroutine = null;
-        onDestroyObject?.Invoke();
+        poolObject.ReturnToPool();
     }
 }

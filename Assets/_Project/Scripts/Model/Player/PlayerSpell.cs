@@ -163,7 +163,7 @@ namespace TW
 
         public void InstantiateSpell(Spell spell)
         {
-            GameObject spellCasted = ObjectPool.instance.InstantiateSpell(
+            PoolObject spellCasted = ObjectPoolController.instance.InstantiateSpell(
                 spell.spellId,
                 spellcaster.position,
                 spellcaster.rotation

@@ -27,7 +27,7 @@ namespace TW
         [SerializeField]
         protected List<DealDamageWhenTrigger> spawnDamageTriggersWhenDestroyed;
 
-        public Action onDestroyObject;
+        public PoolObject poolObject;
 
         public virtual void OnEnable()
         {

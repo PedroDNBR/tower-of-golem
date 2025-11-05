@@ -38849,6 +38849,7 @@ GameObject:
   - component: {fileID: 8925266331289201969}
   - component: {fileID: 7579678093024273397}
   - component: {fileID: 153251375229311875}
+  - component: {fileID: -4952215217145711915}
   m_Layer: 0
   m_Name: SmallImpactParticles
   m_TagString: Untagged
@@ -38918,6 +38919,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 6
+  objectToDestroy: {fileID: 0}
+  poolObject: {fileID: -4952215217145711915}
+--- !u!114 &-4952215217145711915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7063661158082822491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab5a137c0e9afce499e2c079c4610b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7765671642190104055
 GameObject:
   m_ObjectHideFlags: 0

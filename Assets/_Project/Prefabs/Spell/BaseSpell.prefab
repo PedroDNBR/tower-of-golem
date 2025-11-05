@@ -92,12 +92,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3018159891628078073}
+  - component: {fileID: 6497572704887872106}
   - component: {fileID: 2700313149897311097}
   - component: {fileID: 2841571923832450251}
   - component: {fileID: 4565758342344205420}
   - component: {fileID: 9137056190774369655}
   - component: {fileID: 3321046565876738264}
-  - component: {fileID: 6497572704887872106}
+  - component: {fileID: 807237255281225385}
   m_Layer: 12
   m_Name: BaseSpell
   m_TagString: Untagged
@@ -121,6 +122,33 @@ Transform:
   - {fileID: 1680192297482005500}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &6497572704887872106
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5294890440175974610}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!135 &2700313149897311097
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -170,7 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 5
   objectToDestroy: {fileID: 0}
-  usePool: 1
+  poolObject: {fileID: 807237255281225385}
 --- !u!114 &9137056190774369655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +219,7 @@ MonoBehaviour:
   playerController: {fileID: 0}
   spawnDamageTriggersWhenDestroyed:
   - {fileID: 5376808074059555709, guid: d6e1fd142724de44c9434dfcea792d22, type: 3}
+  poolObject: {fileID: 807237255281225385}
   destroyThisTriggerDetector: 0
   triggerColliders: []
 --- !u!114 &3321046565876738264
@@ -208,30 +237,16 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 1024
---- !u!54 &6497572704887872106
-Rigidbody:
+  poolObject: {fileID: 807237255281225385}
+--- !u!114 &807237255281225385
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5294890440175974610}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab5a137c0e9afce499e2c079c4610b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

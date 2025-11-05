@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1973411719817682234}
   - component: {fileID: 212236606948105349}
   - component: {fileID: 6946804890581536491}
+  - component: {fileID: 6626436091025072113}
   m_Layer: 0
   m_Name: FireWaveProjectile
   m_TagString: Untagged
@@ -129,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0.6
   objectToDestroy: {fileID: 0}
-  usePool: 1
+  poolObject: {fileID: 6626436091025072113}
 --- !u!114 &1973411719817682234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,12 +144,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canDamageOrigin: 0
-  damage: 3
+  damage: 0.3
   element: 0
   destroyWhenDamage: 0
   ignoreOrigin: 1
   playerController: {fileID: 0}
   spawnDamageTriggersWhenDestroyed: []
+  poolObject: {fileID: 6626436091025072113}
   destroyThisTriggerDetector: 0
   triggerColliders: []
 --- !u!33 &212236606948105349
@@ -201,3 +203,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6626436091025072113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8799260770230056043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab5a137c0e9afce499e2c079c4610b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

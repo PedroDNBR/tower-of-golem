@@ -12,16 +12,13 @@ namespace TW
         [SerializeField]
         MonoBehaviour objectToDestroy;
 
-        [SerializeField]
-        bool usePool;
-
-        public Action onDestroyObject;
+        public PoolObject poolObject;
 
         private Coroutine DestroyCoroutine;
 
         private void OnEnable()
         {
-            if(!usePool)
+            if(poolObject == null)
             {
                 Destroy(objectToDestroy == null ? gameObject : objectToDestroy, timer);
                 return;
@@ -32,7 +29,7 @@ namespace TW
         IEnumerator AddToPoolOnTime()
         {
             yield return new WaitForSeconds(timer);
-            onDestroyObject?.Invoke();
+            poolObject.ReturnToPool();
         }
 
         private void OnDisable()

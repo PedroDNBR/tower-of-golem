@@ -4928,6 +4928,7 @@ MonoBehaviour:
     m_Bits: 9216
   spawnParticle: {fileID: 7063661158082822491, guid: 175266831ae168f489b7151717a57058,
     type: 3}
+  particleName: SmallImpactParticles
 --- !u!135 &6920315747637594485
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9954,6 +9955,7 @@ MonoBehaviour:
     m_Bits: 9216
   spawnParticle: {fileID: 7063661158082822491, guid: 91dfa385bae46894a85a1438a2708a4e,
     type: 3}
+  particleName: DragParticles
   spawnInterval: 0.002
 --- !u!64 &282120587875598302
 MeshCollider:
@@ -14903,6 +14905,7 @@ MonoBehaviour:
     m_Bits: 9216
   spawnParticle: {fileID: 7063661158082822491, guid: c62778d7729894646beb0b04d9c1481e,
     type: 3}
+  particleName: VerySmallImpactParticles
   spawnInterval: 0.002
 --- !u!135 &3688073522728847779
 SphereCollider:
@@ -39313,6 +39316,7 @@ MonoBehaviour:
     m_Bits: 9216
   spawnParticle: {fileID: 7063661158082822491, guid: 859577218d4a76044a0145a74d0fa9a3,
     type: 3}
+  particleName: ImpactParticles
 --- !u!64 &3668546175860910389
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -44256,6 +44260,7 @@ MonoBehaviour:
   ignoreOrigin: 0
   playerController: {fileID: 0}
   spawnDamageTriggersWhenDestroyed: []
+  poolObject: {fileID: 0}
   destroyThisTriggerDetector: 0
   triggerColliders: []
 --- !u!1 &5100843007079931135
@@ -49498,6 +49503,7 @@ MonoBehaviour:
   ignoreOrigin: 0
   playerController: {fileID: 0}
   spawnDamageTriggersWhenDestroyed: []
+  poolObject: {fileID: 0}
   destroyThisTriggerDetector: 0
   triggerColliders: []
 --- !u!1 &7627155887173923798
@@ -49573,6 +49579,7 @@ MonoBehaviour:
   ignoreOrigin: 0
   playerController: {fileID: 0}
   spawnDamageTriggersWhenDestroyed: []
+  poolObject: {fileID: 0}
   destroyThisTriggerDetector: 0
   triggerColliders: []
 --- !u!1 &8266895656416036457
@@ -54580,6 +54587,7 @@ MonoBehaviour:
     m_Bits: 9216
   spawnParticle: {fileID: 4164506718985662797, guid: a638bddf8331a7b49b236b610ad032b6,
     type: 3}
+  particleName: DeImpactParticles
 --- !u!64 &6724800599847834640
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -55347,6 +55355,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackedProjectile: {fileID: 0}
+  id: 
+  poolObject: {fileID: 0}
 --- !u!114 &4011509075696203725
 MonoBehaviour:
   m_ObjectHideFlags: 0

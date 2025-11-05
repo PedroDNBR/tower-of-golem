@@ -78,6 +78,7 @@ MonoBehaviour:
     m_Bits: 9216
   spawnParticle: {fileID: 7063661158082822491, guid: 91dfa385bae46894a85a1438a2708a4e,
     type: 3}
+  particleName: DragParticles
   spawnInterval: 0.002
 --- !u!65 &4877450697144566931
 BoxCollider:
@@ -178,6 +179,7 @@ MonoBehaviour:
     m_Bits: 9216
   spawnParticle: {fileID: 7063661158082822491, guid: 175266831ae168f489b7151717a57058,
     type: 3}
+  particleName: SmallImpactParticles
 --- !u!65 &1763799042864459535
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -277,6 +279,7 @@ MonoBehaviour:
     m_Bits: 9216
   spawnParticle: {fileID: 7063661158082822491, guid: 175266831ae168f489b7151717a57058,
     type: 3}
+  particleName: SmallImpactParticles
 --- !u!135 &7083131297277065031
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -648,6 +651,7 @@ MonoBehaviour:
   ignoreOrigin: 0
   playerController: {fileID: 0}
   spawnDamageTriggersWhenDestroyed: []
+  poolObject: {fileID: 0}
   destroyThisTriggerDetector: 0
   triggerColliders: []
 --- !u!1 &8247584865321758543
@@ -728,6 +732,7 @@ MonoBehaviour:
     m_Bits: 9216
   spawnParticle: {fileID: 7063661158082822491, guid: 175266831ae168f489b7151717a57058,
     type: 3}
+  particleName: SmallImpactParticles
 --- !u!65 &8759553283552131700
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1168,6 +1173,7 @@ MonoBehaviour:
   ignoreOrigin: 0
   playerController: {fileID: 0}
   spawnDamageTriggersWhenDestroyed: []
+  poolObject: {fileID: 0}
   destroyThisTriggerDetector: 0
   triggerColliders: []
 --- !u!1 &2982279728749843696 stripped

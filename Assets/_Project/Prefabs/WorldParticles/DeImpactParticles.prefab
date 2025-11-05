@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7702519202961854800}
   - component: {fileID: 3162707310244014562}
   - component: {fileID: -4671317413564959260}
+  - component: {fileID: -6273818184324670782}
   m_Layer: 0
   m_Name: DeImpactParticles
   m_TagString: Untagged
@@ -64,6 +65,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 6
+  objectToDestroy: {fileID: 0}
+  poolObject: {fileID: -6273818184324670782}
+--- !u!114 &-6273818184324670782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4164506718985662797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab5a137c0e9afce499e2c079c4610b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8596238169126946489
 GameObject:
   m_ObjectHideFlags: 0

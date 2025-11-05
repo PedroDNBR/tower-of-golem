@@ -6,14 +6,14 @@ namespace TW
     {
         public LayerMask layer;
 
-        public GameObject spawnParticle;
+        public string particleName;
 
         private void OnCollisionEnter(Collision other)
         {
             if (((1 << other.gameObject.layer) & layer.value) != 0)
             {
                 Vector3 hitPoint = other.contacts[0].point;
-                Instantiate(spawnParticle, hitPoint, Quaternion.identity);
+                ObjectPoolController.instance.InstantiateParticle(particleName, hitPoint, Quaternion.identity);
             }
         }
     }

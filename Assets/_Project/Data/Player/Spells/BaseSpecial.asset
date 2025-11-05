@@ -17,4 +17,4 @@ MonoBehaviour:
   range: 100
   speed: 100
   gravity: 1
-  prefab: {fileID: 5294890440175974610, guid: ad03613a2899f254494f1cbf70a08ec5, type: 3}
+  spellId: BaseSpell

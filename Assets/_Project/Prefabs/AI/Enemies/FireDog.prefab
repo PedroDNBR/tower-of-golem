@@ -328,6 +328,7 @@ MonoBehaviour:
   ignoreOrigin: 0
   playerController: {fileID: 0}
   spawnDamageTriggersWhenDestroyed: []
+  poolObject: {fileID: 0}
   destroyThisTriggerDetector: 0
   triggerColliders: []
 --- !u!135 &4548740769681389577
@@ -462,6 +463,7 @@ MonoBehaviour:
     m_Bits: 9216
   spawnParticle: {fileID: 7063661158082822491, guid: c62778d7729894646beb0b04d9c1481e,
     type: 3}
+  particleName: VerySmallImpactParticles
 --- !u!135 &232972131851627139
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -561,6 +563,7 @@ MonoBehaviour:
     m_Bits: 9216
   spawnParticle: {fileID: 7063661158082822491, guid: c62778d7729894646beb0b04d9c1481e,
     type: 3}
+  particleName: VerySmallImpactParticles
 --- !u!135 &8996229518513285900
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -656,6 +659,7 @@ MonoBehaviour:
   ignoreOrigin: 0
   playerController: {fileID: 0}
   spawnDamageTriggersWhenDestroyed: []
+  poolObject: {fileID: 0}
   destroyThisTriggerDetector: 0
   triggerColliders: []
 --- !u!114 &9013311329186421075

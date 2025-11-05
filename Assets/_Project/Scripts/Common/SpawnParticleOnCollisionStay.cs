@@ -6,7 +6,7 @@ namespace TW
     {
         public LayerMask layer;
 
-        public GameObject spawnParticle;
+        public string particleName;
 
         [SerializeField] float spawnInterval = .2f;
         private float nextSpawnTime = 0f;
@@ -18,7 +18,7 @@ namespace TW
                 if (Time.time >= nextSpawnTime)
                 {
                     Vector3 hitPoint = other.contacts[0].point;
-                    Instantiate(spawnParticle, hitPoint, Quaternion.identity);
+                    ObjectPoolController.instance.InstantiateParticle(particleName, hitPoint, Quaternion.identity);
                     nextSpawnTime = Time.time + spawnInterval;
                 }
             }

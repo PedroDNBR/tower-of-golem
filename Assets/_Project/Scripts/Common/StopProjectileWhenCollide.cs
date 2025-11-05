@@ -6,6 +6,7 @@ namespace TW
     public class StopProjectileWhenCollide : MonoBehaviour
     {
         Projectile projectile;
+        private bool stopExecution;
         public Transform origin;
         public LayerMask ignoreLayer;
         [SerializeField]
@@ -41,11 +42,13 @@ namespace TW
                 if (damageWhenTriggerEnter.CharacterBaseHealth != null)
                     origin = damageWhenTriggerEnter.CharacterBaseHealth.transform.root;
 
+            stopExecution = false;
+
         }
 
         private void FixedUpdate()
         {
-            if (projectile == null) return;
+            if (projectile == null || stopExecution) return;
             if (origin == null)
             {
                 DealDamageWhenTriggerEnter damageWhenTriggerEnter = GetComponent<DealDamageWhenTriggerEnter>();
@@ -88,7 +91,7 @@ namespace TW
                 else
                     StopProjectile();
 
-                enabled = false;
+                stopExecution = true;
             }
         }
 
