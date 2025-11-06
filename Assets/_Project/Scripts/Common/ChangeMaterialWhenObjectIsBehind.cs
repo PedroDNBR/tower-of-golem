@@ -32,7 +32,6 @@ namespace TW
 
         public void ChangeToTransparentMaterial()
         {
-            Debug.Log("Change To Transparent");
             foreach (var material in materials)
             {
                 newList[material.materialIndex] = material.transparentMaterial;
