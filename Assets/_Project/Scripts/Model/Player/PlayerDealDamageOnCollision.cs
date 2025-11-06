@@ -80,6 +80,7 @@ namespace TW
             EnemyHealth enemy = other.transform.gameObject.GetComponentInParent<EnemyHealth>();
             if (enemy == null) return;
 
+            if (this.totalVelocity.Value < enemy.totalVelocity) return;
 
             float totalVelocity = this.totalVelocity.Value - enemy.totalVelocity;
 

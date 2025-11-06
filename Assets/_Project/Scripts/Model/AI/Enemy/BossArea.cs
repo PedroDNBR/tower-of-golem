@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TW
 {
-    public class BossArea : MonoBehaviour
+    public class BossArea : PlayerInAreaCounter
     {
         [SerializeField]
         public EnemyController boss;
@@ -14,8 +14,6 @@ namespace TW
         private GameObject bossPrefab;
         [SerializeField]
         private Transform spawnPoint;
-
-        private List<PlayerController> playersInArea = new List<PlayerController>();
 
         public static BossArea instance;
 
@@ -42,25 +40,24 @@ namespace TW
             PlayerController player = other.gameObject.GetComponentInParent<PlayerController>();
             if (player == null) return;
 
-            if(!playersInArea.Contains(player))
-                playersInArea.Add(player);
+            AddPlayerToArea(player);
 
-            if (playersInArea.Count == ((NetworkGameManager)NetworkManager.Singleton).ConnectedClientsIds.Count)
-            {
-                Debug.Log((NetworkGameManager)NetworkManager.Singleton);
-                if(((NetworkGameManager)NetworkManager.Singleton).IsServer && boss == null)
-                {
-                    GameObject spawnedBoss = ((NetworkGameManager)NetworkManager.Singleton).SpawnMob(bossPrefab, spawnPoint);
-                    boss = spawnedBoss.GetComponent<EnemyController>();
-                    boss.gameObject.SetActive(true);
-                    boss.enabled = true;
-                    boss.BaseAI.enabled = true;
-                    BossSpawned.Invoke();
-                }
-            } 
             if (boss != null && boss.gameObject.activeSelf)
             {
                 player.PlayerUI.SetBossUIInPlayerVisible(true);
+            }
+        }
+
+        protected override void AllPlayersInArena()
+        {
+            if (((NetworkGameManager)NetworkManager.Singleton).IsServer && boss == null)
+            {
+                GameObject spawnedBoss = ((NetworkGameManager)NetworkManager.Singleton).SpawnMob(bossPrefab, spawnPoint);
+                boss = spawnedBoss.GetComponent<EnemyController>();
+                boss.gameObject.SetActive(true);
+                boss.enabled = true;
+                boss.BaseAI.enabled = true;
+                BossSpawned.Invoke();
             }
         }
 
@@ -71,8 +68,7 @@ namespace TW
             PlayerController player = other.gameObject.GetComponentInParent<PlayerController>();
             if (player == null) return;
 
-            if (!playersInArea.Contains(player))
-                playersInArea.Remove(player);
+            RemovePlayerFromArea(player);
 
             player.PlayerUI.SetBossUIInPlayerVisible(false);
         }
