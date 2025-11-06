@@ -112,6 +112,11 @@ namespace TW
             playerMovement.Movement(movement.x, movement.y, delta);
         }
 
+        private void FixedUpdate()
+        {
+            playerCamera.SetMaterialToTransparentWhenInFrontOfPlayer();
+        }
+
         bool usingAnalogic = false;
         bool usingMouse = true;
 

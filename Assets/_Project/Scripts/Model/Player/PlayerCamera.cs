@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TW
@@ -98,6 +99,39 @@ namespace TW
         public void ResetCamera()
         {
             cameraHolder.localPosition = Vector3.zero;
+        }
+
+
+        private List<ChangeMaterialWhenObjectIsBehind> castedItems = new List<ChangeMaterialWhenObjectIsBehind>();
+        
+        public void SetMaterialToTransparentWhenInFrontOfPlayer()
+        {
+            Vector3 direction = (transform.position - playerCamera.transform.position).normalized;
+            Ray ray = new Ray(playerCamera.transform.position, direction);
+            RaycastHit hit;
+
+            Debug.DrawRay(ray.origin, ray.direction * 999, Color.red);
+
+            if (Physics.Raycast(ray, out hit, 999))
+            {
+                ChangeMaterialWhenObjectIsBehind changeMat = hit.collider.GetComponent<ChangeMaterialWhenObjectIsBehind>();
+                if(changeMat != null)
+                {
+                    if (!castedItems.Contains(changeMat))
+                    {
+                        changeMat.ChangeToTransparentMaterial();
+                        castedItems.Add(changeMat);
+                    }
+                }
+                else
+                {
+                    foreach (var item in castedItems)
+                    {
+                        item.ChangeToNormalMaterial();
+                        castedItems.Remove(item);
+                    }
+                }
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 340141570112846081}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.24, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -134,7 +134,7 @@ MonoBehaviour:
   stoppingDistance: 0.4
   walkSpeed: 1.8
   walkRadius: 10
-  rotationSpeed: 10
+  rotationSpeed: 4
   minSightRangeRadius: 4
   medSightRangeRadius: 7
   maxSightRangeRadius: 15
@@ -461,8 +461,6 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 9216
-  spawnParticle: {fileID: 7063661158082822491, guid: c62778d7729894646beb0b04d9c1481e,
-    type: 3}
   particleName: VerySmallImpactParticles
 --- !u!135 &232972131851627139
 SphereCollider:
@@ -561,8 +559,6 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 9216
-  spawnParticle: {fileID: 7063661158082822491, guid: c62778d7729894646beb0b04d9c1481e,
-    type: 3}
   particleName: VerySmallImpactParticles
 --- !u!135 &8996229518513285900
 SphereCollider:
@@ -700,7 +696,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d578be8d0167254448b592e785e1d018,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.738
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d578be8d0167254448b592e785e1d018,
         type: 3}
